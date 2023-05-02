@@ -6,7 +6,7 @@
   "homepage": "https://Guiiih.github.io/Math",
   "scripts": {
     "dev": "vite",
-    "build": "vue-cli-service build",
+    "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
