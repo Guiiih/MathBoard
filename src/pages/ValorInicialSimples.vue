@@ -86,13 +86,12 @@ export default {
       const juros = parseFloat(this.juros.replace(',', '.'));
       const tempo = parseInt(this.tempo);
 
-      const jurosAnual = this.jurosTipo === 'anual' ? juros : juros * 12;
-      const tempoAnual = this.tempoTipo === 'anual' ? tempo : tempo / 12;
+      const jurosFinal = this.jurosTipo === this.tempoTipo ? juros : juros / 12;
 
-      const ValorInicialSimples = valorFinal / ((jurosAnual / 100) * (tempoAnual) + 1);
+      const ValorInicialSimples = valorFinal / ((jurosFinal / 100) * (tempo) + 1);
 
-      this.step01 = `Vi = ${valorFinal} / (1 + ${jurosAnual/100} * ${tempoAnual})`;
-      this.step02 = `Vi = ${valorFinal} / ${1 + (jurosAnual/100) * tempoAnual}`;
+      this.step01 = `Vi = ${valorFinal} / (1 + ${jurosFinal/100} * ${tempo})`;
+      this.step02 = `Vi = ${valorFinal} / ${1 + (jurosFinal/100) * tempo}`;
 
       this.resultado = `Vi = R$ ${ValorInicialSimples.toFixed(2)}`;
     }
