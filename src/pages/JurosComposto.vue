@@ -15,7 +15,7 @@
           <label for="taxa de juros" class="block mb-1 text-sm font-medium text-input-text">Taxa de Juros</label>
           <div class="flex">
             <input v-model="juros" type="text" class="w-56 md:w-48 bg-input rounded-tl-md rounded-bl-md border-b-4 border-gray-300 focus:border-brand-green p-2 focus:outline-none" placeholder="0 %">
-            <select v-model="jurosTipo" class="md:w-16 bg-input text-gray-400 text-xs md:text-sm rounded-r-md border-b-4 border-gray-300 border-l-2 p-2">
+            <select v-model="jurosTipo" class="md:w-16 bg-input text-gray-400 text-xs rounded-r-md border-b-4 border-gray-300 border-l-2 p-2">
                 <option value="anual">Anual</option>
                 <option value="mensal">Mensal</option>
             </select>
@@ -26,7 +26,7 @@
           <label for="Tempo" class="block mb-1 text-sm font-medium text-input-text">Tempo</label>
           <div class="flex">
             <input v-model="tempo" type="number" class="w-56 md:w-48 bg-input rounded-tl-md rounded-bl-md border-b-4 border-gray-300 focus:border-brand-green p-2 focus:outline-none" placeholder="0">
-            <select v-model="tempoTipo" class="md:w-16 bg-input text-gray-400 text-xs md:text-sm rounded-r-md border-b-4 border-gray-300 border-l-2 p-2">
+            <select v-model="tempoTipo" class="md:w-16 bg-input text-gray-400 text-xs rounded-r-md border-b-4 border-gray-300 border-l-2 p-2">
                 <option value="anual">Anual</option>
                 <option value="mensal">Mensal</option>
             </select>
@@ -92,15 +92,14 @@ export default {
       const juros = parseFloat(this.juros.replace(',', '.'));
       const tempo = parseInt(this.tempo);
 
-      const jurosAnual = this.jurosTipo === 'anual' ? juros : juros * 12;
-      const tempoAnual = this.tempoTipo === 'anual' ? tempo : tempo / 12;
+      const jurosFinal = this.jurosTipo === this.tempoTipo ? juros : juros / 12;
 
-      const montanteComposto = capital * (1 + jurosAnual / 100) ** (tempoAnual);
+      const montanteComposto = capital * (1 + jurosFinal / 100) ** (tempo);
 
-      this.stepTempo = `${tempoAnual}`
-      this.step01 = `M = ${capital} * (1 + ${jurosAnual/100})`;
-      this.step02 = `M = ${capital} * (${1 + jurosAnual/100})`;
-      this.step03 = `M = ${capital} * ${((1 + (jurosAnual / 100)) ** tempoAnual).toFixed(5)}`;
+      this.stepTempo = `${tempo}`
+      this.step01 = `M = ${capital} * (1 + ${jurosFinal/100})`;
+      this.step02 = `M = ${capital} * (${1 + jurosFinal/100})`;
+      this.step03 = `M = ${capital} * ${((1 + (jurosFinal / 100)) ** tempo).toFixed(5)}`;
       this.step04 = `J = ${montanteComposto.toFixed(2)} - ${capital}`;
       this.step05 = `J = R$ ${(montanteComposto - capital).toFixed(2)}`;
 
