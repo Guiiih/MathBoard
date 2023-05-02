@@ -4,8 +4,8 @@
 
   <div class="flex justify-center place-content-center pt-6 relative top-3">
     <div class=" p-4 text-center rounded-lg sm:p-8 bg-green-light sm:w-5/6 sm:h-32">
-      
       <div class='flex flex-col gap-4 place-items-center place-content-center sm:flex-row'>
+        
         <div class="flex flex-col text-left">
           <label for="Aumento" class="block mb-1 text-sm font-medium text-input-text">Aumento</label>
           <input v-model="aumento" type="text" class="w-72 md:w-64 bg-input rounded-md border-b-4 border-gray-300 focus:border-brand-green p-2 focus:outline-none" placeholder="R$ 0,00">
