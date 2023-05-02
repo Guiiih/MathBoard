@@ -15,7 +15,7 @@
           <label for="taxa de juros" class="block mb-1 text-sm font-medium text-input-text">Taxa de Juros</label>
           <div class="flex">
             <input v-model="juros" type="text" class="w-56 md:w-48 bg-input rounded-tl-md rounded-bl-md border-b-4 border-gray-300 focus:border-brand-green p-2 focus:outline-none" placeholder="0 %">
-            <select v-model="jurosTipo" class="md:w-16 bg-input text-gray-400 text-xs md:text-sm rounded-r-md border-b-4 border-gray-300 border-l-2 p-2">
+            <select v-model="jurosTipo" class="md:w-16 bg-input text-gray-400 text-xs rounded-r-md border-b-4 border-gray-300 border-l-2 p-2">
                 <option value="anual">Anual</option>
                 <option value="mensal">Mensal</option>
             </select>
@@ -26,7 +26,7 @@
           <label for="Tempo" class="block mb-1 text-sm font-medium text-input-text">Tempo</label>
           <div class="flex">
             <input v-model="tempo" type="number" class="w-56 md:w-48 bg-input rounded-tl-md rounded-bl-md border-b-4 border-gray-300 focus:border-brand-green p-2 focus:outline-none" placeholder="0">
-            <select v-model="tempoTipo" class="md:w-16 bg-input text-gray-400 text-xs md:text-sm rounded-r-md border-b-4 border-gray-300 border-l-2 p-2">
+            <select v-model="tempoTipo" class="md:w-16 bg-input text-gray-400 text-xs rounded-r-md border-b-4 border-gray-300 border-l-2 p-2">
                 <option value="anual">Anual</option>
                 <option value="mensal">Mensal</option>
             </select>
