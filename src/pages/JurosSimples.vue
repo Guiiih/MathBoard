@@ -7,7 +7,7 @@
       <div class='flex flex-col gap-4 place-items-center place-content-center sm:flex-row'>
 
         <div class="flex flex-col text-left">
-          <label for="Capital Inicial" class="block mb-1 text-sm font-medium text-input-text">Aumento</label>
+          <label for="Capital Inicial" class="block mb-1 text-sm font-medium text-input-text">Capital Inicial</label>
           <input v-model="capitalInicial" type="text" class="w-72 md:w-64 bg-input rounded-md border-b-4 border-gray-300 focus:border-brand-green p-2 focus:outline-none" placeholder="R$ 0,00">
         </div>
         
@@ -93,7 +93,7 @@ export default {
       const jurosSimples = capital * ( jurosFinal / 100 * tempo);
       const montanteSimples = capital * (1 + jurosFinal / 100 * tempo);
       
-      this.step01 = `J = ${capital} * ${jurosFinal/100} *  ${tempo}`;
+      this.step01 = `J = ${capital} * ${(jurosFinal/100)} *  ${tempo}`;
       this.step02 = `J = ${capital} * ${jurosFinal/100*tempo}`;
       this.step03 = `J = R$ ${capital * jurosFinal/100 * tempo}`;
       this.step04 = `M = ${capital} * ${jurosSimples}`;
