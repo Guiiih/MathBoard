@@ -47,6 +47,7 @@
         <div v-html="part1"></div>
         <div v-html="part2"></div>
         <div v-html="part3"></div>
+        <br>
         <div v-html="part4"></div>
         <div v-html="resultado"></div>
       </div>
