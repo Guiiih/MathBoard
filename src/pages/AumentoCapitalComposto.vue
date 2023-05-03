@@ -50,7 +50,7 @@ import 'katex/dist/katex.min.css';
 import NavBar from '../components/NavBar.vue'
 
 export default {
-  name: 'JurosSimples',
+  name: 'AumentoCapitalComposto',
   components: {
     NavBar,
   },
