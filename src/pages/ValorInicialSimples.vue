@@ -60,7 +60,7 @@ import 'katex/dist/katex.min.css';
 import NavBar from '../components/NavBar.vue'
 
 export default {
-  name: 'JurosSimples',
+  name: 'ValorInicialSimples',
   components: {
     NavBar,
   },
@@ -83,18 +83,18 @@ export default {
         return;
       }
       
-      const valorFinal = parseFloat(this.montante.replace(',', '.'));
+      const montante = parseFloat(this.montante.replace(',', '.'));
       const juros = parseFloat(this.juros.replace(',', '.'));
       const tempo = parseInt(this.tempo);
 
       const jurosFinal = this.jurosTipo === this.tempoTipo ? juros/100 : (juros / 12)/100;
 
-      const ValorInicialSimples = valorFinal / (1+(jurosFinal) * (tempo));
+      const ValorInicialSimples = montante / (1 + jurosFinal * tempo);
 
-      this.part1 = katex.renderToString(`Vi = ${valorFinal} / (1 + ${jurosFinal} * ${tempo})`);
-      this.part2 = katex.renderToString(`Vi = ${valorFinal} / ${1 + (jurosFinal/100) * tempo}`);
+      this.part1 = katex.renderToString(`Vi = ${montante} / (1 + (${jurosFinal} * ${tempo})`);
+      this.part2 = katex.renderToString(`Vi = ${montante} / ${1 + jurosFinal * tempo}`);
       
-      this.resultado = katex.renderToString(`Vi = R$ ${ValorInicialSimples.toFixed(2)}`);
+      this.resultado = katex.renderToString(`Vi = ${(ValorInicialSimples).toFixed(2)}`);
     }
   }
 }
