@@ -35,8 +35,6 @@
         <div v-html="part2"></div>
         <div v-html="part3"></div>
         <div v-html="part4"></div>
-        <div v-html="part5"></div>
-        <div v-html="part6"></div>
         <div v-html="resultado"></div>
       </div>
     </div>
@@ -64,9 +62,6 @@ export default {
       part2: '',
       part3: '',
       part4: '',
-      part5: '',
-      part6: '',
-      part7: ''
     };
   },
   methods: {
