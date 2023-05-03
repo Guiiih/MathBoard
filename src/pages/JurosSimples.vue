@@ -44,17 +44,20 @@
   <div class="flex justify-center">
     <div class="w-10/12 h-Table fixed p-4 text-center rounded-lg sm:p-8 bg-brand-green text-white">
       <div v-if="resultado" class="text-xl font-bold mt-4">
-        <p>{{ step01 }}</p>
-        <p>{{ step02 }}</p>
-        <p>{{ step03 }}</p>
-        <p>{{ step04 }}</p>
-        <p>{{ resultado }}</p>
+        <div v-html="part1"></div>
+        <div v-html="part2"></div>
+        <div v-html="part3"></div>
+        <div v-html="part4"></div>
+        <div v-html="resultado"></div>
       </div>
     </div>
   </div>
 
 </template>
 <script>
+
+import katex from 'katex';
+import 'katex/dist/katex.min.css';
 
 import NavBar from '../components/NavBar.vue'
 
@@ -71,10 +74,10 @@ export default {
       tempo: '',
       tempoTipo: 'anual',
       resultado: '',
-      step01: '',
-      step02: '',
-      step03: '',
-      step04: '',
+      part1: '',
+      part2: '',
+      part3: '',
+      part4: '',
     }
   },
   methods: {
@@ -88,17 +91,17 @@ export default {
       const juros = parseFloat(this.juros.replace(',', '.'));
       const tempo = parseInt(this.tempo);
 
-      const jurosFinal = this.jurosTipo === this.tempoTipo ? juros : juros / 12;
+      const jurosFinal = this.jurosTipo === this.tempoTipo ? juros/100 : (juros / 12)/100;
 
       const jurosSimples = capital * ( jurosFinal / 100 * tempo);
       const montanteSimples = capital * (1 + jurosFinal / 100 * tempo);
-      
-      this.step01 = `J = ${capital} * ${(jurosFinal/100)} *  ${tempo}`;
-      this.step02 = `J = ${capital} * ${jurosFinal/100*tempo}`;
-      this.step03 = `J = R$ ${capital * jurosFinal/100 * tempo}`;
-      this.step04 = `M = ${capital} * ${jurosSimples}`;
 
-      this.resultado = `M = R$ ${montanteSimples.toFixed(2)}`;
+      this.part1 = katex.renderToString(`J = ${capital} * ${jurosFinal} * ${tempo}`);
+      this.part2 = katex.renderToString(`J = ${capital} * ${jurosFinal/tempo}`);
+      this.part3 = katex.renderToString(`J = ${jurosSimples}`);
+      this.part4 = katex.renderToString(`M = ${capital} - ${jurosSimples}`);
+
+      this.resultado = katex.renderToString(`M = ${(montanteSimples).toFixed(2)}`);
     }
   }
 }
