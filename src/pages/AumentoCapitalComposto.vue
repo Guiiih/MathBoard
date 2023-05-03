@@ -66,7 +66,6 @@ export default {
       part4: '',
       part5: '',
       part6: '',
-      part7: ''
     };
   },
   methods: {
