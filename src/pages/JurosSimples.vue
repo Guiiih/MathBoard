@@ -93,13 +93,13 @@ export default {
 
       const jurosFinal = this.jurosTipo === this.tempoTipo ? juros/100 : (juros / 12)/100;
 
-      const jurosSimples = capital * ( jurosFinal / 100 * tempo);
-      const montanteSimples = capital * (1 + jurosFinal / 100 * tempo);
+      const jurosSimples = capital * ( jurosFinal * tempo);
+      const montanteSimples = capital * (1 + jurosFinal * tempo);
 
       this.part1 = katex.renderToString(`J = ${capital} * ${jurosFinal} * ${tempo}`);
-      this.part2 = katex.renderToString(`J = ${capital} * ${jurosFinal/tempo}`);
+      this.part2 = katex.renderToString(`J = ${capital} * ${jurosFinal*tempo}`);
       this.part3 = katex.renderToString(`J = ${jurosSimples}`);
-      this.part4 = katex.renderToString(`M = ${capital} - ${jurosSimples}`);
+      this.part4 = katex.renderToString(`M = ${capital} + ${jurosSimples}`);
 
       this.resultado = katex.renderToString(`M = ${(montanteSimples).toFixed(2)}`);
     }
