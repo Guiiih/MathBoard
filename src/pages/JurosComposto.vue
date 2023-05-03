@@ -47,16 +47,18 @@
         <div v-html="part1"></div>
         <div v-html="part2"></div>
         <div v-html="part3"></div>
+        <div v-html="resultado"></div>
         <div v-html="part4"></div>
         <div v-html="part5"></div>
-        <div v-html="part6"></div>
-        <div v-html="resultado"></div>
       </div>
     </div>
   </div>
 
 </template>
 <script>
+
+import katex from 'katex';
+import 'katex/dist/katex.min.css';
 
 import NavBar from '../components/NavBar.vue'
 
@@ -73,14 +75,13 @@ export default {
       tempo: '',
       tempoTipo: 'anual',
       resultado: '',
-      stepTempo: '',
       part1: '',
       part2: '',
       part3: '',
       part4: '',
       part5: '',
       part6: '',
-      part7: ''
+      part7: '',
     }
   },
   methods: {
@@ -98,21 +99,13 @@ export default {
 
       const montanteComposto = capital * (1 + jurosFinal) ** (tempo);
 
-      this.part1 = katex.renderToString(`{${aumento}}C = C *(1+${juros})^{t}`);
-      this.part2 = katex.renderToString(`{${aumento}}\\cancel{C} = \\cancel{C} *(${1 + juros})^{t}`);
-      this.part3 = katex.renderToString(`{${aumento}} = ${(1 + juros).toFixed(2)}^{t}`);
-      this.part4 = katex.renderToString(`\\log_{10} {${aumento}} = \\log_{10} {${(1 + juros).toFixed(2)}}^{t}`);
-      this.part5 = katex.renderToString(`{${logAumento}} = t * ${logTaxa}`);
-      this.part6 = katex.renderToString(`t = \\frac{${logAumento}} {${logTaxa}}`);
+      this.part1 = katex.renderToString(`M = ${capital} * (1 + ${jurosFinal})^{${tempo}}`);
+      this.part2 = katex.renderToString(`M = ${capital} * ${1 + jurosFinal}^{${tempo}}`);
+      this.part3 = katex.renderToString(`M = ${capital} * ${(1 + (jurosFinal) ** tempo).toFixed(5)}`);
+      this.part4 = katex.renderToString(`J =${montanteComposto.toFixed(2)} - ${capital}`);
+      this.part5 = katex.renderToString(`J = ${(montanteComposto - capital).toFixed(2)}`);
 
-      this.step01 = `M = ${capital} * (1 + ${jurosFinal})^{${tempo}}`;
-      this.step02 = `M = ${capital} * (${1 + jurosFinal})`;
-      this.step03 = `M = ${capital} * ${(1 + (jurosFinal) ** tempo).toFixed(5)}`;
-      this.step04 = `J = ${montanteComposto.toFixed(2)} - ${capital}`;
-      this.step05 = `J = R$ ${(montanteComposto - capital).toFixed(2)}`;
-
-      this.resultado = katex.renderToString(`t \\approx ${(resultadoTipo).toFixed(2)}`);
-      this.resultado = `M = R$ ${montanteComposto.toFixed(2)}`;
+      this.resultado = katex.renderToString(`M = ${montanteComposto.toFixed(2)}`);
     }
   }
 }
