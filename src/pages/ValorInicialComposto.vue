@@ -61,7 +61,7 @@ import 'katex/dist/katex.min.css';
 import NavBar from '../components/NavBar.vue'
 
 export default {
-  name: 'JurosSimples',
+  name: 'ValorInicialComposto',
   components: {
     NavBar,
   },
@@ -96,7 +96,7 @@ export default {
       this.part2 = katex.renderToString(`Vi = ${valorFinal} / ${1+jurosFinal}^{${tempo}}`);
       this.part3 = katex.renderToString(`Vi = ${valorFinal} / ${((1+jurosFinal)**tempo).toFixed(6)}`);
 
-      this.resultado = katex.renderToString(`Vi = R$ ${ValorInicialComposto.toFixed(2)}`);
+      this.resultado = katex.renderToString(`Vi = ${ValorInicialComposto.toFixed(2)}`);
     }
   }
 }
