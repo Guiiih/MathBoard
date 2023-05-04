@@ -50,7 +50,7 @@ methods: {
 
     const juros = taxa/100;
 
-    const logAumento = Math.log10(this.aumento).toFixed(3);
+    const logAumento = Math.log10(aumento).toFixed(3);
     const logTaxa = Math.log10(1 +(juros)).toFixed(4);
 
     this.part1 = katex.renderToString(`{${aumento}}C = C *(1+${juros})^{t}`);
@@ -64,7 +64,7 @@ methods: {
 
     const resultadoTipo = this.jurosTipo === 'anual' ? resultado  : resultado * 12 ;
 
-    this.resultado = katex.renderToString(`t \\approx ${(resultadoTipo).toFixed(2)}`);
+    this.resultado = katex.renderToString(`t \\approx ${(resultado).toFixed(2)}`);
   }
 }
 }
