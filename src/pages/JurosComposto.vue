@@ -31,8 +31,6 @@ export default {
       part1: '',
       part2: '',
       part3: '',
-      part4: '',
-      part5: '',
       jurosTipo: 'anual',
       tempoTipo: 'anual',
   }
@@ -54,9 +52,7 @@ methods: {
 
     this.part1 = katex.renderToString(`M = ${capital} * (1 + ${jurosFinal})^{${tempo}}`);
     this.part2 = katex.renderToString(`M = ${capital} * ${1 + jurosFinal}^{${tempo}}`);
-    this.part3 = katex.renderToString(`M = ${capital} * ${(1 + (jurosFinal) ** tempo).toFixed(5)}`);
-    this.part4 = katex.renderToString(`J =${montanteComposto.toFixed(2)} - ${capital}`);
-    this.part5 = katex.renderToString(`J = ${(montanteComposto - capital).toFixed(2)}`);
+    this.part3 = katex.renderToString(`M = ${capital} * ${(1 + (jurosFinal) ** tempo)}`);
 
     this.resultado = katex.renderToString(`M = ${montanteComposto.toFixed(2)}`);
   }

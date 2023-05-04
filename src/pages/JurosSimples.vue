@@ -2,7 +2,7 @@
     <div>
         <NavBar />
         <input-component :Label01="'Capital Inicial'" :Label02="'Taxa De Juros'" :Label03="'Tempo'" :show-div="true" @update="calculateResult($event)" />
-        <result-component :resultado="resultado" :part1="part1" :part2="part2" :part3="part3" :part4="part4"/>
+        <result-component :resultado="resultado" :part1="part1" :part2="part2" :part3="part3" />
     </div>
   </template>
 <script>
@@ -31,7 +31,6 @@ export default {
         part1: '',
         part2: '',
         part3: '',
-        part4: '',
         jurosTipo: 'anual',
         tempoTipo: 'anual',
     }
@@ -50,14 +49,12 @@ export default {
       const jurosFinal = inputs.jurosTipo === inputs.tempoTipo ? juros/100 : (juros / 12)/100;
 
       const jurosSimples = capital * ( jurosFinal * tempo);
-      const montanteSimples = capital * (1 + jurosFinal * tempo);
 
       this.part1 = katex.renderToString(`J = ${capital} * ${jurosFinal} * ${tempo}`);
       this.part2 = katex.renderToString(`J = ${capital} * ${jurosFinal*tempo}`);
       this.part3 = katex.renderToString(`J = ${jurosSimples}`);
-      this.part4 = katex.renderToString(`M = ${capital} + ${jurosSimples}`);
 
-      this.resultado = katex.renderToString(`M = ${(montanteSimples).toFixed(2)}`);
+      this.resultado = katex.renderToString(`J = ${(jurosSimples).toFixed(2)}`);
     }
   }
 }
