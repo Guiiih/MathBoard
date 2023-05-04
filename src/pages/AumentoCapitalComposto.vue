@@ -1,7 +1,7 @@
 <template>
   <div>
       <NavBar />
-      <input-component :Label01="'Aumento'" :Label02="'Taxa De Juros'" :show-div="false" @update="calculateResult($event)" />
+      <input-component :Label01="'Aumento'" :Label04="'Taxa De Juros'" :show-div="false" :show-div4="true" @update="calculateResult($event)" />
       <result-component :resultado="resultado" :part1="part1" :part2="part2" :part3="part3" :part4="part4" :part5="part5" :part6="part6"/>
   </div>
 </template>
@@ -24,8 +24,7 @@ export default {
       return {
       inputs: {
           input1: '',
-          input2: '',
-          input3: '',
+          input4: '',
       },
       resultado: '',
       part1: '',
@@ -40,13 +39,13 @@ export default {
 },
 methods: {
   calculateResult(inputs) {
-    if (!inputs.input1 || !inputs.input2 ) {
+    if (!inputs.input1 || !inputs.input4 ) {
       this.resultado = '';
       return;
     }
 
     const aumento = parseFloat(inputs.input1.replace(',', '.'));
-    const taxa = parseFloat(inputs.input2.replace(',', '.'));
+    const taxa = parseFloat(inputs.input4.replace(',', '.'));
 
     const juros = taxa/100;
 

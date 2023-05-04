@@ -48,7 +48,7 @@ methods: {
     const juros = parseFloat(inputs.input2.replace(',', '.'));
     const tempo = parseFloat(inputs.input3.replace(',', '.'));
 
-    const jurosFinal = this.jurosTipo === this.tempoTipo ? juros/100 : (juros / 12)/100;
+    const jurosFinal = inputs.jurosTipo === inputs.tempoTipo ? juros/100 : (juros / 12)/100;
 
     const montanteComposto = capital * (1 + jurosFinal) ** (tempo);
 
