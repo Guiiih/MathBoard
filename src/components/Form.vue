@@ -1,6 +1,6 @@
 <template lang="">
     <div class="flex place-content-center pt-6 relative top-3">
-      <div class='flex flex-col gap-4 place-items-center place-content-center sm:flex-row p-4 text-center rounded-lg sm:p-8 bg-green-light sm:w-5/6 sm:h-32 w-5/6 '>
+      <div class='flex flex-col gap-4 place-items-center place-content-center sm:flex-row p-8 text-center rounded-lg sm:p-8 bg-green-light sm:w-5/6 sm:h-32 w-5/6 '>
 
         <div class="flex flex-col text-left">
           <label class="block mb-1 text-sm font-medium text-input-text">{{Label01}}</label>
@@ -45,6 +45,8 @@ export default {
       input1: '',
       input2: '',
       input3: '',
+      jurosTipo: 'anual',
+      tempoTipo: 'anual',
     }
   },
   methods: {
