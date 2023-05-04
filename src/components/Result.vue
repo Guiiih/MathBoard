@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center">
-    <div class="w-10/12 h-Table fixed p-4 text-center rounded-lg sm:p-8 bg-brand-green text-white">
-      <div v-if="resultado" class="text-sm sm:text-lg font-bold mt-4">
+    <div class="flex justify-center sm:place-items-center w-10/12 h-Table fixed p-4 text-center rounded-lg sm:p-8 bg-brand-green text-white">
+      <div v-if="resultado" class="text-sm sm:text-lg font-bold mt-4 sm:mt-0">
         <div v-html="part1"></div>
         <div v-html="part2"></div>
         <div v-html="part3"></div>
