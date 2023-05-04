@@ -21,7 +21,7 @@
         <div v-if="showDiv" class="flex flex-col text-left">
           <label class="block mb-1 text-sm font-medium text-input-text">{{Label03}}</label>
           <div class="flex">
-            <input  v-model="input3" @input="updateInputs" type="number" class="w-48 lg:w-56 md:w-28 lg:text-sm sm:text-xs rounded-tl-md rounded-bl-md border-b-4 bg-input border-gray-300 focus:border-brand-green p-2 focus:outline-none" placeholder="0">
+            <input  v-model="input3" @input="updateInputs" type="text" class="w-48 lg:w-56 md:w-28 lg:text-sm sm:text-xs rounded-tl-md rounded-bl-md border-b-4 bg-input border-gray-300 focus:border-brand-green p-2 focus:outline-none" placeholder="0">
             <select v-model="tempoTipo"  class="w-16 lg:w-16 sm:w-14 text-xs p-1 rounded-r-md border-b-4 border-l-2 text-gray-400 bg-input border-gray-300 focus:border-b-brand-green">
                 <option value="anual">Anual</option>
                 <option value="mensal">Mensal</option>
