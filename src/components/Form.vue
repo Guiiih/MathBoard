@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="flex place-content-center pt-6 relative top-3">
+    <div class="flex place-content-center relative pt-6 top-3">
       <div class='flex flex-col gap-4 place-items-center place-content-center sm:flex-row p-8 text-center rounded-lg sm:p-8 bg-green-light sm:w-5/6 sm:h-32 w-5/6 '>
 
         <div class="flex flex-col text-left">
