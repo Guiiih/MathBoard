@@ -1,7 +1,7 @@
 <template>
     <div>
         <NavBar />
-        <input-component :Label01="'Capital Inicial'" :Label02="'Taxa De Juros'" :Label03="'Tempo'" :show-div="true" @update="calculateResult($event)" />
+        <input-component :Label01="'Capital Inicial'"  :Label02="'Taxa De Juros'" :Label03="'Tempo'" :show-div="true" @update="calculateResult($event)" />
         <result-component :resultado="resultado" :part1="part1" :part2="part2" :part3="part3" />
     </div>
   </template>
