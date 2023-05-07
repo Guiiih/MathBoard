@@ -45,14 +45,18 @@ methods: {
     const juros = parseFloat(inputs.input2.replace(',', '.'));
     const tempo = parseFloat(inputs.input3.replace(',', '.'));
 
-    const jurosFinal = inputs.jurosTipo === inputs.tempoTipo ? juros/100 : (juros / 12)/100;
+    const jurosDecimal = juros/100;
 
-    const ValorInicialSimples = montante / (1 + jurosFinal * tempo);
+    const jurosFinal = inputs.jurosTipo === inputs.tempoTipo ? jurosDecimal : ((jurosDecimal / 12 ).toFixed(7).replace(/(\.0+|0+)$/, ""));
+    const ValorInicialSimples = inputs.jurosTipo === inputs.tempoTipo ? montante / (1 + (jurosDecimal * tempo)) : montante /  (1 + ((jurosDecimal / 12) * tempo));
 
     this.part1 = katex.renderToString(`Vi = ${montante} / (1 + (${jurosFinal} * ${tempo})`);
     this.part2 = katex.renderToString(`Vi = ${montante} / ${1 + jurosFinal * tempo}`);
     
-    this.resultado = katex.renderToString(`Vi = ${(ValorInicialSimples).toFixed(2)}`);
+    if (inputs.jurosTipo === inputs.tempoTipo){
+      this.resultado = katex.renderToString(`Vi = ${(ValorInicialSimples).toFixed(2)}`);
+    }else
+      this.resultado = katex.renderToString(`Vi \\approx ${(ValorInicialSimples).toFixed(2)}`);
   }
 }
 }
