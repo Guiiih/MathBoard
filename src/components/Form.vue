@@ -1,7 +1,7 @@
 <template lang="">
     <div class="flex place-content-center relative pt-6 top-3">
       <div class="flex flex-col rounded-lg bg-green-light p-4 sm:w-5/6">
-        <div class='flex flex-row pt-4 gap-4 place-items-center place-content-center pb-8 text-center '>
+        <form class='flex flex-row pt-4 gap-4 place-items-center place-content-center pb-8 text-center '>
 
           <div class="flex flex-col text-left">
             <label class="block mb-1 text-sm font-medium text-input-text">{{Label01}}</label>
@@ -35,7 +35,7 @@
             <input v-model="input4" @input="updateInputs" type="text" class="w-64 lg:w-64 md:w-40 sm:text-xs lg:text-sm rounded-md border-b-4 bg-input border-gray-300 focus:border-brand-green p-2 focus:outline-none" placeholder="0">
           </div>
           
-        </div>
+        </form>
       </div>
   </div>
 </template>
