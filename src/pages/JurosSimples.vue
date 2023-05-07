@@ -50,8 +50,8 @@ methods: {
     const jurosFinal = inputs.jurosTipo === inputs.tempoTipo ? jurosDecimal : ((jurosDecimal / 12 ).toFixed(7).replace(/(\.0+|0+)$/, ""));
     const jurosSimples = inputs.jurosTipo === inputs.tempoTipo ? capital * ( jurosDecimal * tempo) : capital * ( (jurosDecimal / 12) * tempo);
 
-    this.part1 = katex.renderToString(`J = ${capital} x ${jurosFinal} x ${tempo}`);
-    this.part2 = katex.renderToString(`J = ${capital} x ${(jurosFinal*tempo).toFixed(7).replace(/(\.0+|0+)$/, "")}`);
+    this.part1 = katex.renderToString(`J = ${capital} * ${jurosFinal} * ${tempo}`);
+    this.part2 = katex.renderToString(`J = ${capital} * ${(jurosFinal*tempo).toFixed(7).replace(/(\.0+|0+)$/, "")}`);
 
     if (inputs.jurosTipo === inputs.tempoTipo){
       this.resultado = katex.renderToString(`J = ${(jurosSimples).toFixed(2)}`);
