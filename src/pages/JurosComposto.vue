@@ -51,9 +51,9 @@ methods: {
     const tempoFinal = inputs.jurosTipo === inputs.tempoTipo ? tempo : parseFloat((tempo / 12 ).toFixed(7).replace(/(\.0+|0+)$/, ""));
     const montanteComposto = inputs.jurosTipo === inputs.tempoTipo ? capital * (1 + jurosDecimal) ** (tempo) : capital * ( 1 + jurosDecimal) ** (tempo/12);
 
-    this.part1 = katex.renderToString(`M = ${capital} x (1 + ${jurosDecimal})^{${tempoFinal}}`);
-    this.part2 = katex.renderToString(`M = ${capital} x ${1 + jurosDecimal}^{${tempoFinal}}`);
-    this.part3 = katex.renderToString(`M = ${capital} x ${((1 + jurosDecimal) ** tempoFinal).toFixed(7).replace(/(\.0+|0+)$/, "")}`);
+    this.part1 = katex.renderToString(`M = ${capital} * (1 + ${jurosDecimal})^{${tempoFinal}}`);
+    this.part2 = katex.renderToString(`M = ${capital} * ${1 + jurosDecimal}^{${tempoFinal}}`);
+    this.part3 = katex.renderToString(`M = ${capital} * ${((1 + jurosDecimal) ** tempoFinal).toFixed(7).replace(/(\.0+|0+)$/, "")}`);
 
     if (inputs.jurosTipo === inputs.tempoTipo){
       this.resultado = katex.renderToString(`M = ${(montanteComposto).toFixed(2)}`);
