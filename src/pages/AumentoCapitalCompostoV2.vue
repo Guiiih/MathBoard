@@ -52,7 +52,7 @@ methods: {
     const jurosDecimal = parseFloat((juros/100).toFixed(7).replace(/(\.0+|0+)$/, ""));
 
     const logAumento = Math.log10(montante/capital).toPrecision(4).replace(/(\.0+|0+)$/, "");
-    const logTaxa = Math.log10(1 +(jurosDecimal)).toPrecision(4);
+    const logTaxa = (Math.floor((Math.log10(1 +(jurosDecimal))) * 1000000) / 1000000).toFixed(6).replace(/\.?0+$/, '');
 
     this.part1 = katex.renderToString(`${montante} = ${capital} * ( 1 + ${jurosDecimal}) ^ {t}`);
     this.part2 = katex.renderToString(`(${montante} / ${capital}) = (1 + ${jurosDecimal}) ^ {t}`);
