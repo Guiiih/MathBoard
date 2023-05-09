@@ -9,7 +9,12 @@
 
           <div v-if="showDiv4" class="flex flex-col text-left">
             <label class="block mb-1 text-sm font-medium text-input-text">{{Label04}}</label>
-            <input v-model="input4" @input="updateInputs" type="text" class="w-64 lg:w-64 md:w-40 sm:text-xs lg:text-sm rounded-md border-b-4 bg-input border-gray-300 focus:border-brand-green p-2 focus:outline-none" placeholder="0">
+            <input v-model="input4" @input="updateInputs" type="text" class="w-64 lg:w-64 md:w-40 sm:text-xs lg:text-sm rounded-md border-b-4 bg-input border-gray-300 focus:border-brand-green p-2 focus:outline-none" :placeholder="placeholder">
+          </div>
+
+          <div v-if="showDiv3" class="flex flex-col text-left">
+            <label class="block mb-1 text-sm font-medium text-input-text">{{Label05}}</label>
+            <input v-model="input5" @input="updateInputs" type="text" class="w-64 lg:w-64 md:w-40 sm:text-xs lg:text-sm rounded-md border-b-4 bg-input border-gray-300 focus:border-brand-green p-2 focus:outline-none" placeholder="0 %">
           </div>
           
           <div v-if="showDiv" class="flex flex-col text-left">
@@ -43,10 +48,12 @@ export default {
   props: {
     showDiv: Boolean,
     showDiv4: Boolean,
+    showDiv3: Boolean,
     Label01: String,
     Label02: String,
     Label03: String,
     Label04: String,
+    Label05: String,
     placeholder: {
       type: String,
       default: 'R$ 0,00',
@@ -58,6 +65,7 @@ export default {
       input2: '',
       input3: '',
       input4: '',
+      input5: '',
       jurosTipo: 'anual',
       tempoTipo: 'anual',
     }
@@ -69,6 +77,7 @@ export default {
         input2: this.input2,
         input3: this.input3,
         input4: this.input4,
+        input5: this.input5,
         jurosTipo: this.jurosTipo,
         tempoTipo: this.tempoTipo,
       };

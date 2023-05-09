@@ -46,7 +46,7 @@ methods: {
     const juros = parseFloat(inputs.input2.replace(',', '.'));
     const tempo = parseFloat(inputs.input3.replace(',', '.'));
 
-    const jurosDecimal = juros/100;
+    const jurosDecimal = parseFloat((juros/100).toFixed(7).replace(/(\.0+|0+)$/, ""));
 
     const tempoFinal = inputs.jurosTipo === inputs.tempoTipo ? tempo : parseFloat((tempo / 12 ).toFixed(7).replace(/(\.0+|0+)$/, ""));
     const montanteComposto = inputs.jurosTipo === inputs.tempoTipo ? capital * (1 + jurosDecimal) ** (tempo) : capital * ( 1 + jurosDecimal) ** (tempo/12);
@@ -56,9 +56,9 @@ methods: {
     this.part3 = katex.renderToString(`M = ${capital} * ${((1 + jurosDecimal) ** tempoFinal).toFixed(7).replace(/(\.0+|0+)$/, "")}`);
 
     if (inputs.jurosTipo === inputs.tempoTipo){
-      this.resultado = katex.renderToString(`M = ${(montanteComposto).toFixed(2)}`);
+      this.resultado = katex.renderToString(`M = ${(montanteComposto).toFixed(3).replace(/(\.0+|0+)$/, "")}`);
     }else
-      this.resultado = katex.renderToString(`M \\approx ${(montanteComposto).toFixed(2)}`);
+      this.resultado = katex.renderToString(`M \\approx ${(montanteComposto).toFixed(3).replace(/(\.0+|0+)$/, "")}`);
     }
   }
 }

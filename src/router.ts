@@ -4,7 +4,8 @@ import JurosComposto from './pages/JurosComposto.vue'
 import ValorInicialSimples from './pages/ValorInicialSimples.vue'
 import ValorInicialComposto from './pages/ValorInicialComposto.vue'
 import AumentoCapitalSimples from './pages/AumentoCapitalSimples.vue'
-import AumentoCapitalComposto from './pages/AumentoCapitalComposto.vue'
+import AumentoCapitalCompostoV1 from './pages/AumentoCapitalCompostoV1.vue'
+import AumentoCapitalCompostoV2 from './pages/AumentoCapitalCompostoV2.vue'
 import SAF from './pages/SAF.vue'
 
 
@@ -37,9 +38,14 @@ const routes = [
     component: AumentoCapitalSimples
   },
   {
-    path: '/AumentoCapitalComposto',
-    name: 'AumentoCapitalComposto',
-    component: AumentoCapitalComposto
+    path: '/AumentoCapitalCompostoV1',
+    name: 'AumentoCapitalCompostoV1',
+    component: AumentoCapitalCompostoV1
+  },
+  {
+    path: '/AumentoCapitalCompostoV2',
+    name: 'AumentoCapitalCompostoV2',
+    component: AumentoCapitalCompostoV2
   },
   {
     path: '/SAF',

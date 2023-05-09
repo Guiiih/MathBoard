@@ -47,10 +47,10 @@ methods: {
     const aumento = parseFloat(inputs.input1.replace(',', '.'));
     const juros = parseFloat(inputs.input4.replace(',', '.'));
 
-    const jurosDecimal = juros/100;
+    const jurosDecimal = parseFloat((juros/100).toFixed(7).replace(/(\.0+|0+)$/, ""));
 
-    const logAumento = Math.log10(aumento).toFixed(3);
-    const logTaxa = Math.log10(1 +(jurosDecimal)).toFixed(4);
+    const logAumento = Math.log10(aumento).toFixed(3).replace(/(\.0+|0+)$/, "");
+    const logTaxa = Math.log10(1 +(jurosDecimal)).toFixed(4).replace(/(\.0+|0+)$/, "");
 
     this.part1 = katex.renderToString(`{${aumento}}C = C *(1+${jurosDecimal})^{t}`);
     this.part2 = katex.renderToString(`{${aumento}}\\cancel{C} = \\cancel{C} *(${1 + jurosDecimal})^{t}`);
