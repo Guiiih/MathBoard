@@ -33,6 +33,7 @@
                     <router-link to="/ValorInicialComposto" class="block px-4 py-2 hover:text-green-700">Valor Inicial Composto</router-link>                  
                     <router-link to="/AumentoCapitalSimples" class="block px-4 py-2 hover:text-green-700">Aumento Capital Simples</router-link>
                     <router-link to="/AumentoCapitalComposto" class="block px-4 py-2 hover:text-green-700">Aumento Capital Composto</router-link>
+                    <router-link to="/SAF" class="block px-4 py-2 hover:text-green-700">Sistema Francês de Armotização</router-link>
                 </div>
             </div>
           </div>

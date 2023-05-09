@@ -1,7 +1,7 @@
 <template>
   <div>
       <NavBar />
-      <input-component :Label01="'Aumento'" :placeholder="'0'" :Label04="'Taxa De Juros'" :show-div="false" :show-div4="true" @update="calculateResult($event)" />
+      <input-component :Label01="'Montante'" :Label02="'Taxa de Juros'" :Label03="'Numero de Parcelas'" :show-div="true"  @update="calculateResult($event)" />
       <result-component :resultado="resultado" :part1="part1" :part2="part2" :part3="part3" :part4="part4" :part5="part5" :part6="part6"/>
   </div>
 </template>
@@ -39,31 +39,31 @@ export default {
 },
 methods: {
   calculateResult(inputs) {
-    if (!inputs.input1 || !inputs.input4 ) {
+    if (!inputs.input1 || !inputs.input2 || !inputs.input3) {
       this.resultado = '';
       return;
     }
 
-    const aumento = parseFloat(inputs.input1.replace(',', '.'));
-    const taxa = parseFloat(inputs.input4.replace(',', '.'));
+    const capital  = parseFloat(inputs.input1.replace(',', '.'));
+    const juros = parseFloat(inputs.input2.replace(',', '.'));
+    const parcelas = parseFloat(inputs.input3.replace(',', '.'));
 
-    const juros = taxa/100;
+    const jurosDecimal = parseFloat((juros/100).toFixed(7).replace(/(\.0+|0+)$/, ""));
 
-    const logAumento = Math.log10(aumento).toFixed(3);
-    const logTaxa = Math.log10(1 +(juros)).toFixed(4);
+    const ParcelasFinal = inputs.jurosTipo === inputs.tempoTipo ? parcelas : parseFloat((parcelas / 12 ).toFixed(8).replace(/(\.0+|0+)$/, ""));
+    const SAF = inputs.jurosTipo === inputs.tempoTipo ? capital * (jurosDecimal * (((1 + jurosDecimal) ** (parcelas))) / (((1+jurosDecimal) ** parcelas)-1)) : capital * (jurosDecimal * (((1 + jurosDecimal) ** (parcelas/12))) / (((1+jurosDecimal) ** (parcelas/12))-1)) ;
 
-    this.part1 = katex.renderToString(`{${aumento}}C = C *(1+${juros})^{t}`);
-    this.part2 = katex.renderToString(`{${aumento}}\\cancel{C} = \\cancel{C} *(${1 + juros})^{t}`);
-    this.part3 = katex.renderToString(`{${aumento}} = ${(1 + juros).toFixed(2)}^{t}`);
-    this.part4 = katex.renderToString(`\\log_{10} {${aumento}} = \\log_{10} {${(1 + juros).toFixed(2)}}^{t}`);
-    this.part5 = katex.renderToString(`{${logAumento}} = t * ${logTaxa}`);
-    this.part6 = katex.renderToString(`t = \\frac{${logAumento}} {${logTaxa}}`);
+    this.part1 = katex.renderToString(`P = ${capital} * \\begin{pmatrix} \\frac{${jurosDecimal}*(1+${jurosDecimal})^{${ParcelasFinal}}} {(1+${jurosDecimal})^{${ParcelasFinal}}-1} \\end{pmatrix}`);
+    this.part2 = katex.renderToString(`P = ${capital} * \\begin{pmatrix} \\frac{${jurosDecimal}*(${1+jurosDecimal})^{${ParcelasFinal}}} {(${1+jurosDecimal})^{${ParcelasFinal}}-1} \\end{pmatrix}`);
+    this.part3 = katex.renderToString(`P = ${capital} * \\begin{pmatrix} \\frac{${jurosDecimal}*${((1+jurosDecimal) ** ParcelasFinal).toFixed(8).replace(/(\.0+|0+)$/, "")}} {${(((1+jurosDecimal) ** ParcelasFinal).toFixed(8).replace(/(\.0+|0+)$/, ""))}-1} \\end{pmatrix}`);
+    this.part4 = katex.renderToString(`P = ${capital} * \\frac{${jurosDecimal * ((1+jurosDecimal) ** ParcelasFinal).toFixed(8).replace(/(\.0+|0+)$/, "")}} {${(((1+jurosDecimal) ** ParcelasFinal) - 1).toFixed(8).replace(/(\.0+|0+)$/, "")}} `);
+    this.part5 = katex.renderToString(`P = ${capital} * ${((jurosDecimal * ((1+jurosDecimal) ** ParcelasFinal)) / (((1+jurosDecimal) ** ParcelasFinal) - 1)).toFixed(8).replace(/(\.0+|0+)$/, "")} `);
 
-    const resultado = logAumento/logTaxa;
-
-    const resultadoTipo = this.jurosTipo === 'anual' ? resultado  : resultado * 12 ;
-
-    this.resultado = katex.renderToString(`t \\approx ${(resultado).toFixed(2)}`);
+    if (inputs.jurosTipo === inputs.tempoTipo){
+      this.resultado = katex.renderToString(`P \\approxeq ${(SAF).toFixed(2)}`);
+    }else
+      this.resultado = katex.renderToString(`Vi \\approx ${(SAF).toFixed(2)}`);
+    
   }
 }
 }

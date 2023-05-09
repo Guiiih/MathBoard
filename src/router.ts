@@ -5,6 +5,7 @@ import ValorInicialSimples from './pages/ValorInicialSimples.vue'
 import ValorInicialComposto from './pages/ValorInicialComposto.vue'
 import AumentoCapitalSimples from './pages/AumentoCapitalSimples.vue'
 import AumentoCapitalComposto from './pages/AumentoCapitalComposto.vue'
+import SAF from './pages/SAF.vue'
 
 
 
@@ -39,6 +40,11 @@ const routes = [
     path: '/AumentoCapitalComposto',
     name: 'AumentoCapitalComposto',
     component: AumentoCapitalComposto
+  },
+  {
+    path: '/SAF',
+    name: 'SAF',
+    component: SAF
   },
 ]
 
