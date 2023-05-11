@@ -3,7 +3,8 @@ import JurosSimples from './pages/JurosSimples.vue'
 import JurosComposto from './pages/JurosComposto.vue'
 import ValorInicialSimples from './pages/ValorInicialSimples.vue'
 import ValorInicialComposto from './pages/ValorInicialComposto.vue'
-import AumentoCapitalSimples from './pages/AumentoCapitalSimples.vue'
+import AumentoCapitalSimplesV1 from './pages/AumentoCapitalSimplesV1.vue'
+import AumentoCapitalSimplesV2 from './pages/AumentoCapitalSimplesV2.vue'
 import AumentoCapitalCompostoV1 from './pages/AumentoCapitalCompostoV1.vue'
 import AumentoCapitalCompostoV2 from './pages/AumentoCapitalCompostoV2.vue'
 import SAF from './pages/SAF.vue'
@@ -33,9 +34,14 @@ const routes = [
     component: ValorInicialComposto
   },
   {
-    path: '/AumentoCapitalSimples',
-    name: 'AumentoCapitalSimples',
-    component: AumentoCapitalSimples
+    path: '/AumentoCapitalSimplesV1',
+    name: 'AumentoCapitalSimplesV1',
+    component: AumentoCapitalSimplesV1
+  },
+  {
+    path: '/AumentoCapitalSimplesV2',
+    name: 'AumentoCapitalSimplesV2',
+    component: AumentoCapitalSimplesV2
   },
   {
     path: '/AumentoCapitalCompostoV1',

@@ -56,9 +56,9 @@ methods: {
     this.part3 = katex.renderToString(`M = ${capital} * ${((1 + jurosDecimal) ** tempoFinal).toFixed(7).replace(/(\.0+|0+)$/, "")}`);
 
     if (inputs.jurosTipo === inputs.tempoTipo){
-      this.resultado = katex.renderToString(`M = ${(montanteComposto).toFixed(3).replace(/(\.0+|0+)$/, "")}`);
+      this.resultado = katex.renderToString(`M = ${(montanteComposto).toFixed(2).replace(/(\.0+|0+)$/, "")}`);
     }else
-      this.resultado = katex.renderToString(`M \\approx ${(montanteComposto).toFixed(3).replace(/(\.0+|0+)$/, "")}`);
+      this.resultado = katex.renderToString(`M \\approx ${(montanteComposto).toFixed(2).replace(/(\.0+|0+)$/, "")}`);
     }
   }
 }

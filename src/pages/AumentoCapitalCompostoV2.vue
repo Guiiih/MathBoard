@@ -34,8 +34,6 @@ export default {
       part4: '',
       part5: '',
       part6: '',
-      jurosDecimalTipo: 'anual',
-      tempoTipo: 'anual',
   }
 },
 methods: {
