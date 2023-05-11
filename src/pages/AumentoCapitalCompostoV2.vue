@@ -61,9 +61,9 @@ methods: {
     this.part5 = katex.renderToString(`{${logAumento}} = t * ${logTaxa}`);
     this.part6 = katex.renderToString(`t = \\frac{${logAumento}} {${logTaxa}}`);
 
-    const resultado = logAumento/logTaxa;
+    const resultado = (logAumento/logTaxa).toFixed(2).replace(/(\.0+|0+)$/, "");
 
-    this.resultado = katex.renderToString(`t \\approxeq ${(resultado).toFixed(2).replace(/(\.0+|0+)$/, "")}`);
+    this.resultado = katex.renderToString(`t \\approxeq ${(resultado)}`);
   }
 }
 }
