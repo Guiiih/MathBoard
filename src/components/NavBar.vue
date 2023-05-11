@@ -35,7 +35,7 @@
                     <router-link to="/AumentoCapitalSimplesV2" class="block px-4 py-2 hover:text-green-700">Aumento Capital Simples V2</router-link>
                     <router-link to="/AumentoCapitalCompostoV1" class="block px-4 py-2 hover:text-green-700">Aumento Capital Composto V1</router-link>
                     <router-link to="/AumentoCapitalCompostoV2" class="block px-4 py-2 hover:text-green-700">Aumento Capital Composto V2</router-link>
-                    <router-link to="/SAF" class="block px-4 py-2 hover:text-green-700">Sistema Francês de Armotização</router-link>
+                    <router-link to="/SAF" class="block px-4 py-2 hover:text-green-700">SAF</router-link>
                 </div>
             </div>
           </div>
@@ -54,7 +54,7 @@
             <router-link to="/AumentoCapitalSimplesV2" class="block px-4 py-2 hover:text-green-700">Aumento Capital Simples V2</router-link>
             <router-link to="/AumentoCapitalCompostoV1" class="block px-4 py-2 hover:text-green-700">Aumento Capital Composto V1</router-link>
             <router-link to="/AumentoCapitalCompostoV2" class="block px-4 py-2 hover:text-green-700">Aumento Capital Composto V2</router-link>
-            <router-link to="/SAF" class="block px-4 py-2 hover:text-green-700">Sistema Francês de Armotização</router-link>
+            <router-link to="/SAF" class="block px-4 py-2 hover:text-green-700">SAF</router-link>
         </div>
     </div>
     </nav>
