@@ -43,8 +43,10 @@ methods: {
     const capital = parseFloat(inputs.input4.replace(',', '.'));
     const juros = parseFloat(inputs.input5.replace(',', '.'));
 
+    const jurosDecimal = juros/100;
+
     this.part1 = katex.renderToString(`t = (${montante} - ${capital}) / ( ${capital} * ${jurosDecimal}) `);
-    this.part2 = katex.renderToString(`(${montante - capital}) / (${Capital * jurosDecimal})`);
+    this.part2 = katex.renderToString(`(${montante - capital}) / (${capital * jurosDecimal})`);
     const resultado = ((montante - capital)/(capital * jurosDecimal));
 
     this.resultado = katex.renderToString(`t \\approx ${resultado.toFixed(2)}`);
