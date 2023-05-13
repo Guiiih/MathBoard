@@ -39,8 +39,6 @@ methods: {
       return;
     }
 
-   const jurosDecimal = juros/100;
-
     const montante = parseFloat(inputs.input1.replace(',', '.'));
     const capital = parseFloat(inputs.input4.replace(',', '.'));
     const juros = parseFloat(inputs.input5.replace(',', '.'));
