@@ -55,7 +55,7 @@ methods: {
     this.part2 = katex.renderToString(`{${aumentoTempo}}\\cancel{C} = \\cancel{C} * ${juros} * t`);
     this.part3 = katex.renderToString(`\\frac{${aumentoTempo}} {1} \\xcancel{=} \\frac{${juros}\\nobreakspace*\\nobreakspace {t}} {100}`);
     this.part4 = katex.renderToString(`${juros}t = ${aumentoTempo*100} `);
-    this.part5 = katex.renderToString(`t = ${juros} \\div ${aumentoTempo*100} `);
+    this.part5 = katex.renderToString(`t = ${aumentoTempo*100}/${juros} `);
 
 
     const resultado = (aumentoTempo*100)/juros;

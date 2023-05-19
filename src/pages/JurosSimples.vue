@@ -56,7 +56,8 @@ methods: {
     if (inputs.jurosTipo === inputs.tempoTipo){
       this.resultado = katex.renderToString(`J = ${(jurosSimples).toFixed(2)}`);
     }else
-      this.resultado = katex.renderToString(`J \\approx ${Math.floor(jurosSimples).toFixed(2).replace(/(\.0+|0+)$/, "")}`);
+      this.resultado = katex.renderToString(`J \\approx ${Math.floor(jurosSimples).toFixed(2).replace(/(\.0+|0+)$/, "")}`
+    );
   }
 }
 }
