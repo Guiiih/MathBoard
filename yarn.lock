@@ -691,6 +691,11 @@ make-dir@^3.0.2:
   dependencies:
     semver "^6.0.0"
 
+math@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.npmjs.org/math/-/math-0.0.0.tgz"
+  integrity sha512-pcd4QT3/U0DuCUWdo4heWMNn7QWA0WcFe1XGgaRjg8Flx2sV5v0xKdkL2CSXlJjXq8w003YafqeysuA8gMvgEQ==
+
 merge2@^1.3.0:
   version "1.4.1"
   resolved "https://registry.npmjs.org/merge2/-/merge2-1.4.1.tgz"
