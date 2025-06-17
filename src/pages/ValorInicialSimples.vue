@@ -35,7 +35,7 @@ const calculateResult = (inputs: any) => {
   const formulaLatex = `
     \\begin{aligned}
     Vi &= \\frac{${montante}}{1 + (${jurosFinal} \\cdot ${tempo})} \\\\
-    Vi &= \\frac{${montante}}{${(1 + parseFloat(jurosFinal) * tempo).toFixed(7).replace(/(\.0+|0+)$/, "")}} \\\\
+    Vi &= \\frac{${montante}}{${(1 + jurosFinal * tempo).toFixed(7).replace(/(\.0+|0+)$/, "")}} \\\\
     Vi & ${approximationSymbol} ${(ValorInicialSimples).toFixed(2)}
     \\end{aligned}
   `;
