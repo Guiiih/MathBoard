@@ -33,41 +33,45 @@ const calculateResult = (inputs: any) => {
   const taxaDecimal = taxaJuros / 100;
   const amortizacao = valorFinanciado / numParcelas;
 
-  // --- Cálculos para as Fórmulas ---
-  const juros1 = valorFinanciado * taxaDecimal;
-  const prestacao1 = amortizacao + juros1;
-  const jurosN = amortizacao * taxaDecimal;
-  const prestacaoN = amortizacao + jurosN;
-
-  // --- Geração do Corpo da Tabela ---
   let saldoDevedor = valorFinanciado;
-  let tableBody = '';
+  let tableBody = `0 & - & - & - & R\\$${valorFinanciado.toFixed(2)} \\\\ \\hline \n`;
+
+  let totalJuros = 0;
+  let totalPrestacoes = 0;
+
   for (let k = 1; k <= numParcelas; k++) {
     const juros = saldoDevedor * taxaDecimal;
     const prestacao = amortizacao + juros;
     saldoDevedor -= amortizacao;
+    
+    totalJuros += juros;
+    totalPrestacoes += prestacao;
+
     tableBody += `${k} & R\\$${prestacao.toFixed(2)} & R\\$${juros.toFixed(2)} & R\\$${amortizacao.toFixed(2)} & R\\$${Math.abs(saldoDevedor).toFixed(2)} \\\\ \\hline \n`;
   }
   
-  // --- Combinação das Fórmulas e da Tabela em uma única string ---
+  tableBody += `\\textbf{Total} & \\textbf{R\\$${totalPrestacoes.toFixed(2)}} & \\textbf{R\\$${totalJuros.toFixed(2)}} & \\textbf{R\\$${valorFinanciado.toFixed(2)}} & - \\\\ \\hline \n`;
+
   const formulaLatex = `
-    % Seção de Fórmulas
-    \\begin{aligned}
-    \\text{Amortização (A)} &= \\frac{R\\$${valorFinanciado.toFixed(2)}}{${numParcelas}} = R\\$${amortizacao.toFixed(2)} \\\\
-    \\\\
-    \\text{1ª Prestação } (P_1) &= R\\$${amortizacao.toFixed(2)} + R\\$${juros1.toFixed(2)} = R\\$${prestacao1.toFixed(2)} \\\\
-    \\\\
-    \\text{Última Prestação } (P_{${numParcelas}}) &= R\\$${amortizacao.toFixed(2)} + R\\$${jurosN.toFixed(2)} = R\\$${prestacaoN.toFixed(2)}
-    \\end{aligned}
-
-    % Espaçamento entre as seções
-    \\
-
-    % Seção da Tabela
     {\\begin{array}{|c|c|c|c|c|}
     \\hline
-    \\text{Mês} & \\text{Prestação} & \\text{Juros} & \\text{Amortização} & \\text{Saldo Devedor} \\\\
+    % Primeira linha do cabeçalho com os nomes das colunas
+    \\textbf{Mês} & 
+    \\textbf{Prestação } (P) & 
+    \\textbf{Juros } (J) & 
+    \\textbf{Amortização } (A) & 
+    \\textbf{Saldo Devedor } (SD) \\\\
     \\hline
+
+    % Segunda linha do cabeçalho com as fórmulas
+    &
+    A + J & 
+    SD \\cdot Taxa_{juros} & 
+    Valor_{financiado} \\div N_{parcelas} & 
+    SD - A \\\\
+    \\hline
+    
+    % Corpo da tabela com os valores
     ${tableBody}
     \\end{array}}
   `;
