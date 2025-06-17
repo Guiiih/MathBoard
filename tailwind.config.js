@@ -15,6 +15,9 @@ export default {
       height: {
         'Table': '28rem',
       },
+      minHeight: {
+        'Table': '28rem',
+      },
       width: {
         'Table': '28rem',
       },
@@ -25,4 +28,3 @@ export default {
   },
   plugins: [],
 }
-

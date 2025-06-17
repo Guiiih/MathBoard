@@ -72,7 +72,6 @@ export default {
         ]
     }
   },
-  // --- ADICIONADO ---
   computed: {
     currentPageName() {
       const currentPath = this.$route.path;
