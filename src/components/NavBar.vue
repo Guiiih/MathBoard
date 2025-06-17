@@ -20,9 +20,9 @@
 
           <div class="hidden sm:block sm:ml-6">
             <div class="relative inline-block text-left">
-                <button class="text-brand-green border font-medium rounded-lg text-sm px-4 py-2.5 md:flex flex justify-center items-center" type="button" @click.stop.prevent="toggleMenu()">
-                    Operações
-                    <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <button class="text-brand-green border font-medium rounded-lg text-sm px-4 py-2.5 md:flex flex justify-center items-center w-56" type="button" @click.stop.prevent="toggleMenu()">
+                    <span class="truncate">{{ currentPageName }}</span>
+                    <svg class="w-4 h-4 ml-2 flex-shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
@@ -70,6 +70,14 @@ export default {
             { to: '/SeriePostecipada', text: 'Série Postecipada' },
             { to: '/TaxaDesvalorizacaoMoeda', text: 'Taxa Desvalorização da Moeda' },
         ]
+    }
+  },
+  // --- ADICIONADO ---
+  computed: {
+    currentPageName() {
+      const currentPath = this.$route.path;
+      const currentRoute = this.links.find(link => link.to === currentPath);
+      return currentRoute ? currentRoute.text : 'Operações';
     }
   },
   methods: {
