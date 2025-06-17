@@ -68,7 +68,7 @@ export default {
             { to: '/PagamentoAntecipado', text: 'Pagamento Antecipado' },
             { to: '/SerieDiferida', text: 'Série Diferida' },
             { to: '/SeriePostecipada', text: 'Série Postecipada' },
-            { to: '/TaxaDesvalorizacaoMoeda', text: 'Taxa Desvalorização da Moeda' },
+            { to: '/TaxaDesvalorizacaoMoeda', text: 'Taxa Desvalorização Monetária' },
         ]
     }
   },
