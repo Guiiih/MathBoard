@@ -13,12 +13,12 @@ import InputComponent from '../components/Form.vue';
 import ResultComponent from '../components/Result.vue';
 import { useKatexDisplay } from '../composables/useKatexDisplay';
 
-const { resultado, setKatexResult, clearKatexParts, parseNumber } = useKatexDisplay();
+const { resultado, setKatexResult, clearKatexParts } = useKatexDisplay();
 
 const calculateResult = (inputs: any) => {
-  const montante = parseNumber(inputs.input1);
-  const juros = parseNumber(inputs.input2);
-  const tempo = parseNumber(inputs.input3);
+  const montante = inputs.input1;
+  const juros = inputs.input2;
+  const tempo = inputs.input3;
 
   if (montante === null || juros === null || tempo === null) {
     clearKatexParts();
