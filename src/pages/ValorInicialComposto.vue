@@ -2,67 +2,45 @@
   <div>
       <NavBar />
       <input-component :Label01="'Montante'" :Label02="'Taxa De Juros'" :Label03="'Tempo'"  :show-div="true" @update="calculateResult($event)" />
-      <result-component :resultado="resultado" :part1="part1" :part2="part2" :part3="part3" />
+      <result-component :resultado="resultado" />
   </div>
 </template>
-<script>
-
-import katex from 'katex'
+<script setup lang="ts">
 import 'katex/dist/katex.min.css';
 
-import NavBar from '../components/NavBar.vue'
+import NavBar from '../components/NavBar.vue';
 import InputComponent from '../components/Form.vue';
 import ResultComponent from '../components/Result.vue';
+import { useKatexDisplay } from '../composables/useKatexDisplay';
 
-export default {
-  components: {
-      InputComponent,
-      ResultComponent,
-      NavBar,
-  },
-  data() {
-      return {
-      inputs: {
-          input1: '',
-          input2: '',
-          input3: '',
-      },
-      resultado: '',
-      part1: '',
-      part2: '',
-      part3: '',
-      jurosTipo: 'anual',
-      tempoTipo: 'anual',
+const { resultado, setKatexResult, clearKatexParts, parseNumber } = useKatexDisplay();
+
+const calculateResult = (inputs: any) => {
+  const montante = parseNumber(inputs.input1);
+  const juros = parseNumber(inputs.input2);
+  const tempo = parseNumber(inputs.input3);
+
+  if (montante === null || juros === null || tempo === null) {
+    clearKatexParts();
+    return;
   }
-},
-methods: {
-  calculateResult(inputs) {
-    if (!inputs.input1 || !inputs.input2 || !inputs.input3) {
-      this.resultado = '';
-      return;
-    }
 
-    const montante = parseFloat(inputs.input1.replace(',', '.'));
-    const juros = parseFloat(inputs.input2.replace(',', '.'));
-    const tempo = parseFloat(inputs.input3.replace(',', '.'));
+  const jurosDecimal = juros/100;
 
-    const jurosDecimal = juros/100;
+  const tempoFinal = inputs.jurosTipo === inputs.tempoTipo ? tempo : parseFloat((tempo / 12 ).toFixed(7).replace(/(\.0+|0+)$/, ""));
+  const ValorInicialComposto = inputs.jurosTipo === inputs.tempoTipo ? montante / (1 + jurosDecimal) ** (tempo) : montante / ( 1 + jurosDecimal) ** (tempo/12);
 
-    const tempoFinal = inputs.jurosTipo === inputs.tempoTipo ? tempo : parseFloat((tempo / 12 ).toFixed(7).replace(/(\.0+|0+)$/, ""));
-    const ValorInicialComposto = inputs.jurosTipo === inputs.tempoTipo ? montante / (1 + jurosDecimal) ** (tempo) : montante / ( 1 + jurosDecimal) ** (tempo/12);
+  const approximationSymbol = inputs.jurosTipo === inputs.tempoTipo ? '=' : '\\approx';
 
-    this.part1 = katex.renderToString(`Vi = ${montante} / (1 + ${jurosDecimal})^{${tempoFinal}}`);
-    this.part2 = katex.renderToString(`Vi = ${montante} / ${1+jurosDecimal}^{${tempoFinal}}`);
-    this.part3 = katex.renderToString(`Vi = ${montante} / ${((1+jurosDecimal)**tempoFinal).toFixed(7).replace(/(\.0+|0+)$/, "")}`);
+  const formulaLatex = `
+    \\begin{aligned}
+    Vi &= \\frac{${montante}}{(1 + ${jurosDecimal})^{${tempoFinal}}} \\\\
+    Vi &= \\frac{${montante}}{${(1+jurosDecimal).toFixed(7).replace(/(\.0+|0+)$/, "")}^{${tempoFinal}}} \\\\
+    Vi &= \\frac{${montante}}{${((1+jurosDecimal)**tempoFinal).toFixed(7).replace(/(\.0+|0+)$/, "")}} \\\\
+    Vi & ${approximationSymbol} ${(ValorInicialComposto).toFixed(2)}
+    \\end{aligned}
+  `;
 
-    if (inputs.jurosTipo === inputs.tempoTipo){
-      this.resultado = katex.renderToString(`Vi = ${(ValorInicialComposto).toFixed(2)}`);
-    }else
-      this.resultado = katex.renderToString(`Vi \\approx ${(ValorInicialComposto).toFixed(2)}`);
-    
-  }
-}
-}
+  setKatexResult(formulaLatex);
+};
 </script>
-
-

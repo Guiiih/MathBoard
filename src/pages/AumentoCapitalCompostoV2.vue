@@ -2,69 +2,50 @@
   <div>
       <NavBar />
       <input-component :Label01="'Montante'" :Label04="'Capital Inicial'" :Label05="'Taxa De Juros'" :show-div3="true" :show-div="false" :show-div4="true" @update="calculateResult($event)" />
-      <result-component :resultado="resultado" :part1="part1" :part2="part2" :part3="part3" :part4="part4" :part5="part5" :part6="part6"/>
+      <result-component :resultado="resultado"/>
   </div>
 </template>
-<script>
-
-import katex from 'katex'
+<script setup lang="ts">
 import 'katex/dist/katex.min.css';
 
-import NavBar from '../components/NavBar.vue'
+import NavBar from '../components/NavBar.vue';
 import InputComponent from '../components/Form.vue';
 import ResultComponent from '../components/Result.vue';
+import { useKatexDisplay } from '../composables/useKatexDisplay';
 
-export default {
-  components: {
-      InputComponent,
-      ResultComponent,
-      NavBar,
-  },
-  data() {
-      return {
-      inputs: {
-          input1: '',
-          input4: '',
-          input5: '',
-      },
-      resultado: '',
-      part1: '',
-      part2: '',
-      part3: '',
-      part4: '',
-      part5: '',
-      part6: '',
+const { resultado, setKatexResult, clearKatexParts, parseNumber } = useKatexDisplay();
+
+const calculateResult = (inputs: any) => {
+  const montante = parseNumber(inputs.input1);
+  const capital = parseNumber(inputs.input4);
+  const juros = parseNumber(inputs.input5);
+
+  if (montante === null || capital === null || juros === null) {
+    clearKatexParts();
+    return;
   }
-},
-methods: {
-  calculateResult(inputs) {
-    if (!inputs.input1 || !inputs.input4 || !inputs.input5) {
-      this.resultado = '';
-      return;
-    }
 
-    const montante = parseFloat(inputs.input1.replace(',', '.'));
-    const capital = parseFloat(inputs.input4.replace(',', '.'));
-    const juros = parseFloat(inputs.input5.replace(',', '.'));
+  const jurosDecimal = parseFloat((juros/100).toFixed(7).replace(/(\.0+|0+)$/, ""));
 
-    const jurosDecimal = parseFloat((juros/100).toFixed(7).replace(/(\.0+|0+)$/, ""));
+  const logAumento = Math.log10(montante/capital).toPrecision(4).replace(/(\.0+|0+)$/, "");
+  const logTaxa = (Math.floor((Math.log10(1 +(jurosDecimal))) * 1000000) / 1000000).toFixed(6).replace(/\.?0+$/, '');
 
-    const logAumento = Math.log10(montante/capital).toPrecision(4).replace(/(\.0+|0+)$/, "");
-    const logTaxa = (Math.floor((Math.log10(1 +(jurosDecimal))) * 1000000) / 1000000).toFixed(6).replace(/\.?0+$/, '');
+  const resultadoCalculado = (parseFloat(logAumento) / parseFloat(logTaxa)).toFixed(2).replace(/(\.0+|0+)$/, "");
 
-    this.part1 = katex.renderToString(`${montante} = ${capital} * ( 1 + ${jurosDecimal}) ^ {t}`);
-    this.part2 = katex.renderToString(`(${montante} / ${capital}) = (1 + ${jurosDecimal}) ^ {t}`);
-    this.part3 = katex.renderToString(`${montante / capital} = (${1 + jurosDecimal}) ^ {t}`);
-    this.part4 = katex.renderToString(`\\log_{10} {${montante/capital}} = \\log_{10} {${(1 + jurosDecimal)}}^{t}`);
-    this.part5 = katex.renderToString(`{${logAumento}} = t * ${logTaxa}`);
-    this.part6 = katex.renderToString(`t = \\frac{${logAumento}} {${logTaxa}}`);
+  const approximationSymbol = '\\approx'; 
 
-    const resultado = (logAumento/logTaxa).toFixed(2).replace(/(\.0+|0+)$/, "");
+  const formulaLatex = `
+    \\begin{aligned}
+    ${montante} &= ${capital} \\cdot (1 + ${jurosDecimal}) ^ {t} \\\\
+    \\frac{${montante}}{${capital}} &= (1 + ${jurosDecimal}) ^ {t} \\\\
+    ${montante / capital} &= (${1 + jurosDecimal}) ^ {t} \\\\
+    \\log_{10} {${montante/capital}} &= \\log_{10} {${(1 + jurosDecimal)}}^{t} \\\\
+    ${logAumento} &= t \\cdot ${logTaxa} \\\\
+    t &= \\frac{${logAumento}} {${logTaxa}} \\\\
+    t & ${approximationSymbol} ${(resultadoCalculado)}
+    \\end{aligned}
+  `;
 
-    this.resultado = katex.renderToString(`t \\approxeq ${(resultado)}`);
-  }
-}
-}
+  setKatexResult(formulaLatex);
+};
 </script>
-
-

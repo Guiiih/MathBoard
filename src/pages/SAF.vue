@@ -2,71 +2,64 @@
   <div>
       <NavBar />
       <input-component :Label01="'Montante'" :Label02="'Taxa de Juros'" :Label03="'Numero de Parcelas'" :show-div="true"  @update="calculateResult($event)" />
-      <result-component :resultado="resultado" :part1="part1" :part2="part2" :part3="part3" :part4="part4" :part5="part5" :part6="part6"/>
+      <result-component :resultado="resultado"/>
   </div>
 </template>
-<script>
-
-import katex from 'katex'
+<script setup lang="ts">
 import 'katex/dist/katex.min.css';
 
-import NavBar from '../components/NavBar.vue'
+import NavBar from '../components/NavBar.vue';
 import InputComponent from '../components/Form.vue';
 import ResultComponent from '../components/Result.vue';
+import { useKatexDisplay } from '../composables/useKatexDisplay';
 
-export default {
-  components: {
-      InputComponent,
-      ResultComponent,
-      NavBar,
-  },
-  data() {
-      return {
-      inputs: {
-          input1: '',
-          input4: '',
-      },
-      resultado: '',
-      part1: '',
-      part2: '',
-      part3: '',
-      part4: '',
-      part5: '',
-      part6: '',
-      jurosTipo: 'anual',
-      tempoTipo: 'anual',
+const { resultado, setKatexResult, clearKatexParts, parseNumber } = useKatexDisplay();
+
+const calculateResult = (inputs: any) => {
+  const capital = parseNumber(inputs.input1);
+  const juros = parseNumber(inputs.input2);
+  const parcelas = parseNumber(inputs.input3);
+
+  if (capital === null || juros === null || parcelas === null) {
+    clearKatexParts();
+    return;
   }
-},
-methods: {
-  calculateResult(inputs) {
-    if (!inputs.input1 || !inputs.input2 || !inputs.input3) {
-      this.resultado = '';
-      return;
-    }
 
-    const capital  = parseFloat(inputs.input1.replace(',', '.'));
-    const juros = parseFloat(inputs.input2.replace(',', '.'));
-    const parcelas = parseFloat(inputs.input3.replace(',', '.'));
+  const jurosDecimal = parseFloat((juros / 100).toFixed(7).replace(/(\.0+|0+)$/, ""));
 
-    const jurosDecimal = parseFloat((juros/100).toFixed(7).replace(/(\.0+|0+)$/, ""));
+  const ParcelasFinal = inputs.jurosTipo === inputs.tempoTipo ? parcelas : parseFloat((parcelas / 12 ).toFixed(8).replace(/(\.0+|0+)$/, ""));
 
-    const ParcelasFinal = inputs.jurosTipo === inputs.tempoTipo ? parcelas : parseFloat((parcelas / 12 ).toFixed(8).replace(/(\.0+|0+)$/, ""));
-    const SAF = inputs.jurosTipo === inputs.tempoTipo ? capital * (jurosDecimal * (((1 + jurosDecimal) ** (parcelas))) / (((1+jurosDecimal) ** parcelas)-1)) : capital * (jurosDecimal * (((1 + jurosDecimal) ** (parcelas/12))) / (((1+jurosDecimal) ** (parcelas/12))-1)) ;
+  const baseForPower = (1 + jurosDecimal);
+  const powerResult = (baseForPower ** ParcelasFinal);
+  const numeratorTerm = jurosDecimal * powerResult;
+  const denominatorTerm = powerResult - 1;
 
-    this.part1 = katex.renderToString(`P = ${capital} * \\begin{pmatrix} \\frac{${jurosDecimal}*(1+${jurosDecimal})^{${ParcelasFinal}}} {(1+${jurosDecimal})^{${ParcelasFinal}}-1} \\end{pmatrix}`);
-    this.part2 = katex.renderToString(`P = ${capital} * \\begin{pmatrix} \\frac{${jurosDecimal}*(${1+jurosDecimal})^{${ParcelasFinal}}} {(${1+jurosDecimal})^{${ParcelasFinal}}-1} \\end{pmatrix}`);
-    this.part3 = katex.renderToString(`P = ${capital} * \\begin{pmatrix} \\frac{${jurosDecimal}*${((1+jurosDecimal) ** ParcelasFinal).toFixed(8).replace(/(\.0+|0+)$/, "")}} {${(((1+jurosDecimal) ** ParcelasFinal).toFixed(8).replace(/(\.0+|0+)$/, ""))}-1} \\end{pmatrix}`);
-    this.part4 = katex.renderToString(`P = ${capital} * \\frac{${jurosDecimal * ((1+jurosDecimal) ** ParcelasFinal).toFixed(8).replace(/(\.0+|0+)$/, "")}} {${(((1+jurosDecimal) ** ParcelasFinal) - 1).toFixed(8).replace(/(\.0+|0+)$/, "")}} `);
-    this.part5 = katex.renderToString(`P = ${capital} * ${((jurosDecimal * ((1+jurosDecimal) ** ParcelasFinal)) / (((1+jurosDecimal) ** ParcelasFinal) - 1)).toFixed(8).replace(/(\.0+|0+)$/, "")} `);
-
-    if (inputs.jurosTipo === inputs.tempoTipo){
-      this.resultado = katex.renderToString(`P \\approxeq ${(SAF).toFixed(2)}`);
-    }else
-      this.resultado = katex.renderToString(`Vi \\approx ${(SAF).toFixed(2)}`);
-    
+  let SAF_calculated = 0;
+  if (denominatorTerm !== 0) { 
+    SAF_calculated = capital * (numeratorTerm / denominatorTerm);
+  } else {
+    setKatexResult("Erro: Divisão por zero no cálculo de SAF.");
+    return;
   }
-}
-}
+
+  const formattedJurosDecimal = jurosDecimal.toFixed(7).replace(/(\.0+|0+)$/, "");
+  const formattedParcelasFinal = ParcelasFinal.toFixed(8).replace(/(\.0+|0+)$/, "");
+  const formattedPowerResult = powerResult.toFixed(8).replace(/(\.0+|0+)$/, "");
+  const formattedNumeratorTerm = numeratorTerm.toFixed(8).replace(/(\.0+|0+)$/, "");
+  const formattedDenominatorTermValue = denominatorTerm.toFixed(8).replace(/(\.0+|0+)$/, "");
+
+  const approximationSymbol = inputs.jurosTipo === inputs.tempoTipo ? '=' : '\\approx';
+
+  const formulaLatex = `
+    \\begin{aligned}
+    P &= ${capital} \\cdot \\begin{pmatrix} \\frac{${formattedJurosDecimal} \\cdot (1+${formattedJurosDecimal})^{${formattedParcelasFinal}}} {(1+${formattedJurosDecimal})^{${formattedParcelasFinal}}-1} \\end{pmatrix} \\\\
+    P &= ${capital} \\cdot \\begin{pmatrix} \\frac{${formattedJurosDecimal} \\cdot ${formattedPowerResult}} {${formattedPowerResult}-1} \\end{pmatrix} \\\\
+    P &= ${capital} \\cdot \\frac{${formattedNumeratorTerm}} {${formattedDenominatorTermValue}} \\\\
+    P &= ${capital} \\cdot ${ (numeratorTerm / denominatorTerm).toFixed(8).replace(/(\.0+|0+)$/, "")} \\\\
+    P & ${approximationSymbol} ${(SAF_calculated).toFixed(2)}
+    \\end{aligned}
+  `;
+
+  setKatexResult(formulaLatex);
+};
 </script>
-
-

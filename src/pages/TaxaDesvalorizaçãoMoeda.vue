@@ -2,71 +2,49 @@
   <div>
       <NavBar />
       <input-component :Label01="'Aumento'" :placeholder="'0'" :Label04="'Taxa De Juros'" :show-div="false" :show-div4="true" @update="calculateResult($event)" />
-      <result-component :resultado="resultado" :part1="part1" :part2="part2" :part3="part3" :part4="part4" :part5="part5" :part6="part6"/>
+      <result-component :resultado="resultado"/>
   </div>
 </template>
-<script>
-
-import katex from 'katex'
+<script setup lang="ts">
 import 'katex/dist/katex.min.css';
 
-import NavBar from '../components/NavBar.vue'
+import NavBar from '../components/NavBar.vue';
 import InputComponent from '../components/Form.vue';
 import ResultComponent from '../components/Result.vue';
+import { useKatexDisplay } from '../composables/useKatexDisplay';
 
-export default {
-  components: {
-      InputComponent,
-      ResultComponent,
-      NavBar,
-  },
-  data() {
-      return {
-      inputs: {
-          input1: '',
-          input4: '',
-      },
-      resultado: '',
-      part1: '',
-      part2: '',
-      part3: '',
-      part4: '',
-      part5: '',
-      part6: '',
-      jurosTipo: 'anual',
-      tempoTipo: 'anual',
+const { resultado, setKatexResult, clearKatexParts, parseNumber } = useKatexDisplay();
+
+const calculateResult = (inputs: any) => {
+  const aumento = parseNumber(inputs.input1);
+  const taxa = parseNumber(inputs.input4);
+
+  if (aumento === null || taxa === null) {
+    clearKatexParts();
+    return;
   }
-},
-methods: {
-  calculateResult(inputs) {
-    if (!inputs.input1 || !inputs.input4 ) {
-      this.resultado = '';
-      return;
-    }
 
-    const aumento = parseFloat(inputs.input1.replace(',', '.'));
-    const taxa = parseFloat(inputs.input4.replace(',', '.'));
+  const juros = taxa/100;
 
-    const juros = taxa/100;
+  const logAumento = Math.log10(aumento).toFixed(3);
+  const logTaxa = Math.log10(1 +(juros)).toFixed(4);
 
-    const logAumento = Math.log10(aumento).toFixed(3);
-    const logTaxa = Math.log10(1 +(juros)).toFixed(4);
+  const resultadoCalculado = parseFloat(logAumento) / parseFloat(logTaxa);
 
-    this.part1 = katex.renderToString(`{${aumento}}C = C *(1+${juros})^{t}`);
-    this.part2 = katex.renderToString(`{${aumento}}\\cancel{C} = \\cancel{C} *(${1 + juros})^{t}`);
-    this.part3 = katex.renderToString(`{${aumento}} = ${(1 + juros).toFixed(2)}^{t}`);
-    this.part4 = katex.renderToString(`\\log_{10} {${aumento}} = \\log_{10} {${(1 + juros).toFixed(2)}}^{t}`);
-    this.part5 = katex.renderToString(`{${logAumento}} = t * ${logTaxa}`);
-    this.part6 = katex.renderToString(`t = \\frac{${logAumento}} {${logTaxa}}`);
+  const approximationSymbol = '\\approx';
 
-    const resultado = logAumento/logTaxa;
+  const formulaLatex = `
+    \\begin{aligned}
+    {${aumento}}C &= C \\cdot (1+${juros})^{t} \\\\
+    {${aumento}}\\cancel{C} &= \\cancel{C} \\cdot (${1 + juros})^{t} \\\\
+    {${aumento}} &= ${(1 + juros).toFixed(2)}^{t} \\\\
+    \\log_{10} {${aumento}} &= \\log_{10} {${(1 + juros).toFixed(2)}}^{t} \\\\
+    {${logAumento}} &= t \\cdot ${logTaxa} \\\\
+    t &= \\frac{${logAumento}} {${logTaxa}} \\\\
+    t & ${approximationSymbol} ${(resultadoCalculado).toFixed(2)}
+    \\end{aligned}
+  `;
 
-    const resultadoTipo = this.jurosTipo === 'anual' ? resultado  : resultado * 12 ;
-
-    this.resultado = katex.renderToString(`t \\approx ${(resultado).toFixed(2)}`);
-  }
-}
-}
+  setKatexResult(formulaLatex);
+};
 </script>
-
-
