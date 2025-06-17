@@ -10,8 +10,7 @@ import 'katex/dist/katex.min.css';
 import NavBar from '../components/NavBar.vue';
 import InputComponent from '../components/Form.vue';
 import ResultComponent from '../components/Result.vue';
-import { useKatexDisplay } from '../composables/useKatexDisplay'; 
-import katex from 'katex'; 
+import { useKatexDisplay } from '../composables/useKatexDisplay';
 
 const { resultado, setKatexResult, clearKatexParts } = useKatexDisplay(); 
 
