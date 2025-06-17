@@ -72,16 +72,21 @@ export default {
   },
   methods: {
     updateInputs() {
-      const inputs = {
-        input1: this.input1,
-        input2: this.input2,
-        input3: this.input3,
-        input4: this.input4,
-        input5: this.input5,
+    const parsedInputs = {
+        input1: this.parseNumber(this.input1),
+        input2: this.parseNumber(this.input2),
+        input3: this.parseNumber(this.input3),
+        input4: this.parseNumber(this.input4),
+        input5: this.parseNumber(this.input5),
         jurosTipo: this.jurosTipo,
         tempoTipo: this.tempoTipo,
-      };
-      this.$emit('update', inputs);
+    };
+    this.$emit('update', parsedInputs);
+    },
+    parseNumber(value) {
+        const cleanedValue = value.replace(',', '.');
+        const num = parseFloat(cleanedValue);
+        return isNaN(num) ? null : num; 
     }
   }
 }
