@@ -53,8 +53,8 @@ watch(() => props.fields, (newFields) => {
   const initialValues = {};
   newFields.forEach(field => {
     initialValues[field.id] = '';
-    if (field.type === 'interest') initialValues.jurosTipo = 'anual';
-    if (field.type === 'time') initialValues.tempoTipo = 'anual';
+    if (field.type === 'interest') initialValues.jurosTipo = 'mensal';
+    if (field.type === 'time') initialValues.tempoTipo = 'mensal';
   });
   formValues.value = initialValues;
 }, { immediate: true });
