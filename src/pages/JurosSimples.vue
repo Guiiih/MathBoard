@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-container">
       <NavBar />
       <input-component :fields="formFields" @update="calculateResult" />
       <result-component :resultado="resultado" />
