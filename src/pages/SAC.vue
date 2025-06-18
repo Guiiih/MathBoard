@@ -13,7 +13,6 @@ import { ref } from 'vue';
 import NavBar from '../components/NavBar.vue';
 import InputComponent from '../components/Form.vue';
 import ResultComponent from '../components/Result.vue';
-// Importe formatNumberForLatex (novo nome)
 import { useKatexDisplay } from '../composables/useKatexDisplay';
 
 interface SacValues {
@@ -24,7 +23,6 @@ interface SacValues {
   tempoTipo: 'anual' | 'mensal';
 }
 
-// Desestruture formatNumberForLatex (novo nome)
 const { resultado, setKatexResult, clearKatexParts, formatNumberForLatex } = useKatexDisplay();
 
 const formFields = ref([
@@ -53,7 +51,6 @@ const calculateResult = (values: SacValues) => {
   const amortizacao = valorFinanciado / totalParcelasMensais;
   let saldoDevedor = valorFinanciado;
 
-  // Use formatNumberForLatex e adicione R\$ em LaTeX
   let tableBody = `0 & - & - & - & R\\$${formatNumberForLatex(valorFinanciado)} \\\\ \\hline \n`;
 
   let totalJuros = 0;
@@ -67,11 +64,9 @@ const calculateResult = (values: SacValues) => {
     totalJuros += juros;
     totalPrestacoes += prestacao;
 
-    // Use formatNumberForLatex e adicione R\$ em LaTeX para cada célula
     tableBody += `${k} & R\\$${formatNumberForLatex(prestacao)} & R\\$${formatNumberForLatex(juros)} & R\\$${formatNumberForLatex(amortizacao)} & R\\$${formatNumberForLatex(Math.abs(saldoDevedor))} \\\\ \\hline \n`;
   }
 
-  // Use formatNumberForLatex e adicione R\$ em LaTeX para os totais
   tableBody += `\\textbf{Total} & \\textbf{R\\$${formatNumberForLatex(totalPrestacoes)}} & \\textbf{R\\$${formatNumberForLatex(totalJuros)}} & \\textbf{R\\$${formatNumberForLatex(valorFinanciado)}} & - \\\\ \\hline \n`;
 
   const formulaLatex = `
