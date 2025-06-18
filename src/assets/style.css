@@ -1,9 +1,3 @@
-/* src/assets/style.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Reset e Estilos Globais */
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   background-color: #FFFFFF;
@@ -15,7 +9,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Variáveis CSS baseadas no seu tailwind.config.js */
 :root {
   --green-light: #F7F9F9;
   --brand-green: #00856F;
@@ -27,7 +20,7 @@ body {
   --font-sigmar: 'Sigmar', sans-serif;
 }
 
-/* Estilos de Scrollbar */
+/*  Scrollbar */
 .overflow-x-auto {
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.4) transparent;
@@ -46,7 +39,7 @@ body {
   border-radius: 20px;
 }
 
-/* Estilos do NavBar.vue */
+/* NavBar.vue */
 .nav-bar {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -218,7 +211,7 @@ body {
 }
 
 
-/* Estilos do Form.vue */
+/* Form.vue */
 .form-wrapper {
   display: flex;
   justify-content: center;
@@ -310,7 +303,7 @@ body {
 }
 
 
-/* Estilos do Result.vue */
+/* Result.vue */
 .result-wrapper {
   position: relative;
 }
@@ -364,7 +357,7 @@ body {
 }
 
 
-/* Estilos do Modal.vue */
+/* Modal.vue */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -412,9 +405,7 @@ body {
 }
 
 
-/* Estilos Responsivos */
 @media (min-width: 640px) {
-  /* sm */
   .nav-container {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -458,7 +449,6 @@ body {
 }
 
 @media (min-width: 768px) {
-  /* md */
   .form-input {
     width: 10rem;
   }
@@ -474,7 +464,6 @@ body {
 }
 
 @media (min-width: 1024px) {
-  /* lg */
   .nav-container {
     padding-left: 2rem;
     padding-right: 2rem;
