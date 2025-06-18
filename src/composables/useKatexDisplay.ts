@@ -26,10 +26,22 @@ export function useKatexDisplay() {
     return isNaN(num) ? null : num;
   };
 
+  const formatNumberForLatex = (value: number): string => {
+    return value.toLocaleString('pt-BR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+      useGrouping: true 
+    });
+  };
+
+  const approximationSymbol = '\\approx';
+
   return {
     resultado,
     setKatexResult,
     clearKatexParts,
-    parseNumber
+    parseNumber,
+    formatNumberForLatex, 
+    approximationSymbol
   };
 }

@@ -13,6 +13,7 @@ import { ref } from 'vue';
 import NavBar from '../components/NavBar.vue';
 import InputComponent from '../components/Form.vue';
 import ResultComponent from '../components/Result.vue';
+// Importe formatNumberForLatex (novo nome)
 import { useKatexDisplay } from '../composables/useKatexDisplay';
 
 interface SacValues {
@@ -23,7 +24,8 @@ interface SacValues {
   tempoTipo: 'anual' | 'mensal';
 }
 
-const { resultado, setKatexResult, clearKatexParts } = useKatexDisplay();
+// Desestruture formatNumberForLatex (novo nome)
+const { resultado, setKatexResult, clearKatexParts, formatNumberForLatex } = useKatexDisplay();
 
 const formFields = ref([
     { id: 'valorFinanciado', label: 'Valor do Financiamento', placeholder: 'R$ 0,00' },
@@ -39,7 +41,6 @@ const calculateResult = (values: SacValues) => {
     return;
   }
 
-
   const taxaDecimal = taxaJuros / 100;
   const taxaMensalEfetiva = jurosTipo === 'mensal'
     ? taxaDecimal
@@ -51,31 +52,35 @@ const calculateResult = (values: SacValues) => {
 
   const amortizacao = valorFinanciado / totalParcelasMensais;
   let saldoDevedor = valorFinanciado;
-  let tableBody = `0 & - & - & - & R\\$${valorFinanciado.toFixed(2)} \\\\ \\hline \n`;
+
+  // Use formatNumberForLatex e adicione R\$ em LaTeX
+  let tableBody = `0 & - & - & - & R\\$${formatNumberForLatex(valorFinanciado)} \\\\ \\hline \n`;
 
   let totalJuros = 0;
   let totalPrestacoes = 0;
 
   for (let k = 1; k <= totalParcelasMensais; k++) {
-    const juros = saldoDevedor * taxaMensalEfetiva; // Usa a taxa mensal
+    const juros = saldoDevedor * taxaMensalEfetiva;
     const prestacao = amortizacao + juros;
     saldoDevedor -= amortizacao;
-    
+
     totalJuros += juros;
     totalPrestacoes += prestacao;
 
-    tableBody += `${k} & R\\$${prestacao.toFixed(2)} & R\\$${juros.toFixed(2)} & R\\$${amortizacao.toFixed(2)} & R\\$${Math.abs(saldoDevedor).toFixed(2)} \\\\ \\hline \n`;
+    // Use formatNumberForLatex e adicione R\$ em LaTeX para cada célula
+    tableBody += `${k} & R\\$${formatNumberForLatex(prestacao)} & R\\$${formatNumberForLatex(juros)} & R\\$${formatNumberForLatex(amortizacao)} & R\\$${formatNumberForLatex(Math.abs(saldoDevedor))} \\\\ \\hline \n`;
   }
-  
-  tableBody += `\\textbf{Total} & \\textbf{R\\$${totalPrestacoes.toFixed(2)}} & \\textbf{R\\$${totalJuros.toFixed(2)}} & \\textbf{R\\$${valorFinanciado.toFixed(2)}} & - \\\\ \\hline \n`;
+
+  // Use formatNumberForLatex e adicione R\$ em LaTeX para os totais
+  tableBody += `\\textbf{Total} & \\textbf{R\\$${formatNumberForLatex(totalPrestacoes)}} & \\textbf{R\\$${formatNumberForLatex(totalJuros)}} & \\textbf{R\\$${formatNumberForLatex(valorFinanciado)}} & - \\\\ \\hline \n`;
 
   const formulaLatex = `
     {\\begin{array}{|c|c|c|c|c|}
     \\hline
-    \\textbf{Mês} & 
-    \\textbf{Prestação } (P) & 
-    \\textbf{Juros } (J) & 
-    \\textbf{Amortização } (A) & 
+    \\textbf{Mês} &
+    \\textbf{Prestação } (P) &
+    \\textbf{Juros } (J) &
+    \\textbf{Amortização } (A) &
     \\textbf{Saldo Devedor } (SD) \\\\
     \\hline
      & A + J & SD \\cdot i_{mensal} & \\frac{\\text{Valor Financiado}}{n} & SD_{anterior} - A \\\\
