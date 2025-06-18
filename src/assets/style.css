@@ -322,6 +322,7 @@ body {
 .result-container {
   display: flex;
   justify-content: center;
+  align-items: center; 
   width: 91.666667%;
   min-height: var(--min-height-table);
   position: relative;
@@ -442,7 +443,6 @@ body {
     width: 3.5rem;
   }
   .result-container {
-    align-items: center;
     padding: 2rem;
   }
   .result-content {
