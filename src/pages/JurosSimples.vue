@@ -1,33 +1,49 @@
 <template>
   <div>
       <NavBar />
-      <input-component :Label01="'Capital Inicial'"  :Label02="'Taxa De Juros'" :Label03="'Tempo'" :show-div="true" @update="calculateResult($event)" />
-      <result-component :resultado="resultado" /> </div>
+      <input-component :fields="formFields" @update="calculateResult" />
+      <result-component :resultado="resultado" />
+  </div>
 </template>
+
 <script setup lang="ts">
 import 'katex/dist/katex.min.css';
+import { ref } from 'vue';
 
 import NavBar from '../components/NavBar.vue';
 import InputComponent from '../components/Form.vue';
 import ResultComponent from '../components/Result.vue';
 import { useKatexDisplay } from '../composables/useKatexDisplay';
 
-const { resultado, setKatexResult, clearKatexParts } = useKatexDisplay(); 
+interface JurosSimplesValues {
+  capital: number | null;
+  juros: number | null;
+  tempo: number | null;
+  jurosTipo: 'anual' | 'mensal';
+  tempoTipo: 'anual' | 'mensal';
+}
 
-const calculateResult = (inputs: any) => {
-  if (inputs.input1 === null || inputs.input2 === null || inputs.input3 === null) {
+const { resultado, setKatexResult, clearKatexParts } = useKatexDisplay();
+
+const formFields = ref([
+  { id: 'capital', label: 'Capital Inicial', placeholder: 'R$ 0,00' },
+  { id: 'juros', label: 'Taxa De Juros', placeholder: '0 %', type: 'interest' },
+  { id: 'tempo', label: 'Tempo', placeholder: '0', type: 'time' }
+]);
+
+const calculateResult = (values: JurosSimplesValues) => {
+  const { capital, juros, tempo, jurosTipo, tempoTipo } = values;
+
+  if (capital === null || juros === null || tempo === null) {
     clearKatexParts();
     return;
   }
 
-  const capital = inputs.input1; 
-  const juros = inputs.input2;   
-  const tempo = inputs.input3;   
-
   const jurosDecimal = juros / 100;
 
-  const jurosFinal = inputs.jurosTipo === inputs.tempoTipo ? jurosDecimal : parseFloat((jurosDecimal / 12).toFixed(7).replace(/(\.0+|0+)$/, ""));
-  const jurosSimples = inputs.jurosTipo === inputs.tempoTipo ? capital * (jurosDecimal / (inputs.jurosTipo === inputs.tempoTipo ? 1 : 12)) * tempo : capital * ((jurosDecimal / 12) * tempo); // Correção de lógica na sua linha original, se necessário
+  const jurosFinal = jurosTipo === tempoTipo ? jurosDecimal : parseFloat((jurosDecimal / 12).toFixed(7));
+  
+  const jurosSimples = capital * jurosFinal * tempo;
 
   const formulaLatex = `
     \\begin{aligned}
@@ -37,6 +53,6 @@ const calculateResult = (inputs: any) => {
     \\end{aligned}
   `;
 
-  setKatexResult(formulaLatex); 
+  setKatexResult(formulaLatex);
 };
 </script>

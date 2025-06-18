@@ -1,41 +1,53 @@
 <template>
   <div>
       <NavBar />
-      <input-component :Label01="'Aumento'" :placeholder="'0'" :Label04="'Taxa De Juros'" :show-div="false" :show-div4="true" @update="calculateResult($event)" />
+      <input-component :fields="formFields" @update="calculateResult" />
       <result-component :resultado="resultado" />
   </div>
 </template>
+
 <script setup lang="ts">
 import 'katex/dist/katex.min.css';
+import { ref } from 'vue';
 
 import NavBar from '../components/NavBar.vue';
 import InputComponent from '../components/Form.vue';
 import ResultComponent from '../components/Result.vue';
 import { useKatexDisplay } from '../composables/useKatexDisplay';
 
-const { resultado, setKatexResult, clearKatexParts, parseNumber } = useKatexDisplay();
+interface AumentoCapitalSimplesValues {
+  aumento: number | null;
+  juros: number | null;
+}
 
-const calculateResult = (inputs: any) => {
-  const aumento = parseNumber(inputs.input1);
-  const juros = parseNumber(inputs.input4);
+const { resultado, setKatexResult, clearKatexParts } = useKatexDisplay();
 
-  if (aumento === null || juros === null) {
+const formFields = ref([
+  { id: 'aumento', label: 'Aumento', placeholder: '0' },
+  { id: 'juros', label: 'Taxa De Juros', placeholder: '0 %' }
+]);
+
+const calculateResult = (values: AumentoCapitalSimplesValues) => {
+  const { aumento, juros } = values;
+
+  if (aumento === null || juros === null || juros === 0 || aumento <= 1) {
     clearKatexParts();
     return;
   }
 
-  const aumentoTempo = aumento - 1;
-
-  const resultadoCalculado = (aumentoTempo * 100) / juros;
+  const aumentoComoJuro = aumento - 1;
+  const jurosTotalMultiplicado = aumentoComoJuro * 100;
+  const resultadoFinal = jurosTotalMultiplicado / juros;
+  const resultadoFinalFormatted = resultadoFinal.toFixed(2);
 
   const formulaLatex = `
     \\begin{aligned}
-    ${aumentoTempo}C &= C \\cdot \\frac{${juros}}{100} \\cdot t \\\\
-    ${aumentoTempo}\\cancel{C} &= \\cancel{C} \\cdot \\frac{${juros}}{100} \\cdot t \\\\
-    ${aumentoTempo} &= \\frac{${juros} \\cdot t}{100} \\\\
-    ${juros}t &= ${aumentoTempo * 100} \\\\
-    t &= \\frac{${aumentoTempo * 100}}{${juros}} \\\\
-    t &= ${resultadoCalculado.toFixed(2)}
+    ${aumentoComoJuro}C &= C \\cdot \\frac{${juros}}{100} \\cdot t \\\\
+    ${aumentoComoJuro}\\cancel{C} &= \\cancel{C} \\cdot \\frac{${juros}}{100} \\cdot t \\\\
+    ${aumentoComoJuro} &= \\frac{${juros} \\cdot t}{100} \\\\
+    ${juros}t &= ${jurosTotalMultiplicado} \\\\
+    t &= \\frac{${jurosTotalMultiplicado}}{${juros}} \\\\
+    t &= ${resultadoFinalFormatted}
     \\end{aligned}
   `;
 
