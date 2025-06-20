@@ -20,7 +20,7 @@ interface AumentoCapitalSimplesValues {
   juros: number | null;
 }
 
-const { resultado, setKatexResult, clearKatexParts } = useKatexDisplay();
+const { resultado, setKatexResult, clearKatexParts, formatNumberForLatex } = useKatexDisplay();
 
 const formFields = ref([
   { id: 'aumento', label: 'Aumento', placeholder: '0' },
@@ -38,15 +38,20 @@ const calculateResult = (values: AumentoCapitalSimplesValues) => {
   const aumentoComoJuro = aumento - 1;
   const jurosTotalMultiplicado = aumentoComoJuro * 100;
   const resultadoFinal = jurosTotalMultiplicado / juros;
-  const resultadoFinalFormatted = resultadoFinal.toFixed(2);
+
+  const aumentoComoJuroFormatted = formatNumberForLatex(aumentoComoJuro);
+  const jurosTotalMultiplicadoFormatted = formatNumberForLatex(jurosTotalMultiplicado);
+  const resultadoFinalFormatted = formatNumberForLatex(resultadoFinal);
+  const jurosFormatted = formatNumberForLatex(juros);
+
 
   const formulaLatex = `
     \\begin{aligned}
-    ${aumentoComoJuro}C &= C \\cdot \\frac{${juros}}{100} \\cdot t \\\\
-    ${aumentoComoJuro}\\cancel{C} &= \\cancel{C} \\cdot \\frac{${juros}}{100} \\cdot t \\\\
-    ${aumentoComoJuro} &= \\frac{${juros} \\cdot t}{100} \\\\
-    ${juros}t &= ${jurosTotalMultiplicado} \\\\
-    t &= \\frac{${jurosTotalMultiplicado}}{${juros}} \\\\
+    ${aumentoComoJuroFormatted}C &= C \\cdot \\frac{${jurosFormatted}}{100} \\cdot t \\\\
+    ${aumentoComoJuroFormatted}\\cancel{C} &= \\cancel{C} \\cdot \\frac{${jurosFormatted}}{100} \\cdot t \\\\
+    ${aumentoComoJuroFormatted} &= \\frac{${jurosFormatted} \\cdot t}{100} \\\\
+    ${jurosFormatted}t &= ${jurosTotalMultiplicadoFormatted} \\\\
+    t &= \\frac{${jurosTotalMultiplicadoFormatted}}{${jurosFormatted}} \\\\
     t &= ${resultadoFinalFormatted}
     \\end{aligned}
   `;

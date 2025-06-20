@@ -23,7 +23,7 @@ interface ValorInicialValues {
   tempoTipo: 'anual' | 'mensal';
 }
 
-const { resultado, setKatexResult, clearKatexParts } = useKatexDisplay();
+const { resultado, setKatexResult, clearKatexParts, formatNumberForLatex } = useKatexDisplay();
 
 const formFields = ref([
   { id: 'montante', label: 'Montante', placeholder: 'R$ 0,00' },
@@ -39,22 +39,21 @@ const calculateResult = (values: ValorInicialValues) => {
     return;
   }
 
-
   const jurosDecimal = juros / 100;
   const jurosFinal = jurosTipo === tempoTipo ? jurosDecimal : jurosDecimal / 12;
   const denominador = 1 + (jurosFinal * tempo);
   const valorInicialSimples = montante / denominador;
 
-  const jurosFinalFormatted = jurosFinal.toFixed(7).replace(/(\.0+|0+)$/, "");
-  const denominadorFormatted = denominador.toFixed(7).replace(/(\.0+|0+)$/, "");
-  const valorInicialFormatted = valorInicialSimples.toFixed(2);
+  const jurosFinalFormatted = formatNumberForLatex(jurosFinal);
+  const denominadorFormatted = formatNumberForLatex(denominador);
+  const valorInicialFormatted = formatNumberForLatex(valorInicialSimples);
 
   const approximationSymbol = jurosTipo === tempoTipo ? '=' : '\\approx';
 
   const formulaLatex = `
     \\begin{aligned}
-    Vi &= \\frac{${montante}}{1 + (${jurosFinalFormatted} \\cdot ${tempo})} \\\\
-    Vi &= \\frac{${montante}}{${denominadorFormatted}} \\\\
+    Vi &= \\frac{${formatNumberForLatex(montante)}}{1 + (${jurosFinalFormatted} \\cdot ${formatNumberForLatex(tempo)})} \\\\
+    Vi &= \\frac{${formatNumberForLatex(montante)}}{${denominadorFormatted}} \\\\
     Vi & ${approximationSymbol} ${valorInicialFormatted}
     \\end{aligned}
   `;

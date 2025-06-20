@@ -23,7 +23,7 @@ interface JurosCompostoValues {
   tempoTipo: 'anual' | 'mensal';
 }
 
-const { resultado, setKatexResult, clearKatexParts } = useKatexDisplay();
+const { resultado, setKatexResult, clearKatexParts, formatNumberForLatex } = useKatexDisplay();
 
 const formFields = ref([
   { id: 'capital', label: 'Capital Inicial', placeholder: 'R$ 0,00' },
@@ -50,10 +50,10 @@ const calculateResult = (values: JurosCompostoValues) => {
 
   const formulaLatex = `
     \\begin{aligned}
-    M &= ${capital} \\cdot (1 + ${jurosDecimal})^{${tempoFinal}} \\\\
-    M &= ${capital} \\cdot ${1 + jurosDecimal}^{${tempoFinal}} \\\\
-    M &= ${capital} \\cdot ${((1 + jurosDecimal) ** tempoFinal).toFixed(7).replace(/(\\.0+|0+)$/, "")} \\\\
-    M & ${approximationSymbol} ${montanteComposto.toFixed(2)}
+    M &= ${formatNumberForLatex(capital)} \\cdot (1 + ${formatNumberForLatex(jurosDecimal)})^{${formatNumberForLatex(tempoFinal)}} \\\\
+    M &= ${formatNumberForLatex(capital)} \\cdot ${formatNumberForLatex(1 + jurosDecimal)}^{${formatNumberForLatex(tempoFinal)}} \\\\
+    M &= ${formatNumberForLatex(capital)} \\cdot ${formatNumberForLatex(((1 + jurosDecimal) ** tempoFinal))} \\\\
+    M & ${approximationSymbol} ${formatNumberForLatex(montanteComposto)}
     \\end{aligned}
   `;
 

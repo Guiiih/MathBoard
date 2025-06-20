@@ -21,7 +21,7 @@ interface AumentoCapitalCompostoValues {
   juros: number | null;
 }
 
-const { resultado, setKatexResult, clearKatexParts } = useKatexDisplay();
+const { resultado, setKatexResult, clearKatexParts, formatNumberForLatex } = useKatexDisplay();
 
 const formFields = ref([
     { id: 'montante', label: 'Montante', placeholder: 'R$ 0,00' },
@@ -37,28 +37,26 @@ const calculateResult = (values: AumentoCapitalCompostoValues) => {
     return;
   }
 
-
   const jurosDecimal = juros / 100;
   const relacaoCapital = montante / capital;
   const logRelacao = Math.log10(relacaoCapital);
   const logTaxa = Math.log10(1 + jurosDecimal);
   const resultadoFinal = logRelacao / logTaxa;
 
-  const formatIntermediate = (num: number, precision: number): string => {
-    return num.toFixed(precision).replace(/(\.\d*?[1-9])0+$|\.0+$/, '$1');
-  };
-
-  const relacaoCapitalFormatted = formatIntermediate(relacaoCapital, 4); 
-  const logRelacaoFormatted = formatIntermediate(logRelacao, 4);      
-  const logTaxaFormatted = formatIntermediate(logTaxa, 4);           
-  const resultadoFinalFormatted = resultadoFinal.toFixed(2);           
+  const montanteFormatted = formatNumberForLatex(montante);
+  const capitalFormatted = formatNumberForLatex(capital);
+  const jurosDecimalFormatted = formatNumberForLatex(jurosDecimal);
+  const relacaoCapitalFormatted = formatNumberForLatex(relacaoCapital); 
+  const logRelacaoFormatted = formatNumberForLatex(logRelacao);      
+  const logTaxaFormatted = formatNumberForLatex(logTaxa);           
+  const resultadoFinalFormatted = formatNumberForLatex(resultadoFinal);           
 
   const formulaLatex = `
     \\begin{aligned}
-    ${montante} &= ${capital} \\cdot (1 + ${jurosDecimal})^{t} \\\\
-    \\frac{${montante}}{${capital}} &= (1 + ${jurosDecimal})^{t} \\\\
-    ${relacaoCapitalFormatted} &= (1 + ${jurosDecimal})^{t} \\\\
-    \\log_{10}(${relacaoCapitalFormatted}) &= \\log_{10}(${1 + jurosDecimal})^{t} \\\\
+    ${montanteFormatted} &= ${capitalFormatted} \\cdot (1 + ${jurosDecimalFormatted})^{t} \\\\
+    \\frac{${montanteFormatted}}{${capitalFormatted}} &= (1 + ${jurosDecimalFormatted})^{t} \\\\
+    ${relacaoCapitalFormatted} &= (1 + ${jurosDecimalFormatted})^{t} \\\\
+    \\log_{10}(${relacaoCapitalFormatted}) &= \\log_{10}(${formatNumberForLatex(1 + jurosDecimal)})^{t} \\\\
     ${logRelacaoFormatted} &= t \\cdot ${logTaxaFormatted} \\\\
     t &= \\frac{${logRelacaoFormatted}}{${logTaxaFormatted}} \\\\
     t & \\approx ${resultadoFinalFormatted}

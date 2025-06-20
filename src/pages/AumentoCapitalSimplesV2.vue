@@ -21,7 +21,7 @@ interface AumentoCapitalSimplesValues {
   juros: number | null;
 }
 
-const { resultado, setKatexResult, clearKatexParts } = useKatexDisplay();
+const { resultado, setKatexResult, clearKatexParts, formatNumberForLatex } = useKatexDisplay();
 
 const formFields = ref([
     { id: 'montante', label: 'Montante', placeholder: 'R$ 0,00' },
@@ -42,13 +42,17 @@ const calculateResult = (values: AumentoCapitalSimplesValues) => {
   const denominador = capital * jurosDecimal;
   const resultadoFinal = denominador !== 0 ? jurosTotal / denominador : 0;
 
-  const jurosTotalFormatted = jurosTotal.toFixed(2);
-  const denominadorFormatted = denominador.toFixed(2);
-  const resultadoFinalFormatted = resultadoFinal.toFixed(2);
+  const montanteFormatted = formatNumberForLatex(montante);
+  const capitalFormatted = formatNumberForLatex(capital);
+  const jurosDecimalFormatted = formatNumberForLatex(jurosDecimal);
+  const jurosTotalFormatted = formatNumberForLatex(jurosTotal);
+  const denominadorFormatted = formatNumberForLatex(denominador);
+  const resultadoFinalFormatted = formatNumberForLatex(resultadoFinal);
+
 
   const formulaLatex = `
     \\begin{aligned}
-    t &= \\frac{${montante} - ${capital}}{${capital} \\cdot ${jurosDecimal}} \\\\
+    t &= \\frac{${montanteFormatted} - ${capitalFormatted}}{${capitalFormatted} \\cdot ${jurosDecimalFormatted}} \\\\
     t &= \\frac{${jurosTotalFormatted}}{${denominadorFormatted}} \\\\
     t & \\approx ${resultadoFinalFormatted}
     \\end{aligned}

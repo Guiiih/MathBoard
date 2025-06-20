@@ -23,7 +23,7 @@ interface JurosSimplesValues {
   tempoTipo: 'anual' | 'mensal';
 }
 
-const { resultado, setKatexResult, clearKatexParts } = useKatexDisplay();
+const { resultado, setKatexResult, clearKatexParts, formatNumberForLatex } = useKatexDisplay();
 
 const formFields = ref([
   { id: 'capital', label: 'Capital Inicial', placeholder: 'R$ 0,00' },
@@ -47,9 +47,9 @@ const calculateResult = (values: JurosSimplesValues) => {
 
   const formulaLatex = `
     \\begin{aligned}
-    J &= ${capital} \\cdot ${jurosFinal} \\cdot ${tempo} \\\\
-    J &= ${capital} \\cdot ${(jurosFinal * tempo).toFixed(2)} \\\\
-    J &= ${(jurosSimples).toFixed(2)}
+    J &= ${formatNumberForLatex(capital)} \\cdot ${formatNumberForLatex(jurosFinal)} \\cdot ${formatNumberForLatex(tempo)} \\\\
+    J &= ${formatNumberForLatex(capital)} \\cdot ${formatNumberForLatex(jurosFinal * tempo)} \\\\
+    J &= ${formatNumberForLatex(jurosSimples)}
     \\end{aligned}
   `;
 

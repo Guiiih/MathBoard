@@ -20,7 +20,7 @@ interface AumentoCapitalCompostoValues {
   juros: number | null;
 }
 
-const { resultado, setKatexResult, clearKatexParts } = useKatexDisplay();
+const { resultado, setKatexResult, clearKatexParts, formatNumberForLatex } = useKatexDisplay();
 
 const formFields = ref([
   { id: 'aumento', label: 'Aumento', placeholder: '0' },
@@ -41,17 +41,19 @@ const calculateResult = (values: AumentoCapitalCompostoValues) => {
   const logTaxa = Math.log10(basePotencia);
   const resultadoFinal = logAumento / logTaxa;
 
-  const basePotenciaFormatted = basePotencia.toFixed(2);
-  const logAumentoFormatted = logAumento.toFixed(3); 
-  const logTaxaFormatted = logTaxa.toFixed(4); 
-  const resultadoFinalFormatted = resultadoFinal.toFixed(2); 
+  const aumentoFormatted = formatNumberForLatex(aumento);
+  const jurosDecimalFormatted = formatNumberForLatex(jurosDecimal);
+  const basePotenciaFormatted = formatNumberForLatex(basePotencia);
+  const logAumentoFormatted = formatNumberForLatex(logAumento); 
+  const logTaxaFormatted = formatNumberForLatex(logTaxa); 
+  const resultadoFinalFormatted = formatNumberForLatex(resultadoFinal); 
 
   const formulaLatex = `
     \\begin{aligned}
-    ${aumento}C &= C \\cdot (1 + ${jurosDecimal})^{t} \\\\
-    ${aumento}\\cancel{C} &= \\cancel{C} \\cdot (${basePotenciaFormatted})^{t} \\\\
-    ${aumento} &= ${basePotenciaFormatted}^{t} \\\\
-    \\log_{10}(${aumento}) &= \\log_{10}(${basePotenciaFormatted})^{t} \\\\
+    ${aumentoFormatted}C &= C \\cdot (1 + ${jurosDecimalFormatted})^{t} \\\\
+    ${aumentoFormatted}\\cancel{C} &= \\cancel{C} \\cdot (${basePotenciaFormatted})^{t} \\\\
+    ${aumentoFormatted} &= ${basePotenciaFormatted}^{t} \\\\
+    \\log_{10}(${aumentoFormatted}) &= \\log_{10}(${basePotenciaFormatted})^{t} \\\\
     ${logAumentoFormatted} &= t \\cdot ${logTaxaFormatted} \\\\
     t &= \\frac{${logAumentoFormatted}}{${logTaxaFormatted}} \\\\
     t & \\approx ${resultadoFinalFormatted}

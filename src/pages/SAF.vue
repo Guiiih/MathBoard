@@ -23,7 +23,7 @@ interface SafValues {
   tempoTipo: 'anual' | 'mensal';
 }
 
-const { resultado, setKatexResult, clearKatexParts } = useKatexDisplay();
+const { resultado, setKatexResult, clearKatexParts, formatNumberForLatex } = useKatexDisplay();
 
 const formFields = ref([
   { id: 'capital', label: 'Valor do Financiamento', placeholder: 'R$ 0,00' },
@@ -50,23 +50,19 @@ const calculateResult = (values: SafValues) => {
   const denominador = potenciaResultado - 1;
   const safCalculado = denominador > 0 ? capital * (numerador / denominador) : 0;
 
-  const formatIntermediate = (num: number, precision: number): string => {
-    return num.toFixed(precision).replace(/(\.\d*?[1-9])0+$|\.0+$/, '$1');
-  };
-
-  const jurosDecimalFormatted = formatIntermediate(jurosDecimal, 4);
-  const potenciaResultadoFormatted = formatIntermediate(potenciaResultado, 6);
-  const numeradorFormatted = formatIntermediate(numerador, 8);
-  const denominadorFormatted = formatIntermediate(denominador, 6);
-  const fatorMultiplicadorFormatted = denominador > 0 ? formatIntermediate(numerador / denominador, 8) : '0';
-  const safFinalFormatted = safCalculado.toFixed(2);
+  const jurosDecimalFormatted = formatNumberForLatex(jurosDecimal);
+  const potenciaResultadoFormatted = formatNumberForLatex(potenciaResultado);
+  const numeradorFormatted = formatNumberForLatex(numerador);
+  const denominadorFormatted = formatNumberForLatex(denominador);
+  const fatorMultiplicadorFormatted = denominador > 0 ? formatNumberForLatex(numerador / denominador) : '0';
+  const safFinalFormatted = formatNumberForLatex(safCalculado);
 
   const formulaLatex = `
     \\begin{aligned}
-    P &= ${capital} \\cdot \\frac{${jurosDecimalFormatted} \\cdot (1+${jurosDecimalFormatted})^{${parcelasFinal}}}{(1+${jurosDecimalFormatted})^{${parcelasFinal}}-1} \\\\
-    P &= ${capital} \\cdot \\frac{${jurosDecimalFormatted} \\cdot ${potenciaResultadoFormatted}}{${potenciaResultadoFormatted}-1} \\\\
-    P &= ${capital} \\cdot \\frac{${numeradorFormatted}}{${denominadorFormatted}} \\\\
-    P &= ${capital} \\cdot ${fatorMultiplicadorFormatted} \\\\
+    P &= ${formatNumberForLatex(capital)} \\cdot \\frac{${jurosDecimalFormatted} \\cdot (1+${jurosDecimalFormatted})^{${formatNumberForLatex(parcelasFinal)}}}{(1+${jurosDecimalFormatted})^{${formatNumberForLatex(parcelasFinal)}}-1} \\\\
+    P &= ${formatNumberForLatex(capital)} \\cdot \\frac{${jurosDecimalFormatted} \\cdot ${potenciaResultadoFormatted}}{${potenciaResultadoFormatted}-1} \\\\
+    P &= ${formatNumberForLatex(capital)} \\cdot \\frac{${numeradorFormatted}}{${denominadorFormatted}} \\\\
+    P &= ${formatNumberForLatex(capital)} \\cdot ${fatorMultiplicadorFormatted} \\\\
     P & ${approximationSymbol} ${safFinalFormatted}
     \\end{aligned}
   `;
