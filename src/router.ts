@@ -22,6 +22,21 @@ import SerieDiferida from './pages/SerieDiferida.vue'
 import SeriePostecipada from './pages/SeriePostecipada.vue'
 import TaxaDesvalorizacaoMoeda from './pages/TaxaDesvalorizaçãoMoeda.vue'
 
+declare global {
+  interface Window {
+    gtag: (
+      command: 'js' | 'config' | 'event',
+      targetId: string | Date,
+      params?: {
+        [key: string]: any;
+        page_title?: string;
+        page_location?: string;
+        page_path?: string;
+      }
+    ) => void;
+  }
+}
+
 const routes = [
   {
     path: '/',
@@ -139,5 +154,15 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes
 })
+
+router.afterEach((to, from) => {
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', 'page_view', {
+      page_title: to.name ? String(to.name) : to.path, 
+      page_location: window.location.origin + to.fullPath, 
+      page_path: to.fullPath 
+    });
+  }
+});
 
 export default router
