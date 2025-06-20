@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mathboard.guilhermepinho.com.br/sitemap.xml
