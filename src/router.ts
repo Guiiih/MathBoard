@@ -155,12 +155,12 @@ const router = createRouter({
   routes
 })
 
-router.afterEach((to, from) => {
+router.afterEach((to) => { 
   if (typeof window.gtag === 'function') {
     window.gtag('event', 'page_view', {
-      page_title: to.name ? String(to.name) : to.path, 
-      page_location: window.location.origin + to.fullPath, 
-      page_path: to.fullPath 
+      page_title: to.name ? String(to.name) : to.path,
+      page_location: window.location.origin + to.fullPath,
+      page_path: to.fullPath
     });
   }
 });
