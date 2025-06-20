@@ -3,7 +3,6 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://guiiih.github.io/MathBoard",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build && copy .\\dist\\index.html .\\dist\\404.html",
