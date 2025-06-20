@@ -20,7 +20,7 @@ body {
   --font-sigmar: 'Sigmar', sans-serif;
 }
 
-/*  Scrollbar */
+/* Scrollbar */
 .overflow-x-auto {
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.4) transparent;
@@ -211,7 +211,7 @@ body {
 }
 
 
-/* Form.vue */
+/* Form.vue - Estilo original para telas pequenas */
 .form-wrapper {
   display: flex;
   justify-content: center;
@@ -303,7 +303,7 @@ body {
 }
 
 
-/* Result.vue */
+/* Result.vue - Estilo original para telas pequenas */
 .result-wrapper {
   position: relative;
 }
@@ -405,6 +405,7 @@ body {
 }
 
 
+/* Media Queries */
 @media (min-width: 640px) {
   .nav-container {
     padding-left: 1.5rem;
@@ -420,15 +421,17 @@ body {
     display: none !important;
   }
   .form-container {
-    flex-direction: row;
+    flex-direction: row; 
     padding: 2rem;
     width: 83.333333%;
     height: 8rem;
   }
   .form-input {
+    width: 10rem; 
     font-size: 0.875rem;
   }
   .form-input-grouped {
+    width: 7rem; 
     font-size: 0.875rem;
   }
   .form-select {
@@ -446,14 +449,17 @@ body {
     width: auto;
     font-size: 0.875rem;
   }
+  .result-container {
+    width: 83.333333%;
+  }
 }
 
 @media (min-width: 768px) {
   .form-input {
-    width: 10rem;
+    width: 10rem; 
   }
   .form-input-grouped {
-    width: 7rem;
+    width: 7rem; 
   }
   .form-select {
     width: 4rem;
@@ -461,9 +467,10 @@ body {
   .result-container {
     width: 83.333333%;
   }
+  
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1120px) {
   .nav-container {
     padding-left: 2rem;
     padding-right: 2rem;
