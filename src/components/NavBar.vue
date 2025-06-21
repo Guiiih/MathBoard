@@ -3,7 +3,7 @@
       <div class="nav-container">
         <div class="nav-content">
           <router-link to="/" class="nav-logo-link">
-              <img src="../assets/images/MathBoard.svg" class="nav-logo-img" alt="Math Logo" />
+              <img src="../assets/images/MathBoard.svg" class="nav-logo-img"/>
           </router-link>
 
           <div class="nav-menu-desktop">
