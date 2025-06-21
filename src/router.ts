@@ -1,26 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import JurosSimples from './pages/JurosSimples.vue'
-import JurosComposto from './pages/JurosComposto.vue'
-import ValorInicialSimples from './pages/ValorInicialSimples.vue'
-import ValorInicialComposto from './pages/ValorInicialComposto.vue'
-import AumentoCapitalSimplesV1 from './pages/AumentoCapitalSimplesV1.vue'
-import AumentoCapitalSimplesV2 from './pages/AumentoCapitalSimplesV2.vue'
-import AumentoCapitalCompostoV1 from './pages/AumentoCapitalCompostoV1.vue'
-import AumentoCapitalCompostoV2 from './pages/AumentoCapitalCompostoV2.vue'
-import SAF from './pages/SAF.vue'
-import SAC from './pages/SAC.vue'
-import SAM from './pages/SAM.vue'
-import SSA from './pages/SSA.vue'
-import CorrecaoMonetaria01 from './pages/CorreçãoMonetaria01.vue'
-import CorrecaoMonetaria02 from './pages/CorreçãoMonetaria02.vue'
-import DescontoCompostoComercial from './pages/DescontoCompostoComercial.vue'
-import DescontoCompostoRacional from './pages/DescontoCompostoRacional.vue'
-import DescontoSimplesComercial from './pages/DescontoSimplesComercial.vue'
-import DescontoSimplesRacional from './pages/DescontoSimplesRacional.vue'
-import PagamentoAntecipado from './pages/PagamentoAntecipado.vue'
-import SerieDiferida from './pages/SerieDiferida.vue'
-import SeriePostecipada from './pages/SeriePostecipada.vue'
-import TaxaDesvalorizacaoMoeda from './pages/TaxaDesvalorizaçãoMoeda.vue'
+import CalculatorPage from './pages/CalculatorPage.vue'
 
 declare global {
   interface Window {
@@ -41,112 +20,112 @@ const routes = [
   {
     path: '/',
     name: 'JurosSimples',
-    component: JurosSimples
+    component: CalculatorPage
   },
   {
     path: '/JurosComposto',
     name: 'JurosComposto',
-    component: JurosComposto
+    component: CalculatorPage
   },
   {
     path: '/ValorInicialSimples',
     name: 'ValorInicialSimples',
-    component: ValorInicialSimples
+    component: CalculatorPage
   },
   {
     path: '/ValorInicialComposto',
     name: 'ValorInicialComposto',
-    component: ValorInicialComposto
+    component: CalculatorPage
   },
   {
     path: '/AumentoCapitalSimplesV1',
     name: 'AumentoCapitalSimplesV1',
-    component: AumentoCapitalSimplesV1
+    component: CalculatorPage
   },
   {
     path: '/AumentoCapitalSimplesV2',
     name: 'AumentoCapitalSimplesV2',
-    component: AumentoCapitalSimplesV2
+    component: CalculatorPage
   },
   {
     path: '/AumentoCapitalCompostoV1',
     name: 'AumentoCapitalCompostoV1',
-    component: AumentoCapitalCompostoV1
+    component: CalculatorPage
   },
   {
     path: '/AumentoCapitalCompostoV2',
     name: 'AumentoCapitalCompostoV2',
-    component: AumentoCapitalCompostoV2
+    component: CalculatorPage
   },
   {
     path: '/SAF',
     name: 'SAF',
-    component: SAF
+    component: CalculatorPage
   },
   {
     path: '/SAC',
     name: 'SAC',
-    component: SAC
+    component: CalculatorPage
   },
   {
     path: '/SAM',
     name: 'SAM',
-    component: SAM
+    component: CalculatorPage
   },
   {
     path: '/SSA',
     name: 'SSA',
-    component: SSA
+    component: CalculatorPage
   },
   {
     path: '/CorrecaoMonetaria01',
     name: 'CorrecaoMonetaria01',
-    component: CorrecaoMonetaria01
+    component: CalculatorPage
   },
   {
     path: '/CorrecaoMonetaria02',
     name: 'CorrecaoMonetaria02',
-    component: CorrecaoMonetaria02
+    component: CalculatorPage
   },
   {
     path: '/DescontoCompostoComercial',
     name: 'DescontoCompostoComercial',
-    component: DescontoCompostoComercial
+    component: CalculatorPage
   },
   {
     path: '/DescontoCompostoRacional',
     name: 'DescontoCompostoRacional',
-    component: DescontoCompostoRacional
+    component: CalculatorPage
   },
   {
     path: '/DescontoSimplesComercial',
     name: 'DescontoSimplesComercial',
-    component: DescontoSimplesComercial
+    component: CalculatorPage
   },
   {
     path: '/DescontoSimplesRacional',
     name: 'DescontoSimplesRacional',
-    component: DescontoSimplesRacional
+    component: CalculatorPage
   },
   {
     path: '/PagamentoAntecipado',
     name: 'PagamentoAntecipado',
-    component: PagamentoAntecipado
+    component: CalculatorPage
   },
   {
     path: '/SerieDiferida',
     name: 'SerieDiferida',
-    component: SerieDiferida
+    component: CalculatorPage
   },
   {
     path: '/SeriePostecipada',
     name: 'SeriePostecipada',
-    component: SeriePostecipada
+    component: CalculatorPage
   },
   {
     path: '/TaxaDesvalorizacaoMoeda',
     name: 'TaxaDesvalorizacaoMoeda',
-    component: TaxaDesvalorizacaoMoeda
+    component: CalculatorPage
   },
 ]
 
@@ -155,7 +134,7 @@ const router = createRouter({
   routes
 })
 
-router.afterEach((to) => { 
+router.afterEach((to) => {
   if (typeof window.gtag === 'function') {
     window.gtag('event', 'page_view', {
       page_title: to.name ? String(to.name) : to.path,

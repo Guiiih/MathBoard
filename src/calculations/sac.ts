@@ -1,20 +1,3 @@
-<template>
-  <div>
-      <NavBar />
-      <input-component :fields="formFields" @update="calculateResult" />
-      <result-component :resultado="resultado"/>
-  </div>
-</template>
-
-<script setup lang="ts">
-import 'katex/dist/katex.min.css';
-import { ref } from 'vue';
-
-import NavBar from '../components/NavBar.vue';
-import InputComponent from '../components/Form.vue';
-import ResultComponent from '../components/Result.vue';
-import { useKatexDisplay } from '../composables/useKatexDisplay';
-
 interface SacValues {
   valorFinanciado: number | null;
   taxaJuros: number | null;
@@ -23,15 +6,8 @@ interface SacValues {
   tempoTipo: 'anual' | 'mensal';
 }
 
-const { resultado, setKatexResult, clearKatexParts, formatNumberForLatex } = useKatexDisplay();
-
-const formFields = ref([
-    { id: 'valorFinanciado', label: 'Valor do Financiamento', placeholder: 'R$ 0,00' },
-    { id: 'taxaJuros', label: 'Taxa de Juros', placeholder: '0 %', type: 'interest' },
-    { id: 'numParcelas', label: 'Período', placeholder: '0', type: 'time' }
-]);
-
-const calculateResult = (values: SacValues) => {
+export function calculateSAC(values: SacValues, katexUtils: any) {
+  const { setKatexResult, clearKatexParts, formatNumberForLatex } = katexUtils;
   const { valorFinanciado, taxaJuros, numParcelas, jurosTipo, tempoTipo } = values;
 
   if (valorFinanciado === null || taxaJuros === null || numParcelas === null || numParcelas <= 0) {
@@ -85,16 +61,4 @@ const calculateResult = (values: SacValues) => {
   `;
 
   setKatexResult(formulaLatex);
-};
-</script>
-
-<style>
-#result-table {
-  font-size: 0.8rem;
 }
-@media (min-width: 640px) {
-  #result-table {
-    font-size: 1rem;
-  }
-}
-</style>

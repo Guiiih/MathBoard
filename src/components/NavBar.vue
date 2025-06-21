@@ -46,7 +46,6 @@ export default {
   data() {
     return {
         isMenuOpen: false,
-        // Removed isMobileMenuOpen: false,
         links: [
             { to: '/', text: 'Juros Simples' },
             { to: '/JurosComposto', text: 'Juros Composto' },
@@ -65,7 +64,7 @@ export default {
             { to: '/DescontoCompostoComercial', text: 'Desconto Composto Comercial' },
             { to: '/DescontoCompostoRacional', text: 'Desconto Composto Racional' },
             { to: '/DescontoSimplesComercial', text: 'Desconto Simples Comercial' },
-            { to: '/DescontoSimpostoRacional', text: 'Desconto Simples Racional' },
+            { to: '/DescontoSimplesRacional', text: 'Desconto Simples Racional' },
             { to: '/PagamentoAntecipado', text: 'Pagamento Antecipado' },
             { to: '/SerieDiferida', text: 'Série Diferida' },
             { to: '/SeriePostecipada', text: 'Série Postecipada' },

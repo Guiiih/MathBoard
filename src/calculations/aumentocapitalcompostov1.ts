@@ -1,33 +1,10 @@
-<template>
-  <div>
-      <NavBar />
-      <input-component :fields="formFields" @update="calculateResult" />
-      <result-component :resultado="resultado"/>
-  </div>
-</template>
-
-<script setup lang="ts">
-import 'katex/dist/katex.min.css';
-import { ref } from 'vue';
-
-import NavBar from '../components/NavBar.vue';
-import InputComponent from '../components/Form.vue';
-import ResultComponent from '../components/Result.vue';
-import { useKatexDisplay } from '../composables/useKatexDisplay';
-
 interface AumentoCapitalCompostoValues {
   aumento: number | null;
   juros: number | null;
 }
 
-const { resultado, setKatexResult, clearKatexParts, formatNumberForLatex } = useKatexDisplay();
-
-const formFields = ref([
-  { id: 'aumento', label: 'Aumento', placeholder: '0' },
-  { id: 'juros', label: 'Taxa De Juros', placeholder: '0 %' }
-]);
-
-const calculateResult = (values: AumentoCapitalCompostoValues) => {
+export function calculateAumentoCapitalCompostoV1(values: AumentoCapitalCompostoValues, katexUtils: any) {
+  const { resultado, setKatexResult, clearKatexParts, formatNumberForLatex } = katexUtils;
   const { aumento, juros } = values;
 
   if (aumento === null || juros === null || juros === 0 || aumento <= 0) {
@@ -44,9 +21,9 @@ const calculateResult = (values: AumentoCapitalCompostoValues) => {
   const aumentoFormatted = formatNumberForLatex(aumento);
   const jurosDecimalFormatted = formatNumberForLatex(jurosDecimal);
   const basePotenciaFormatted = formatNumberForLatex(basePotencia);
-  const logAumentoFormatted = formatNumberForLatex(logAumento); 
-  const logTaxaFormatted = formatNumberForLatex(logTaxa); 
-  const resultadoFinalFormatted = formatNumberForLatex(resultadoFinal); 
+  const logAumentoFormatted = formatNumberForLatex(logAumento);
+  const logTaxaFormatted = formatNumberForLatex(logTaxa);
+  const resultadoFinalFormatted = formatNumberForLatex(resultadoFinal);
 
   const formulaLatex = `
     \\begin{aligned}
@@ -61,5 +38,4 @@ const calculateResult = (values: AumentoCapitalCompostoValues) => {
   `;
 
   setKatexResult(formulaLatex);
-};
-</script>
+}

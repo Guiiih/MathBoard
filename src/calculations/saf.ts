@@ -1,20 +1,3 @@
-<template>
-  <div>
-      <NavBar />
-      <input-component :fields="formFields" @update="calculateResult" />
-      <result-component :resultado="resultado"/>
-  </div>
-</template>
-
-<script setup lang="ts">
-import 'katex/dist/katex.min.css';
-import { ref } from 'vue';
-
-import NavBar from '../components/NavBar.vue';
-import InputComponent from '../components/Form.vue';
-import ResultComponent from '../components/Result.vue';
-import { useKatexDisplay } from '../composables/useKatexDisplay';
-
 interface SafValues {
   capital: number | null;
   juros: number | null;
@@ -23,15 +6,8 @@ interface SafValues {
   tempoTipo: 'anual' | 'mensal';
 }
 
-const { resultado, setKatexResult, clearKatexParts, formatNumberForLatex } = useKatexDisplay();
-
-const formFields = ref([
-  { id: 'capital', label: 'Valor do Financiamento', placeholder: 'R$ 0,00' },
-  { id: 'juros', label: 'Taxa de Juros', placeholder: '0 %', type: 'interest' },
-  { id: 'parcelas', label: 'Número de Parcelas', placeholder: '0', type: 'time' }
-]);
-
-const calculateResult = (values: SafValues) => {
+export function calculateSAF(values: SafValues, katexUtils: any) {
+  const { setKatexResult, clearKatexParts, formatNumberForLatex } = katexUtils;
   const { capital, juros, parcelas, jurosTipo, tempoTipo } = values;
 
   if (capital === null || juros === null || parcelas === null || parcelas <= 0) {
@@ -68,5 +44,4 @@ const calculateResult = (values: SafValues) => {
   `;
 
   setKatexResult(formulaLatex);
-};
-</script>
+}

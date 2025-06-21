@@ -1,33 +1,10 @@
-<template>
-  <div>
-      <NavBar />
-      <input-component :fields="formFields" @update="calculateResult" />
-      <result-component :resultado="resultado" />
-  </div>
-</template>
-
-<script setup lang="ts">
-import 'katex/dist/katex.min.css';
-import { ref } from 'vue';
-
-import NavBar from '../components/NavBar.vue';
-import InputComponent from '../components/Form.vue';
-import ResultComponent from '../components/Result.vue';
-import { useKatexDisplay } from '../composables/useKatexDisplay';
-
 interface AumentoCapitalSimplesValues {
   aumento: number | null;
   juros: number | null;
 }
 
-const { resultado, setKatexResult, clearKatexParts, formatNumberForLatex } = useKatexDisplay();
-
-const formFields = ref([
-  { id: 'aumento', label: 'Aumento', placeholder: '0' },
-  { id: 'juros', label: 'Taxa De Juros', placeholder: '0 %' }
-]);
-
-const calculateResult = (values: AumentoCapitalSimplesValues) => {
+export function calculateAumentoCapitalSimplesV1(values: AumentoCapitalSimplesValues, katexUtils: any) {
+  const { setKatexResult, clearKatexParts, formatNumberForLatex } = katexUtils;
   const { aumento, juros } = values;
 
   if (aumento === null || juros === null || juros === 0 || aumento <= 1) {
@@ -57,5 +34,4 @@ const calculateResult = (values: AumentoCapitalSimplesValues) => {
   `;
 
   setKatexResult(formulaLatex);
-};
-</script>
+}

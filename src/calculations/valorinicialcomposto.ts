@@ -1,20 +1,3 @@
-<template>
-  <div>
-      <NavBar />
-      <input-component :fields="formFields" @update="calculateResult" />
-      <result-component :resultado="resultado" />
-  </div>
-</template>
-
-<script setup lang="ts">
-import 'katex/dist/katex.min.css';
-import { ref } from 'vue';
-
-import NavBar from '../components/NavBar.vue';
-import InputComponent from '../components/Form.vue';
-import ResultComponent from '../components/Result.vue';
-import { useKatexDisplay } from '../composables/useKatexDisplay';
-
 interface ValorInicialCompostoValues {
   montante: number | null;
   juros: number | null;
@@ -23,15 +6,8 @@ interface ValorInicialCompostoValues {
   tempoTipo: 'anual' | 'mensal';
 }
 
-const { resultado, setKatexResult, clearKatexParts, formatNumberForLatex } = useKatexDisplay();
-
-const formFields = ref([
-  { id: 'montante', label: 'Montante', placeholder: 'R$ 0,00' },
-  { id: 'juros', label: 'Taxa De Juros', placeholder: '0 %', type: 'interest' },
-  { id: 'tempo', label: 'Tempo', placeholder: '0', type: 'time' }
-]);
-
-const calculateResult = (values: ValorInicialCompostoValues) => {
+export function calculateValorInicialComposto(values: ValorInicialCompostoValues, katexUtils: any) {
+  const { setKatexResult, clearKatexParts, formatNumberForLatex } = katexUtils;
   const { montante, juros, tempo, jurosTipo, tempoTipo } = values;
 
   if (montante === null || juros === null || tempo === null) {
@@ -62,5 +38,4 @@ const calculateResult = (values: ValorInicialCompostoValues) => {
     `;
 
   setKatexResult(formulaLatex);
-};
-</script>
+}
