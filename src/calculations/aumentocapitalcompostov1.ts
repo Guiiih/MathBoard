@@ -4,7 +4,7 @@ interface AumentoCapitalCompostoValues {
 }
 
 export function calculateAumentoCapitalCompostoV1(values: AumentoCapitalCompostoValues, katexUtils: any) {
-  const { resultado, setKatexResult, clearKatexParts, formatNumberForLatex } = katexUtils;
+  const { setKatexResult, clearKatexParts, formatNumberForLatex } = katexUtils;
   const { aumento, juros } = values;
 
   if (aumento === null || juros === null || juros === 0 || aumento <= 0) {
@@ -39,3 +39,8 @@ export function calculateAumentoCapitalCompostoV1(values: AumentoCapitalComposto
 
   setKatexResult(formulaLatex);
 }
+
+export const formFieldsAumentoCapitalCompostoV1 = [
+  { id: 'aumento', label: 'Aumento', placeholder: '0' },
+  { id: 'juros', label: 'Taxa De Juros', placeholder: '0 %' }
+];

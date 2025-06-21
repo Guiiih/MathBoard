@@ -5,7 +5,7 @@ interface AumentoCapitalCompostoValues {
 }
 
 export function calculateAumentoCapitalCompostoV2(values: AumentoCapitalCompostoValues, katexUtils: any) {
-  const { resultado, setKatexResult, clearKatexParts, formatNumberForLatex } = katexUtils;
+  const { setKatexResult, clearKatexParts, formatNumberForLatex } = katexUtils;
   const { montante, capital, juros } = values;
 
   if (montante === null || capital === null || juros === null || capital === 0) {
@@ -41,3 +41,9 @@ export function calculateAumentoCapitalCompostoV2(values: AumentoCapitalComposto
 
   setKatexResult(formulaLatex);
 }
+
+export const formFieldsAumentoCapitalCompostoV2 = [
+  { id: 'montante', label: 'Montante', placeholder: 'R$ 0,00' },
+  { id: 'capital', label: 'Capital Inicial', placeholder: 'R$ 0,00' },
+  { id: 'juros', label: 'Taxa de Juros', placeholder: '0 %' }
+];

@@ -39,3 +39,9 @@ export function calculateValorInicialComposto(values: ValorInicialCompostoValues
 
   setKatexResult(formulaLatex);
 }
+
+export const formFieldsValorInicialComposto = [
+  { id: 'montante', label: 'Montante', placeholder: 'R$ 0,00' },
+  { id: 'juros', label: 'Taxa De Juros', placeholder: '0 %', type: 'interest' },
+  { id: 'tempo', label: 'Tempo', placeholder: '0', type: 'time' }
+];

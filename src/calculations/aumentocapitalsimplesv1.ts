@@ -35,3 +35,8 @@ export function calculateAumentoCapitalSimplesV1(values: AumentoCapitalSimplesVa
 
   setKatexResult(formulaLatex);
 }
+
+export const formFieldsAumentoCapitalSimplesV1 = [
+  { id: 'aumento', label: 'Aumento', placeholder: '0' },
+  { id: 'juros', label: 'Taxa De Juros', placeholder: '0 %' }
+];

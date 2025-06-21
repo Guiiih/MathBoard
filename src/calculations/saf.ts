@@ -45,3 +45,9 @@ export function calculateSAF(values: SafValues, katexUtils: any) {
 
   setKatexResult(formulaLatex);
 }
+
+export const formFieldsSAF = [
+  { id: 'capital', label: 'Valor do Financiamento', placeholder: 'R$ 0,00' },
+  { id: 'juros', label: 'Taxa de Juros', placeholder: '0 %', type: 'interest' },
+  { id: 'parcelas', label: 'Número de Parcelas', placeholder: '0', type: 'time' }
+];

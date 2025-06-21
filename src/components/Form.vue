@@ -4,25 +4,25 @@
 
       <div v-for="field in fields" :key="field.id" class="form-field-group">
         <label class="form-label">{{ field.label }}</label>
-        
-        <input 
+
+        <input
           v-if="!field.type || !['interest', 'time'].includes(field.type)"
-          v-model="formValues[field.id]" 
-          @input="emitUpdate" 
-          type="text" 
-          class="form-input" 
+          v-model="formValues[field.id]"
+          @input="emitUpdate"
+          type="text"
+          class="form-input"
           :placeholder="field.placeholder">
 
         <div v-if="['interest', 'time'].includes(field.type)" class="form-input-group">
-          <input 
-            v-model="formValues[field.id]" 
-            @input="emitUpdate" 
-            type="text" 
+          <input
+            v-model="formValues[field.id]"
+            @input="emitUpdate"
+            type="text"
             class="form-input-grouped"
             :placeholder="field.placeholder">
-          <select 
-            v-model="formValues[field.type === 'interest' ? 'jurosTipo' : 'tempoTipo']" 
-            @change="emitUpdate" 
+          <select
+            v-model="formValues[field.type === 'interest' ? 'jurosTipo' : 'tempoTipo']"
+            @change="emitUpdate"
             class="form-select">
               <option value="anual">Anual</option>
               <option value="mensal">Mensal</option>
@@ -38,7 +38,7 @@
 import { ref, defineProps, defineEmits, watch } from 'vue';
 
 const props = defineProps({
-  fields: {
+  fields: { // Apenas a prop 'fields' é necessária
     type: Array,
     required: true,
     default: () => []
@@ -63,7 +63,7 @@ function parseNumber(value) {
     if (typeof value !== 'string') return value;
     const cleanedValue = value.replace(',', '.');
     const num = parseFloat(cleanedValue);
-    return isNaN(num) ? null : num; 
+    return isNaN(num) ? null : num;
 }
 
 function emitUpdate() {

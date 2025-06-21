@@ -35,3 +35,9 @@ export function calculateJurosComposto(values: JurosCompostoValues, katexUtils: 
 
   setKatexResult(formulaLatex);
 }
+
+export const formFieldsJurosComposto = [
+  { id: 'capital', label: 'Capital Inicial', placeholder: 'R$ 0,00' },
+  { id: 'juros', label: 'Taxa De Juros', placeholder: '0 %', type: 'interest' },
+  { id: 'tempo', label: 'Tempo', placeholder: '0', type: 'time' }
+];

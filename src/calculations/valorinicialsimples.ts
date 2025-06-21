@@ -36,3 +36,9 @@ export function calculateValorInicialSimples(values: ValorInicialValues, katexUt
 
   setKatexResult(formulaLatex);
 }
+
+export const formFieldsValorInicialSimples = [
+  { id: 'montante', label: 'Montante', placeholder: 'R$ 0,00' },
+  { id: 'juros', label: 'Taxa De Juros', placeholder: '0 %', type: 'interest' },
+  { id: 'tempo', label: 'Tempo', placeholder: '0', type: 'time' }
+];

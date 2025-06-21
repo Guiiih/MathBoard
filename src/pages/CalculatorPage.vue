@@ -16,28 +16,28 @@ import InputComponent from '../components/Form.vue';
 import ResultComponent from '../components/Result.vue';
 import { useKatexDisplay } from '../composables/useKatexDisplay';
 
-import { calculateJurosSimples } from '../calculations/jurossimples'; 
-import { calculateJurosComposto } from '../calculations/juroscomposto'; 
-import { calculateValorInicialSimples } from '../calculations/valorinicialsimples'; 
-import { calculateValorInicialComposto } from '../calculations/valorinicialcomposto'; 
-import { calculateAumentoCapitalSimplesV1 } from '../calculations/aumentocapitalsimplesv1'; 
-import { calculateAumentoCapitalSimplesV2 } from '../calculations/aumentocapitalsimplesv2'; 
-import { calculateAumentoCapitalCompostoV1 } from '../calculations/aumentocapitalcompostov1'; 
-import { calculateAumentoCapitalCompostoV2 } from '../calculations/aumentocapitalcompostov2'; 
-import { calculateSAF } from '../calculations/saf'; 
-import { calculateSAC } from '../calculations/sac'; 
-import { calculateSAM } from '../calculations/sam'; 
-import { calculateSSA } from '../calculations/ssa'; 
-import { calculateCorrecaoMonetaria01 } from '../calculations/correcaomonetaria01'; 
-import { calculateCorrecaoMonetaria02 } from '../calculations/correcaomonetaria02'; 
-import { calculateDescontoCompostoComercial } from '../calculations/descontocompostocomercial'; 
-import { calculateDescontoCompostoRacional } from '../calculations/descontocompostoracional'; 
-import { calculateDescontoSimplesComercial } from '../calculations/descontosimplescomercial'; 
-import { calculateDescontoSimplesRacional } from '../calculations/descontosimplesracional'; 
-import { calculatePagamentoAntecipado } from '../calculations/pagamentoantecipado'; 
-import { calculateSerieDiferida } from '../calculations/seriediferida'; 
-import { calculateSeriePostecipada } from '../calculations/seriepostecipada'; 
-import { calculateTaxaDesvalorizacaoMoeda } from '../calculations/taxadesvalorizacaomoeda'; 
+import { calculateJurosSimples, formFieldsJurosSimples } from '../calculations/jurossimples';
+import { calculateJurosComposto, formFieldsJurosComposto } from '../calculations/juroscomposto';
+import { calculateValorInicialSimples, formFieldsValorInicialSimples } from '../calculations/valorinicialsimples';
+import { calculateValorInicialComposto, formFieldsValorInicialComposto } from '../calculations/valorinicialcomposto';
+import { calculateAumentoCapitalSimplesV1, formFieldsAumentoCapitalSimplesV1 } from '../calculations/aumentocapitalsimplesv1';
+import { calculateAumentoCapitalSimplesV2, formFieldsAumentoCapitalSimplesV2 } from '../calculations/aumentocapitalsimplesv2';
+import { calculateAumentoCapitalCompostoV1, formFieldsAumentoCapitalCompostoV1 } from '../calculations/aumentocapitalcompostov1';
+import { calculateAumentoCapitalCompostoV2, formFieldsAumentoCapitalCompostoV2 } from '../calculations/aumentocapitalcompostov2';
+import { calculateSAF, formFieldsSAF } from '../calculations/saf';
+import { calculateSAC, formFieldsSAC } from '../calculations/sac';
+import { calculateSAM, formFieldsSAM } from '../calculations/sam';
+import { calculateSSA, formFieldsSSA } from '../calculations/ssa';
+import { calculateCorrecaoMonetaria01, formFieldsCorrecaoMonetaria01 } from '../calculations/correcaomonetaria01';
+import { calculateCorrecaoMonetaria02, formFieldsCorrecaoMonetaria02 } from '../calculations/correcaomonetaria02';
+import { calculateDescontoCompostoComercial, formFieldsDescontoCompostoComercial } from '../calculations/descontocompostocomercial';
+import { calculateDescontoCompostoRacional, formFieldsDescontoCompostoRacional } from '../calculations/descontocompostoracional';
+import { calculateDescontoSimplesComercial, formFieldsDescontoSimplesComercial } from '../calculations/descontosimplescomercial';
+import { calculateDescontoSimplesRacional, formFieldsDescontoSimplesRacional } from '../calculations/descontosimplesracional';
+import { calculatePagamentoAntecipado, formFieldsPagamentoAntecipado } from '../calculations/pagamentoantecipado';
+import { calculateSerieDiferida, formFieldsSerieDiferida } from '../calculations/seriediferida';
+import { calculateSeriePostecipada, formFieldsSeriePostecipada } from '../calculations/seriepostecipada';
+import { calculateTaxaDesvalorizacaoMoeda, formFieldsTaxaDesvalorizacaoMoeda } from '../calculations/taxadesvalorizacaomoeda';
 
 
 const route = useRoute();
@@ -53,129 +53,91 @@ interface CalculationConfig {
 
 const calculationRoutes: Record<string, CalculationConfig> = {
   '/': { 
-    fields: [
-      { id: 'capital', label: 'Capital Inicial', placeholder: 'R$ 0,00' },
-      { id: 'juros', label: 'Taxa De Juros', placeholder: '0 %', type: 'interest' },
-      { id: 'tempo', label: 'Tempo', placeholder: '0', type: 'time' }
-    ],
+    fields: formFieldsJurosSimples,
     calculate: calculateJurosSimples
   },
   '/JurosComposto': {
-    fields: [
-      { id: 'capital', label: 'Capital Inicial', placeholder: 'R$ 0,00' },
-      { id: 'juros', label: 'Taxa De Juros', placeholder: '0 %', type: 'interest' },
-      { id: 'tempo', label: 'Tempo', placeholder: '0', type: 'time' }
-    ],
+    fields: formFieldsJurosComposto,
     calculate: calculateJurosComposto
   },
   '/ValorInicialSimples': {
-    fields: [
-      { id: 'montante', label: 'Montante', placeholder: 'R$ 0,00' },
-      { id: 'juros', label: 'Taxa De Juros', placeholder: '0 %', type: 'interest' },
-      { id: 'tempo', label: 'Tempo', placeholder: '0', type: 'time' }
-    ],
+    fields: formFieldsValorInicialSimples,
     calculate: calculateValorInicialSimples
   },
   '/ValorInicialComposto': {
-    fields: [
-      { id: 'montante', label: 'Montante', placeholder: 'R$ 0,00' },
-      { id: 'juros', label: 'Taxa De Juros', placeholder: '0 %', type: 'interest' },
-      { id: 'tempo', label: 'Tempo', placeholder: '0', type: 'time' }
-    ],
+    fields: formFieldsValorInicialComposto,
     calculate: calculateValorInicialComposto
   },
   '/AumentoCapitalSimplesV1': {
-    fields: [
-      { id: 'aumento', label: 'Aumento', placeholder: '0' },
-      { id: 'juros', label: 'Taxa De Juros', placeholder: '0 %' }
-    ],
+    fields: formFieldsAumentoCapitalSimplesV1,
     calculate: calculateAumentoCapitalSimplesV1
   },
   '/AumentoCapitalSimplesV2': {
-    fields: [
-      { id: 'montante', label: 'Montante', placeholder: 'R$ 0,00' },
-      { id: 'capital', label: 'Capital Inicial', placeholder: 'R$ 0,00' },
-      { id: 'juros', label: 'Taxa de Juros', placeholder: '0 %' }
-    ],
+    fields: formFieldsAumentoCapitalSimplesV2,
     calculate: calculateAumentoCapitalSimplesV2
   },
   '/AumentoCapitalCompostoV1': {
-    fields: [
-      { id: 'aumento', label: 'Aumento', placeholder: '0' },
-      { id: 'juros', label: 'Taxa De Juros', placeholder: '0 %' }
-    ],
+    fields: formFieldsAumentoCapitalCompostoV1,
     calculate: calculateAumentoCapitalCompostoV1
   },
   '/AumentoCapitalCompostoV2': {
-    fields: [
-      { id: 'montante', label: 'Montante', placeholder: 'R$ 0,00' },
-      { id: 'capital', label: 'Capital Inicial', placeholder: 'R$ 0,00' },
-      { id: 'juros', label: 'Taxa de Juros', placeholder: '0 %' }
-    ],
+    fields: formFieldsAumentoCapitalCompostoV2,
     calculate: calculateAumentoCapitalCompostoV2
   },
   '/SAF': {
-    fields: [
-      { id: 'capital', label: 'Valor do Financiamento', placeholder: 'R$ 0,00' },
-      { id: 'juros', label: 'Taxa de Juros', placeholder: '0 %', type: 'interest' },
-      { id: 'parcelas', label: 'Número de Parcelas', placeholder: '0', type: 'time' }
-    ],
+    fields: formFieldsSAF,
     calculate: calculateSAF
   },
   '/SAC': {
-    fields: [
-      { id: 'valorFinanciado', label: 'Valor do Financiamento', placeholder: 'R$ 0,00' },
-      { id: 'taxaJuros', label: 'Taxa de Juros', placeholder: '0 %', type: 'interest' },
-      { id: 'numParcelas', label: 'Período', placeholder: '0', type: 'time' }
-    ],
+    fields: formFieldsSAC,
     calculate: calculateSAC
   },
   '/SAM': {
-    fields: [], 
+    fields: formFieldsSAM, 
     calculate: calculateSAM
   },
   '/SSA': {
-    fields: [], 
+    fields: formFieldsSSA, 
     calculate: calculateSSA
   },
   '/CorrecaoMonetaria01': {
-    fields: [], 
+    fields: formFieldsCorrecaoMonetaria01, 
     calculate: calculateCorrecaoMonetaria01
   },
   '/CorrecaoMonetaria02': {
-    fields: [], 
+    fields: formFieldsCorrecaoMonetaria02, 
     calculate: calculateCorrecaoMonetaria02
   },
   '/DescontoCompostoComercial': {
-    fields: [], 
+    fields: formFieldsDescontoCompostoComercial, 
     calculate: calculateDescontoCompostoComercial
   },
   '/DescontoCompostoRacional': {
-    fields: [], 
+    fields: formFieldsDescontoCompostoRacional, 
     calculate: calculateDescontoCompostoRacional
   },
   '/DescontoSimplesComercial': {
-    fields: [], 
+    fields: formFieldsDescontoSimplesComercial, 
     calculate: calculateDescontoSimplesComercial
   },
   '/DescontoSimplesRacional': {
-    fields: [], 
+    fields: formFieldsDescontoSimplesRacional, 
     calculate: calculateDescontoSimplesRacional
   },
   '/PagamentoAntecipado': {
-    fields: [], 
+    fields: formFieldsPagamentoAntecipado, 
     calculate: calculatePagamentoAntecipado
   },
   '/SerieDiferida': {
-    fields: [], 
+    fields: formFieldsSerieDiferida, 
     calculate: calculateSerieDiferida
   },
   '/SeriePostecipada': {
-    fields: [], 
+    fields: formFieldsSeriePostecipada, 
     calculate: calculateSeriePostecipada
   },
   '/TaxaDesvalorizacaoMoeda': {
-    fields: [], 
+    fields: formFieldsTaxaDesvalorizacaoMoeda, 
     calculate: calculateTaxaDesvalorizacaoMoeda
   },
 };
@@ -186,6 +148,11 @@ watch(() => route.path, (newPath) => {
     formFields.value = config.fields;
     calculationFunction = config.calculate;
     clearKatexParts(); 
+    if (config.fields.length === 0 && calculationFunction) {
+        const defaultInputsForNoFields = { input1: 1, input4: 100 }; 
+        calculationFunction(defaultInputsForNoFields, { setKatexResult, clearKatexParts, formatNumberForLatex, parseNumber, approximationSymbol });
+    }
+
   } else {
     formFields.value = [];
     calculationFunction = null;

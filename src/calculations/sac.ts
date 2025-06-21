@@ -62,3 +62,9 @@ export function calculateSAC(values: SacValues, katexUtils: any) {
 
   setKatexResult(formulaLatex);
 }
+
+export const formFieldsSAC = [
+  { id: 'valorFinanciado', label: 'Valor do Financiamento', placeholder: 'R$ 0,00' },
+  { id: 'taxaJuros', label: 'Taxa de Juros', placeholder: '0 %', type: 'interest' },
+  { id: 'numParcelas', label: 'Período', placeholder: '0', type: 'time' }
+];
