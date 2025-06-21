@@ -221,6 +221,7 @@ body.dark-theme .theme-toggle-button svg {
   display: flex;
   flex-direction: column;
   text-align: left;
+  margin-bottom: 0.5rem;
 }
 
 .form-label {
