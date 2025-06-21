@@ -2,16 +2,13 @@
   <div class="form-wrapper">
     <div class='form-container'>
       <div v-for="field in fields" :key="field.id" class="form-field-group">
-        <label class="form-label" :for="field.id">{{ field.label }}</label>
-
-        <input
+        <label class="form-label" :for="field.id">{{ $t(field.label) }}</label> <input
           v-if="!field.type || !['interest', 'time'].includes(field.type)"
           v-model="formValues[field.id]"
           @input="handleInput(field.id)"
           @keydown="handleKeyDown($event, field.id)" type="text"
           class="form-input"
-          :placeholder="field.placeholder"
-          :id="field.id"
+          :placeholder="$t(field.placeholder)" :id="field.id"
           aria-label="Campo de entrada"
         >
 
@@ -21,8 +18,7 @@
             @input="handleInput(field.id)"
             @keydown="handleKeyDown($event, field.id)" type="text"
             class="form-input-grouped"
-            :placeholder="field.placeholder"
-            :id="field.id"
+            :placeholder="$t(field.placeholder)" :id="field.id"
             aria-label="Campo de entrada"
           >
           <select
@@ -32,13 +28,10 @@
             :id="field.type === 'interest' ? 'jurosTipo' : 'tempoTipo'"
             :aria-label="field.type === 'interest' ? 'Tipo de juros' : 'Tipo de tempo'"
           >
-              <option value="anual">Anual</option>
-              <option value="mensal">Mensal</option>
-          </select>
+              <option value="anual">{{ $t('calculator.anual') }}</option> <option value="mensal">{{ $t('calculator.mensal') }}</option> </select>
         </div>
         <div class="error-message-container">
-          <p v-if="errors[field.id]" class="error-message">{{ errors[field.id] }}</p>
-        </div>
+          <p v-if="errors[field.id]" class="error-message">{{ $t('calculator.errorMessageInvalidNumber') }}</p> </div>
       </div>
     </div>
   </div>
@@ -46,6 +39,9 @@
 
 <script setup>
 import { ref, defineProps, defineEmits, watch } from 'vue';
+import { useI18n } from 'vue-i18n'; 
+
+const { t } = useI18n(); 
 
 const props = defineProps({
   fields: {
@@ -88,7 +84,7 @@ function validateField(fieldId) {
   }
   const parsedValue = parseNumber(value);
   if (parsedValue === null) {
-    errors.value[fieldId] = 'Por favor, insira um número válido.';
+    errors.value[fieldId] = t('calculator.errorMessageInvalidNumber'); 
     return false;
   }
   errors.value[fieldId] = '';

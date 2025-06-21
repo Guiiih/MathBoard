@@ -33,7 +33,7 @@ export function calculateJurosSimples(values: JurosSimplesValues, katexUtils: an
 }
 
 export const formFieldsJurosSimples = [
-  { id: 'capital', label: 'Capital Inicial', placeholder: 'R$ 0,00' },
-  { id: 'juros', label: 'Taxa De Juros', placeholder: '0 %', type: 'interest' },
-  { id: 'tempo', label: 'Tempo', placeholder: '0', type: 'time' }
+  { id: 'capital', label: 'calculator.capitalInicial', placeholder: 'calculator.placeholderCurrency' },
+  { id: 'juros', label: 'calculator.juros', placeholder: 'calculator.placeholderPercentage', type: 'interest' },
+  { id: 'tempo', label: 'calculator.tempo', placeholder: 'calculator.placeholderNumber', type: 'time' }
 ];

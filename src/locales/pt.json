@@ -1,0 +1,47 @@
+{
+  "calculator": {
+    "montante": "Montante",
+    "juros": "Taxa de Juros",
+    "tempo": "Tempo",
+    "capitalInicial": "Capital Inicial",
+    "valorFinanciado": "Valor do Financiamento",
+    "numParcelas": "Número de Parcelas",
+    "aumento": "Aumento",
+    "anual": "Anual",
+    "mensal": "Mensal",
+    "placeholderCurrency": "R$ 0,00",
+    "placeholderPercentage": "0 %",
+    "placeholderNumber": "0",
+    "errorMessageInvalidNumber": "Por favor, insira um número válido."
+  },
+  "navbar": {
+    "operations": "Operações",
+    "jurosSimples": "Juros Simples",
+    "jurosComposto": "Juros Composto",
+    "valorInicialSimples": "Valor Inicial Simples",
+    "valorInicialComposto": "Valor Inicial Composto",
+    "aumentoCapitalSimplesV1": "Aumento Capital Simples V1",
+    "aumentoCapitalSimplesV2": "Aumento Capital Simples V2",
+    "aumentoCapitalCompostoV1": "Aumento Capital Composto V1",
+    "aumentoCapitalCompostoV2": "Aumento Capital Composto V2",
+    "saf": "SAF",
+    "sac": "SAC",
+    "sam": "SAM",
+    "ssa": "SSA",
+    "correcaoMonetaria01": "Correção Monetária 01",
+    "correcaoMonetaria02": "Correção Monetária 02",
+    "descontoCompostoComercial": "Desconto Composto Comercial",
+    "descontoCompostoRacional": "Desconto Composto Racional",
+    "descontoSimplesComercial": "Desconto Simples Comercial",
+    "descontoSimplesRacional": "Desconto Simples Racional",
+    "pagamentoAntecipado": "Pagamento Antecipado",
+    "serieDiferida": "Série Diferida",
+    "seriePostecipada": "Série Postecipada",
+    "taxaDesvalorizacaoMoeda": "Taxa Desvalorização Moeda",
+    "darkMode": "Mudar para tema escuro",
+    "lightMode": "Mudar para tema claro"
+  },
+  "footer": {
+    "copyright": "Guilherme Nascimento. Todos os direitos reservados."
+  }
+}

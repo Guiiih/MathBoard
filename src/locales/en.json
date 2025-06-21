@@ -1,0 +1,47 @@
+{
+  "calculator": {
+    "montante": "Amount",
+    "juros": "Interest Rate",
+    "tempo": "Time",
+    "capitalInicial": "Initial Capital",
+    "valorFinanciado": "Financed Amount",
+    "numParcelas": "Number of Installments",
+    "aumento": "Increase",
+    "anual": "Annual",
+    "mensal": "Monthly",
+    "placeholderCurrency": "$ 0.00",
+    "placeholderPercentage": "0 %",
+    "placeholderNumber": "0",
+    "errorMessageInvalidNumber": "Please enter a valid number."
+  },
+  "navbar": {
+    "operations": "Operations",
+    "jurosSimples": "Simple Interest",
+    "jurosComposto": "Compound Interest",
+    "valorInicialSimples": "Simple Initial Value",
+    "valorInicialComposto": "Compound Initial Value",
+    "aumentoCapitalSimplesV1": "Simple Capital Increase V1",
+    "aumentoCapitalSimplesV2": "Simple Capital Increase V2",
+    "aumentoCapitalCompostoV1": "Compound Capital Increase V1",
+    "aumentoCapitalCompostoV2": "Compound Capital Increase V2",
+    "saf": "SAF",
+    "sac": "SAC",
+    "sam": "SAM",
+    "ssa": "SSA",
+    "correcaoMonetaria01": "Monetary Correction 01",
+    "correcaoMonetaria02": "Monetary Correction 02",
+    "descontoCompostoComercial": "Compound Commercial Discount",
+    "descontoCompostoRacional": "Compound Rational Discount",
+    "descontoSimplesComercial": "Simple Commercial Discount",
+    "descontoSimplesRacional": "Simple Rational Discount",
+    "pagamentoAntecipado": "Anticipated Payment",
+    "serieDiferida": "Deferred Series",
+    "seriePostecipada": "Postponed Series",
+    "taxaDesvalorizacaoMoeda": "Currency Devaluation Rate",
+    "darkMode": "Switch to dark theme",
+    "lightMode": "Switch to light theme"
+  },
+  "footer": {
+    "copyright": "Guilherme Nascimento. All rights reserved."
+  }
+}
