@@ -4,9 +4,21 @@ interface TaxaDesvalorizacaoMoedaValues {
 }
 
 export function calculateTaxaDesvalorizacaoMoeda(values: TaxaDesvalorizacaoMoedaValues, katexUtils: any) {
-  const { setKatexResult, clearKatexParts, parseNumber, approximationSymbol } = katexUtils;
+  const { setKatexResult, clearKatexParts} = katexUtils;
+  const { aumento, taxa } = values;
 
-  const formulaLatex = ``;
+  const finalAumento = aumento !== null ? aumento : 1; 
+  const finalTaxa = taxa !== null ? taxa : 10;   
+
+  if (finalAumento === null || finalTaxa === null) {
+    clearKatexParts();
+    return;
+  }
+
+  const formulaLatex = `
+    \\begin{aligned}
+    \\end{aligned}
+  `;
 
   setKatexResult(formulaLatex);
 }
