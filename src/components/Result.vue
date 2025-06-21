@@ -3,9 +3,14 @@
     <div class="result-flex-container">
       <div class="result-container">
         <div v-if="resultado" class="result-content">
-          <div class="result-output overflow-x-auto">
+          <div
+            class="result-output overflow-x-auto"
+            role="region" 
+            aria-live="polite" 
+            aria-atomic="true" 
+          >
             <div v-html="resultado" class="result-output-inner"></div>
-          </div>
+            </div>
           </div>
       </div>
     </div>

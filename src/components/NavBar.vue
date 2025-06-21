@@ -8,17 +8,31 @@
 
           <div class="nav-menu-desktop">
             <div class="nav-dropdown">
-                <button class="nav-dropdown-button" type="button" @click="toggleMenu">
+                <button
+                    class="nav-dropdown-button"
+                    type="button"
+                    @click="toggleMenu"
+                    @keydown.esc="isMenuOpen = false" :aria-expanded="isMenuOpen ? 'true' : 'false'"
+                    aria-haspopup="true"
+                    aria-controls="dropdown-menu"
+                >
                     <span class="truncate">{{ currentPageName }}</span>
                     <svg class="nav-dropdown-icon" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div v-show="isMenuOpen" @click.away="isMenuOpen = false" class="nav-dropdown-menu">
-                    <router-link v-for="link in links" :key="link.to" :to="link.to" @click="isMenuOpen = false" class="nav-dropdown-item">{{ link.text }}</router-link>
+                <div v-show="isMenuOpen" @click.away="isMenuOpen = false" class="nav-dropdown-menu" id="dropdown-menu" role="menu">
+                    <router-link
+                        v-for="link in links"
+                        :key="link.to"
+                        :to="link.to"
+                        @click="isMenuOpen = false"
+                        class="nav-dropdown-item"
+                        role="menuitem"
+                    >{{ link.text }}</router-link>
                 </div>
             </div>
-            <button @click="themeContext.toggleTheme()" class="theme-toggle-button">
+            <button @click="themeContext.toggleTheme()" class="theme-toggle-button" :aria-label="themeContext.theme.value === 'light' ? 'Mudar para tema escuro' : 'Mudar para tema claro'">
               <svg v-if="themeContext.theme.value === 'light'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                 <path d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.166a.75.75 0 0 0-1.06-1.06l-1.592 1.591a.75.75 0 0 0 1.06 1.061l1.591-1.591ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM18.894 17.834a.75.75 0 0 0 1.06-1.06l-1.591-1.592a.75.75 0 0 0-1.061 1.06l1.592 1.591ZM12 21.75a.75.75 0 0 1-.75-.75v-2.25a.75.75 0 0 1 1.5 0v2.25a.75.75 0 0 1-.75.75ZM5.05 17.834a.75.75 0 0 0 1.06 1.06l1.591-1.592a.75.75 0 0 0-1.06-1.061l-1.592 1.591ZM3 12a.75.75 0 0 1 .75-.75h2.25a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12ZM5.05 6.166a.75.75 0 0 0-1.061 1.06l1.592 1.591a.75.75 0 0 0 1.06-1.061L5.05 6.166Z" />
               </svg>
