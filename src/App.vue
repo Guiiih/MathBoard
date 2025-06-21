@@ -9,15 +9,18 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { provideTheme } from './composables/useTheme';
 
 const currentYear = ref(new Date().getFullYear());
+
+provideTheme();
 </script>
 
 <style>
 .app-footer {
   text-align: center;
-  margin-top: 2rem; 
+  margin-top: 2rem;
   font-size: 0.9rem;
-  color: #6b7280; 
+  color: #6b7280;
 }
 </style>
