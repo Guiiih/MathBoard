@@ -310,6 +310,7 @@ body.dark-theme .theme-toggle-button svg {
   border-radius: 0.5rem;
   background-color: var(--brand-green); 
   color: white;
+
 }
 
 .result-content {
@@ -321,6 +322,7 @@ body.dark-theme .theme-toggle-button svg {
 .result-output {
   overflow-x: auto;
   text-align: center;
+    padding: 2rem;
 }
 
 .result-output-inner {
