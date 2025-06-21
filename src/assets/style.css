@@ -290,6 +290,12 @@ body.dark-theme .theme-toggle-button svg {
 }
 
 
+.error-message {
+  color: red;
+  font-size: 0.75rem;
+  margin-top: 0.25rem; 
+}
+
 /* Result.vue */
 .result-wrapper {
   position: relative;
@@ -448,6 +454,7 @@ body.dark-theme .theme-toggle-button svg {
   .result-container {
     width: 83.333333%;
   }
+
 }
 
 @media (min-width: 768px) {
@@ -462,6 +469,13 @@ body.dark-theme .theme-toggle-button svg {
   }
   .result-container {
     width: 83.333333%;
+  }
+  .error-message-container {
+    min-height: 1.8rem; 
+    display: flex; 
+    align-items: center; 
+    justify-content: flex-start; 
+    width: 100%; 
   }
 
 }

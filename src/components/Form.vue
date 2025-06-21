@@ -1,14 +1,13 @@
 <template>
   <div class="form-wrapper">
     <div class='form-container'>
-
       <div v-for="field in fields" :key="field.id" class="form-field-group">
         <label class="form-label" :for="field.id">{{ field.label }}</label>
 
         <input
           v-if="!field.type || !['interest', 'time'].includes(field.type)"
           v-model="formValues[field.id]"
-          @input="emitUpdate"
+          @input="handleInput(field.id)"
           @keydown="handleKeyDown($event, field.id)" type="text"
           class="form-input"
           :placeholder="field.placeholder"
@@ -19,7 +18,7 @@
         <div v-if="['interest', 'time'].includes(field.type)" class="form-input-group">
           <input
             v-model="formValues[field.id]"
-            @input="emitUpdate"
+            @input="handleInput(field.id)"
             @keydown="handleKeyDown($event, field.id)" type="text"
             class="form-input-grouped"
             :placeholder="field.placeholder"
@@ -37,8 +36,10 @@
               <option value="mensal">Mensal</option>
           </select>
         </div>
+        <div class="error-message-container">
+          <p v-if="errors[field.id]" class="error-message">{{ errors[field.id] }}</p>
+        </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -57,15 +58,19 @@ const props = defineProps({
 const emit = defineEmits(['update']);
 
 const formValues = ref({});
+const errors = ref({});
 
 watch(() => props.fields, (newFields) => {
   const initialValues = {};
+  const initialErrors = {};
   newFields.forEach(field => {
     initialValues[field.id] = '';
+    initialErrors[field.id] = '';
     if (field.type === 'interest') initialValues.jurosTipo = 'mensal';
     if (field.type === 'time') initialValues.tempoTipo = 'mensal';
   });
   formValues.value = initialValues;
+  errors.value = initialErrors;
 }, { immediate: true });
 
 function parseNumber(value) {
@@ -73,6 +78,26 @@ function parseNumber(value) {
     const cleanedValue = value.replace(',', '.');
     const num = parseFloat(cleanedValue);
     return isNaN(num) ? null : num;
+}
+
+function validateField(fieldId) {
+  const value = formValues.value[fieldId];
+  if (value === '') {
+    errors.value[fieldId] = '';
+    return true;
+  }
+  const parsedValue = parseNumber(value);
+  if (parsedValue === null) {
+    errors.value[fieldId] = 'Por favor, insira um número válido.';
+    return false;
+  }
+  errors.value[fieldId] = '';
+  return true;
+}
+
+function handleInput(fieldId) {
+  validateField(fieldId);
+  emitUpdate();
 }
 
 function handleKeyDown(event, fieldId) {
@@ -95,17 +120,29 @@ function handleKeyDown(event, fieldId) {
     currentValue -= step;
   }
 
-  formValues.value[fieldId] = String(currentValue).replace('.', ','); 
+  formValues.value[fieldId] = String(currentValue).replace('.', ',');
+  validateField(fieldId);
   emitUpdate();
 }
 
 function emitUpdate() {
   const valuesToEmit = { ...formValues.value };
+  let allValid = true;
+
   for (const key in valuesToEmit) {
     if (key !== 'jurosTipo' && key !== 'tempoTipo') {
+      const isValid = validateField(key);
+      if (!isValid) {
+        allValid = false;
+      }
       valuesToEmit[key] = parseNumber(valuesToEmit[key]);
     }
   }
-  emit('update', valuesToEmit);
+
+  if (allValid) {
+    emit('update', valuesToEmit);
+  } else {
+    emit('update', {});
+  }
 }
 </script>
