@@ -3,8 +3,8 @@
     <router-view />
     <footer class="app-footer">
       <p>&copy; {{ currentYear }} {{ $t('footer.copyright') }}</p>
-      <LanguageSwitcher class="language-switcher-bottom-right" />
     </footer>
+    <LanguageSwitcher class="language-switcher-fixed-bottom-right" />
   </div>
 </template>
 
@@ -19,3 +19,7 @@ const { t } = useI18n();
 
 provideTheme();
 </script>
+
+<style>
+
+</style>

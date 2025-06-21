@@ -414,33 +414,49 @@ body.dark-theme .theme-toggle-button svg {
 
 /* App.vue */
 .app-footer {
-  text-align: center; 
-  font-size: 0.9rem; 
-  color: #6b7280; 
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #6b7280;
   position: relative; 
-}
-
-.language-switcher-fixed-bottom-right {
-  position: fixed;
-  bottom: 0.5rem; 
-  right: 0.5rem; 
-  z-index: 1000; 
+  padding-bottom: 1.8rem; 
 }
 
 /* LanguageSwitcher.vue */
 
-.nav-dropdown {
-  position: relative; 
-  display: inline-block; 
-  text-align: left; 
+.language-selector-dropdown {
+  position: fixed;
+  bottom: 0.5rem;
+  right: 1rem; 
 }
 
-body.dark-theme .nav-dropdown-button {
+.language-selector-button {
+  width: 3.5rem;
+  padding: 0.6rem 0.5rem; 
+  font-size: 0.75rem; 
+  color: var(--brand-green); 
+  border: 1px solid var(--brand-green); 
+  font-weight: 500;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+body.dark-theme .language-selector-button {
   color: white; 
   border-color: white; 
 }
 
-.nav-dropdown-button svg {
+.language-selector-button .truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.language-selector-icon {
   width: 1rem; 
   height: 1rem; 
   margin-left: 0.5rem; 
@@ -448,37 +464,38 @@ body.dark-theme .nav-dropdown-button {
   color: var(--brand-green); 
 }
 
-body.dark-theme .nav-dropdown-button svg {
+body.dark-theme .language-selector-icon {
   color: white; 
 }
 
-.nav-dropdown-item {
+.language-selector-menu {
+  position: absolute;
+  right: 0;
+  z-index: 10;
+  margin-top: 0.5rem;
+  background-color: var(--green-light); 
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  width: 3.5rem; 
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--input-text); 
+  max-height: 24rem;
+  overflow-y: auto;
+  bottom: calc(100% + 0.5rem); 
+}
+
+.language-selector-item {
   display: block; 
   padding: 0.5rem 1rem; 
   text-decoration: none; 
   color: var(--input-text); 
 }
 
-.nav-dropdown-item:hover {
+.language-selector-item:hover {
   background-color: var(--input-bg); 
   color: var(--brand-green); 
-}
-
-.language-dropdown-button {
-  width: 3.5rem;
-  padding: 0.6rem 0.5rem; 
-  font-size: 0.75rem; 
-}
-
-.language-dropdown-button .truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.language-dropdown-menu {
-  width: 3.5rem; 
-  bottom: calc(100% + 0.5rem); 
 }
 
 /* Media Queries */
@@ -545,6 +562,11 @@ body.dark-theme .nav-dropdown-button svg {
     justify-content: flex-start; 
     width: 100%; 
   }
+  .language-selector-dropdown {
+    position: absolute;
+    bottom: 1.5rem; 
+    right: 1rem; 
+  }
 
 }
 
@@ -564,4 +586,5 @@ body.dark-theme .nav-dropdown-button svg {
   .form-select {
     width: 4rem;
   }
+  
 }
