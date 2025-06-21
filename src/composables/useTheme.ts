@@ -1,5 +1,4 @@
-// src/composables/useTheme.ts
-import { ref, watchEffect, provide, inject, Ref } from 'vue'; // Added Ref import
+import { ref, watchEffect, provide, inject, Ref } from 'vue'; 
 
 const ThemeSymbol = Symbol();
 
