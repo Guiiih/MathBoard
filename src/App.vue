@@ -17,5 +17,3 @@ const currentYear = ref(new Date().getFullYear());
 provideTheme();
 </script>
 
-<style>
-</style>
