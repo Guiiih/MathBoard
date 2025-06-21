@@ -27,7 +27,7 @@ export function provideTheme() {
 export function useTheme() {
   const context = inject(ThemeSymbol);
   if (!context) {
-    throw new Error('useTheme must be used within a component that provides theme context.');
+    throw new Error('useTheme deve ser usado dentro de um componente que forneça contexto de tema.');
   }
   return context as { theme: Ref<string>; toggleTheme: () => void };
 }
