@@ -1,6 +1,6 @@
 interface ValorInicialCompostoValues {
   montante: number | null;
-  juros: number | null;
+  taxaJuros: number | null;
   tempo: number | null;
   jurosTipo: 'anual' | 'mensal';
   tempoTipo: 'anual' | 'mensal';
@@ -8,14 +8,14 @@ interface ValorInicialCompostoValues {
 
 export function calculateValorInicialComposto(values: ValorInicialCompostoValues, katexUtils: any) {
   const { setKatexResult, clearKatexParts, formatNumberForLatex } = katexUtils;
-  const { montante, juros, tempo, jurosTipo, tempoTipo } = values;
+  const { montante, taxaJuros, tempo, jurosTipo, tempoTipo } = values;
 
-  if (montante === null || juros === null || tempo === null) {
+  if (montante === null || taxaJuros === null || tempo === null) {
     clearKatexParts();
     return;
   }
 
-  const jurosDecimal = juros / 100;
+  const jurosDecimal = taxaJuros / 100;
   const tempoFinal = jurosTipo === tempoTipo ? tempo : tempo / 12;
   const basePotencia = 1 + jurosDecimal;
   const denominador = basePotencia ** tempoFinal;
@@ -41,7 +41,7 @@ export function calculateValorInicialComposto(values: ValorInicialCompostoValues
 }
 
 export const formFieldsValorInicialComposto = [
-  { id: 'montante', label: 'Montante', placeholder: 'R$ 0,00' },
-  { id: 'juros', label: 'Taxa De Juros', placeholder: '0 %', type: 'interest' },
-  { id: 'tempo', label: 'Tempo', placeholder: '0', type: 'time' }
+  { id: 'montante', label: 'calculator.montante', placeholder: 'calculator.placeholderCurrency' },
+  { id: 'taxaJuros', label: 'calculator.juros', placeholder: 'calculator.placeholderPercentage', type: 'interest' },
+  { id: 'tempo', label: 'calculator.tempo', placeholder: 'calculator.placeholderNumber', type: 'time' }
 ];

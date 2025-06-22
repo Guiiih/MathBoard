@@ -1,19 +1,19 @@
 interface AumentoCapitalCompostoValues {
   montante: number | null;
   capital: number | null;
-  juros: number | null;
+  taxaJuros: number | null;
 }
 
 export function calculateAumentoCapitalCompostoV2(values: AumentoCapitalCompostoValues, katexUtils: any) {
   const { setKatexResult, clearKatexParts, formatNumberForLatex } = katexUtils;
-  const { montante, capital, juros } = values;
+  const { montante, capital, taxaJuros } = values;
 
-  if (montante === null || capital === null || juros === null || capital === 0) {
+  if (montante === null || capital === null || taxaJuros === null || capital === 0) {
     clearKatexParts();
     return;
   }
 
-  const jurosDecimal = juros / 100;
+  const jurosDecimal = taxaJuros / 100;
   const relacaoCapital = montante / capital;
   const logRelacao = Math.log10(relacaoCapital);
   const logTaxa = Math.log10(1 + jurosDecimal);
@@ -43,7 +43,7 @@ export function calculateAumentoCapitalCompostoV2(values: AumentoCapitalComposto
 }
 
 export const formFieldsAumentoCapitalCompostoV2 = [
-  { id: 'montante', label: 'Montante', placeholder: 'R$ 0,00' },
-  { id: 'capital', label: 'Capital Inicial', placeholder: 'R$ 0,00' },
-  { id: 'juros', label: 'Taxa de Juros', placeholder: '0 %' }
+  { id: 'montante', label: 'calculator.montante', placeholder: 'calculator.placeholderCurrency' },
+  { id: 'capital', label: 'calculator.capitalInicial', placeholder: 'calculator.placeholderCurrency' },
+  { id: 'taxaJuros', label: 'calculator.juros', placeholder: 'calculator.placeholderPercentage' }
 ];

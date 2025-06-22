@@ -1,6 +1,6 @@
 interface SafValues {
-  capital: number | null;
-  juros: number | null;
+  valorFinanciado: number | null;
+  taxaJuros: number | null;
   parcelas: number | null;
   jurosTipo: 'anual' | 'mensal';
   tempoTipo: 'anual' | 'mensal';
@@ -8,14 +8,14 @@ interface SafValues {
 
 export function calculateSAF(values: SafValues, katexUtils: any) {
   const { setKatexResult, clearKatexParts, formatNumberForLatex } = katexUtils;
-  const { capital, juros, parcelas, jurosTipo, tempoTipo } = values;
+  const { valorFinanciado, taxaJuros, parcelas, jurosTipo, tempoTipo } = values;
 
-  if (capital === null || juros === null || parcelas === null || parcelas <= 0) {
+  if (valorFinanciado === null || taxaJuros === null || parcelas === null || parcelas <= 0) {
     clearKatexParts();
     return;
   }
 
-  const jurosDecimal = juros / 100;
+  const jurosDecimal = taxaJuros / 100;
   const parcelasFinal = jurosTipo === tempoTipo ? parcelas : (tempoTipo === 'anual' ? parcelas * 12 : parcelas / 12);
 
   const approximationSymbol = jurosTipo === tempoTipo ? '=' : '\\approx';
@@ -24,7 +24,7 @@ export function calculateSAF(values: SafValues, katexUtils: any) {
   const potenciaResultado = basePotencia ** parcelasFinal;
   const numerador = jurosDecimal * potenciaResultado;
   const denominador = potenciaResultado - 1;
-  const safCalculado = denominador > 0 ? capital * (numerador / denominador) : 0;
+  const safCalculado = denominador > 0 ? valorFinanciado * (numerador / denominador) : 0;
 
   const jurosDecimalFormatted = formatNumberForLatex(jurosDecimal);
   const potenciaResultadoFormatted = formatNumberForLatex(potenciaResultado);
@@ -35,10 +35,10 @@ export function calculateSAF(values: SafValues, katexUtils: any) {
 
   const formulaLatex = `
     \\begin{aligned}
-    P &= ${formatNumberForLatex(capital)} \\cdot \\frac{${jurosDecimalFormatted} \\cdot (1+${jurosDecimalFormatted})^{${formatNumberForLatex(parcelasFinal)}}}{(1+${jurosDecimalFormatted})^{${formatNumberForLatex(parcelasFinal)}}-1} \\\\
-    P &= ${formatNumberForLatex(capital)} \\cdot \\frac{${jurosDecimalFormatted} \\cdot ${potenciaResultadoFormatted}}{${potenciaResultadoFormatted}-1} \\\\
-    P &= ${formatNumberForLatex(capital)} \\cdot \\frac{${numeradorFormatted}}{${denominadorFormatted}} \\\\
-    P &= ${formatNumberForLatex(capital)} \\cdot ${fatorMultiplicadorFormatted} \\\\
+    P &= ${formatNumberForLatex(valorFinanciado)} \\cdot \\frac{${jurosDecimalFormatted} \\cdot (1+${jurosDecimalFormatted})^{${formatNumberForLatex(parcelasFinal)}}}{(1+${jurosDecimalFormatted})^{${formatNumberForLatex(parcelasFinal)}}-1} \\\\
+    P &= ${formatNumberForLatex(valorFinanciado)} \\cdot \\frac{${jurosDecimalFormatted} \\cdot ${potenciaResultadoFormatted}}{${potenciaResultadoFormatted}-1} \\\\
+    P &= ${formatNumberForLatex(valorFinanciado)} \\cdot \\frac{${numeradorFormatted}}{${denominadorFormatted}} \\\\
+    P &= ${formatNumberForLatex(valorFinanciado)} \\cdot ${fatorMultiplicadorFormatted} \\\\
     P & ${approximationSymbol} ${safFinalFormatted}
     \\end{aligned}
   `;
@@ -47,7 +47,7 @@ export function calculateSAF(values: SafValues, katexUtils: any) {
 }
 
 export const formFieldsSAF = [
-  { id: 'capital', label: 'Valor do Financiamento', placeholder: 'R$ 0,00' },
-  { id: 'juros', label: 'Taxa de Juros', placeholder: '0 %', type: 'interest' },
-  { id: 'parcelas', label: 'Número de Parcelas', placeholder: '0', type: 'time' }
+  { id: 'valorFinanciado', label: 'calculator.valorFinanciado', placeholder: 'calculator.placeholderCurrency' },
+  { id: 'taxaJuros', label: 'calculator.juros', placeholder: 'calculator.placeholderPercentage', type: 'interest' },
+  { id: 'parcelas', label: 'calculator.numParcelas', placeholder: 'calculator.placeholderNumber', type: 'time' }
 ];

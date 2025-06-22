@@ -31,7 +31,7 @@
               <option value="anual">{{ $t('calculator.anual') }}</option> <option value="mensal">{{ $t('calculator.mensal') }}</option> </select>
         </div>
         <div class="error-message-container">
-          <p v-if="errors[field.id]" class="error-message">{{ $t('calculator.errorMessageInvalidNumber') }}</p> </div>
+          <p v-if="errors[field.id]" class="error-message">{{ $t('error.errorMessageInvalidNumber') }}</p> </div>
       </div>
     </div>
   </div>

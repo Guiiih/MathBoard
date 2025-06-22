@@ -1,19 +1,19 @@
 interface AumentoCapitalSimplesValues {
   montante: number | null;
   capital: number | null;
-  juros: number | null;
+  taxaJuros: number | null;
 }
 
 export function calculateAumentoCapitalSimplesV2(values: AumentoCapitalSimplesValues, katexUtils: any) {
   const { setKatexResult, clearKatexParts, formatNumberForLatex } = katexUtils;
-  const { montante, capital, juros } = values;
+  const { montante, capital, taxaJuros } = values;
 
-  if (montante === null || capital === null || juros === null || capital === 0) {
+  if (montante === null || capital === null || taxaJuros === null || capital === 0) {
     clearKatexParts();
     return;
   }
 
-  const jurosDecimal = juros / 100;
+  const jurosDecimal = taxaJuros / 100;
   const jurosTotal = montante - capital;
   const denominador = capital * jurosDecimal;
   const resultadoFinal = denominador !== 0 ? jurosTotal / denominador : 0;
@@ -37,7 +37,7 @@ export function calculateAumentoCapitalSimplesV2(values: AumentoCapitalSimplesVa
 }
 
 export const formFieldsAumentoCapitalSimplesV2 = [
-  { id: 'montante', label: 'Montante', placeholder: 'R$ 0,00' },
-  { id: 'capital', label: 'Capital Inicial', placeholder: 'R$ 0,00' },
-  { id: 'juros', label: 'Taxa de Juros', placeholder: '0 %' }
+  { id: 'montante', label: 'calculator.montante', placeholder: 'calculator.placeholderCurrency' },
+  { id: 'capital', label: 'calculator.capitalInicial', placeholder: 'calculator.placeholderCurrency' },
+  { id: 'taxaJuros', label: 'calculator.juros', placeholder: 'calculator.placeholderPercentage' }
 ];

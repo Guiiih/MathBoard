@@ -498,6 +498,66 @@ body.dark-theme .language-selector-icon {
   color: var(--brand-green); 
 }
 
+/* tabble  */
+.design-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  color: white;
+  border: 2px solid white;
+}
+
+.design-table th, .design-table td {
+  border: 1px solid white;
+  padding: 8px 12px;
+  vertical-align: middle;
+}
+
+.design-table thead, .design-table tfoot {
+  font-weight: bold;
+}
+
+.design-table thead tr:first-child th {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.design-table thead tr:last-child th {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-style: italic;
+  font-size: 0.9em;
+  font-weight: normal;
+  border-top-width: 2px;
+}
+
+.header-subtitle {
+  min-height: 1.5em; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilo para a fração */
+.fraction {
+  display: inline-flex;
+  flex-direction: column;
+  text-align: center;
+  line-height: 1;
+}
+.numerator {
+  border-bottom: 1px solid white;
+  padding: 2px 4px;
+}
+.denominator {
+  padding: 2px 4px;
+}
+
+.result-container .design-table {
+  font-family: 'Times New Roman', serif;
+  font-weight: 700;
+}
+
 /* Media Queries */
 @media (min-width: 640px) {
   .nav-container {

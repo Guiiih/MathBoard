@@ -1,6 +1,6 @@
 interface JurosSimplesValues {
   capital: number | null;
-  juros: number | null;
+  taxaJuros: number | null;
   tempo: number | null;
   jurosTipo: 'anual' | 'mensal';
   tempoTipo: 'anual' | 'mensal';
@@ -8,14 +8,14 @@ interface JurosSimplesValues {
 
 export function calculateJurosSimples(values: JurosSimplesValues, katexUtils: any) {
   const { setKatexResult, clearKatexParts, formatNumberForLatex } = katexUtils;
-  const { capital, juros, tempo, jurosTipo, tempoTipo } = values;
+  const { capital, taxaJuros, tempo, jurosTipo, tempoTipo } = values;
 
-  if (capital === null || juros === null || tempo === null) {
+  if (capital === null || taxaJuros === null || tempo === null) {
     clearKatexParts();
     return;
   }
 
-  const jurosDecimal = juros / 100;
+  const jurosDecimal = taxaJuros / 100;
 
   const jurosFinal = jurosTipo === tempoTipo ? jurosDecimal : parseFloat((jurosDecimal / 12).toFixed(7));
 
@@ -34,6 +34,6 @@ export function calculateJurosSimples(values: JurosSimplesValues, katexUtils: an
 
 export const formFieldsJurosSimples = [
   { id: 'capital', label: 'calculator.capitalInicial', placeholder: 'calculator.placeholderCurrency' },
-  { id: 'juros', label: 'calculator.juros', placeholder: 'calculator.placeholderPercentage', type: 'interest' },
+  { id: 'taxaJuros', label: 'calculator.juros', placeholder: 'calculator.placeholderPercentage', type: 'interest' },
   { id: 'tempo', label: 'calculator.tempo', placeholder: 'calculator.placeholderNumber', type: 'time' }
 ];

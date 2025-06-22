@@ -7,64 +7,70 @@ interface SacValues {
 }
 
 export function calculateSAC(values: SacValues, katexUtils: any) {
-  const { setKatexResult, clearKatexParts, formatNumberForLatex } = katexUtils;
+  const { clearKatexParts, formatNumberForLatex } = katexUtils;
   const { valorFinanciado, taxaJuros, numParcelas, jurosTipo, tempoTipo } = values;
 
   if (valorFinanciado === null || taxaJuros === null || numParcelas === null || numParcelas <= 0) {
     clearKatexParts();
-    return;
+    return null;
   }
 
   const taxaDecimal = taxaJuros / 100;
   const taxaMensalEfetiva = jurosTipo === 'mensal'
     ? taxaDecimal
     : Math.pow(1 + taxaDecimal, 1 / 12) - 1;
-
-  const totalParcelasMensais = tempoTipo === 'mensal'
-    ? numParcelas
-    : numParcelas * 12;
-
+  const totalParcelasMensais = tempoTipo === 'mensal' ? numParcelas : numParcelas * 12;
   const amortizacao = valorFinanciado / totalParcelasMensais;
   let saldoDevedor = valorFinanciado;
 
-  let tableBody = `0 & - & - & - & R\\$${formatNumberForLatex(valorFinanciado)} \\\\ \\hline \n`;
-
+  const tableRows = [];
   let totalJuros = 0;
   let totalPrestacoes = 0;
+
+  tableRows.push({
+    month: 0,
+    installment: '-',
+    interest: '-',
+    amortization: '-',
+    balance: `R$ ${formatNumberForLatex(valorFinanciado)}`
+  });
 
   for (let k = 1; k <= totalParcelasMensais; k++) {
     const juros = saldoDevedor * taxaMensalEfetiva;
     const prestacao = amortizacao + juros;
     saldoDevedor -= amortizacao;
-
     totalJuros += juros;
     totalPrestacoes += prestacao;
-
-    tableBody += `${k} & R\\$${formatNumberForLatex(prestacao)} & R\\$${formatNumberForLatex(juros)} & R\\$${formatNumberForLatex(amortizacao)} & R\\$${formatNumberForLatex(Math.abs(saldoDevedor))} \\\\ \\hline \n`;
+    tableRows.push({
+      month: k,
+      installment: `R$ ${formatNumberForLatex(prestacao)}`,
+      interest: `R$ ${formatNumberForLatex(juros)}`,
+      amortization: `R$ ${formatNumberForLatex(amortizacao)}`,
+      balance: `R$ ${formatNumberForLatex(Math.abs(saldoDevedor))}`
+    });
   }
-
-  tableBody += `\\textbf{Total} & \\textbf{R\\$${formatNumberForLatex(totalPrestacoes)}} & \\textbf{R\\$${formatNumberForLatex(totalJuros)}} & \\textbf{R\\$${formatNumberForLatex(valorFinanciado)}} & - \\\\ \\hline \n`;
-
-  const formulaLatex = `
-    {\\begin{array}{|c|c|c|c|c|}
-    \\hline
-    \\textbf{Mês} &
-    \\textbf{Prestação } (P) &
-    \\textbf{Juros } (J) &
-    \\textbf{Amortização } (A) &
-    \\textbf{Saldo Devedor } (SD) \\\\
-    \\hline
-     & A + J & SD \\cdot i_{mensal} & \\frac{\\text{Valor Financiado}}{n} & SD_{anterior} - A \\\\
-    \\hline
-    ${tableBody}
-    \\end{array}}
-  `;
-
-  setKatexResult(formulaLatex);
+  
+  const totals = {
+      totalInstallments: `R$ ${formatNumberForLatex(totalPrestacoes)}`,
+      totalInterest: `R$ ${formatNumberForLatex(totalJuros)}`,
+      totalAmortization: `R$ ${formatNumberForLatex(valorFinanciado)}`,
+  };
+  
+  return {
+    headers: [
+      { titleKey: 'resultTable.month' },
+      { titleKey: 'resultTable.installment', subTitleKey: 'resultTable.formulaInstallment', symbolKey: 'resultTable.symbolInstallment' },
+      { titleKey: 'resultTable.interest', subTitleKey: 'resultTable.formulaInterest', symbolKey: 'resultTable.symbolInterest' },
+      { titleKey: 'resultTable.amortization', subTitleKey: 'resultTable.financedAmount', symbolKey: 'resultTable.symbolAmortization', isFraction: true },
+      { titleKey: 'resultTable.outstandingBalance', subTitleKey: 'resultTable.formulaOutstandingBalance', symbolKey: 'resultTable.symbolOutstandingBalance' },
+    ],
+    rows: tableRows,
+    totals: totals
+  };
 }
 
 export const formFieldsSAC = [
-  { id: 'valorFinanciado', label: 'Valor do Financiamento', placeholder: 'R$ 0,00' },
-  { id: 'taxaJuros', label: 'Taxa de Juros', placeholder: '0 %', type: 'interest' },
-  { id: 'numParcelas', label: 'Período', placeholder: '0', type: 'time' }
+  { id: 'valorFinanciado', label: 'calculator.valorFinanciado', placeholder: 'calculator.placeholderCurrency' },
+  { id: 'taxaJuros', label: 'calculator.juros', placeholder: 'calculator.placeholderPercentage', type: 'interest' },
+  { id: 'numParcelas', label: 'calculator.numParcelas', placeholder: 'calculator.placeholderNumber', type: 'time' }
 ];

@@ -1,18 +1,18 @@
 interface AumentoCapitalCompostoValues {
   aumento: number | null;
-  juros: number | null;
+  taxaJuros: number | null;
 }
 
 export function calculateAumentoCapitalCompostoV1(values: AumentoCapitalCompostoValues, katexUtils: any) {
   const { setKatexResult, clearKatexParts, formatNumberForLatex } = katexUtils;
-  const { aumento, juros } = values;
+  const { aumento, taxaJuros } = values;
 
-  if (aumento === null || juros === null || juros === 0 || aumento <= 0) {
+  if (aumento === null || taxaJuros === null || taxaJuros === 0 || aumento <= 0) {
     clearKatexParts();
     return;
   }
 
-  const jurosDecimal = juros / 100;
+  const jurosDecimal = taxaJuros / 100;
   const basePotencia = 1 + jurosDecimal;
   const logAumento = Math.log10(aumento);
   const logTaxa = Math.log10(basePotencia);
@@ -41,6 +41,6 @@ export function calculateAumentoCapitalCompostoV1(values: AumentoCapitalComposto
 }
 
 export const formFieldsAumentoCapitalCompostoV1 = [
-  { id: 'aumento', label: 'Aumento', placeholder: '0' },
-  { id: 'juros', label: 'Taxa De Juros', placeholder: '0 %' }
+  { id: 'aumento', label: 'calculator.aumento', placeholder: 'calculator.placeholderNumber' },
+  { id: 'taxaJuros', label: 'calculator.juros', placeholder: 'calculator.placeholderPercentage' }
 ];

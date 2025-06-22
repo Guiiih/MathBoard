@@ -1,4 +1,7 @@
 {
+  "error": {
+    "errorMessageInvalidNumber": "Por favor, insira um número válido."
+  },
   "calculator": {
     "montante": "Montante",
     "juros": "Taxa de Juros",
@@ -10,9 +13,8 @@
     "anual": "Anual",
     "mensal": "Mensal",
     "placeholderCurrency": "R$ 0,00",
-    "placeholderPercentage": "0 %",
-    "placeholderNumber": "0",
-    "errorMessageInvalidNumber": "Por favor, insira um número válido."
+    "placeholderPercentage": "0.00%",
+    "placeholderNumber": "0"
   },
   "navbar": {
     "operations": "Operações",
@@ -43,5 +45,21 @@
   },
   "footer": {
     "copyright": "Guilherme Nascimento. Todos os direitos reservados."
+  },
+  "resultTable": {
+    "month": "Mês",
+    "installment": "Prestação",
+    "interest": "Juros",
+    "amortization": "Amortização",
+    "outstandingBalance": "Saldo Devedor",
+    "financedAmount": "Valor Financiado",
+    "total": "Total",
+    "formulaInstallment": "A + J",
+    "formulaInterest": "SD &middot; i<sub>mensal</sub>",
+    "formulaOutstandingBalance": "SD<sub>ant.</sub> &ndash; A",
+    "symbolInstallment": "(P)",
+    "symbolInterest": "(J)",
+    "symbolAmortization": "(A)",
+    "symbolOutstandingBalance": "(SD)"
   }
 }

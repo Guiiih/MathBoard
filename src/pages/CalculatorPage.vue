@@ -2,7 +2,7 @@
   <div>
     <NavBar />
     <input-component :fields="formFields" @update="handleUpdate" />
-    <result-component :resultado="resultado" />
+    <result-component :tableData="tableDataResult" :katexString="katexResult" />
   </div>
 </template>
 
@@ -18,34 +18,51 @@ import { useKatexDisplay } from '../composables/useKatexDisplay';
 import { allCalculations } from '../calculations/index'; 
 
 const route = useRoute();
-const { resultado, setKatexResult, clearKatexParts, formatNumberForLatex, parseNumber, approximationSymbol } = useKatexDisplay();
-
+const { resultado: katexResult, setKatexResult, clearKatexParts: clearKatex } = useKatexDisplay();
+const tableDataResult = ref<any>(null);
 const formFields = ref<any[]>([]);
 let calculationFunction: Function | null = null;
 
+const formatNumber = (value: number): string => {
+    return value.toLocaleString('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+        useGrouping: true
+    });
+};
+
 const calculationRoutesMap = new Map(allCalculations.map(calc => [calc.path, calc])); 
+
+const clearResults = () => {
+    clearKatex();
+    tableDataResult.value = null;
+};
 
 watch(() => route.path, (newPath) => {
   const config = calculationRoutesMap.get(newPath); 
   if (config) {
     formFields.value = config.fields;
     calculationFunction = config.calculate;
-    clearKatexParts();
-    if (config.fields.length === 0 && calculationFunction) {
-        const defaultInputsForNoFields = { aumento: 1, taxa: 10 }; 
-        calculationFunction(defaultInputsForNoFields, { setKatexResult, clearKatexParts, formatNumberForLatex, parseNumber, approximationSymbol });
-    }
+    clearResults();
   } else {
     formFields.value = [];
     calculationFunction = null;
-    clearKatexParts();
+    clearResults();
     console.warn(`Rota não configurada: ${newPath}`);
   }
 }, { immediate: true });
 
 const handleUpdate = (values: any) => {
-  if (calculationFunction) {
-    calculationFunction(values, { setKatexResult, clearKatexParts, formatNumberForLatex, parseNumber, approximationSymbol });
+  if (!calculationFunction) return;
+
+  clearResults();
+
+  if (route.path === '/SAC') {
+    const katexUtils = { formatNumberForLatex: formatNumber, clearKatexParts: clearResults };
+    tableDataResult.value = calculationFunction(values, katexUtils);
+  } else {
+    const katexUtils = { setKatexResult, clearKatexParts: clearResults, formatNumberForLatex: formatNumber };
+    calculationFunction(values, katexUtils);
   }
 };
 </script>
