@@ -6,8 +6,6 @@
 
 O MathBoard é uma aplicação web interativa desenvolvida para simplificar e automatizar uma vasta gama de cálculos financeiros e matemáticos. Criado com Vue.js e TypeScript, o projeto visa ser uma ferramenta educacional e prática para estudantes, profissionais e qualquer pessoa que precise realizar cálculos complexos de forma rápida e precisa, sem a necessidade de planilhas ou softwares especializados.
 
-A plataforma se destaca pela sua interface intuitiva, pela renderização clara de equações matemáticas via KaTeX e pelo suporte a múltiplos idiomas, tornando-o acessível a um público global.
-
 ## Funcionalidades Implementadas
 
 O MathBoard oferece uma coleção abrangente de calculadoras, cobrindo diversas áreas da matemática financeira e contábil:
@@ -177,20 +175,7 @@ Com base nas sugestões de melhoria e nas práticas recomendadas para projetos d
 15. **Pipeline CI/CD:** Configurar um pipeline de Integração Contínua/Entrega Contínua para automatizar testes e deploys.
 16. **Monitoramento e Logging:** Implementar ferramentas de monitoramento e logging para acompanhar o desempenho da aplicação e identificar problemas em produção.
 
-## Contribuir
-
-Contribuições são muito bem-vindas! Se você deseja contribuir para o MathBoard, por favor, siga o fluxo padrão do GitHub:
-
-1.  Faça um "fork" do repositório.
-2.  Crie uma nova "branch" para sua funcionalidade ou correção de bug (`git checkout -b feature/minha-nova-funcionalidade`).
-3.  Faça suas alterações e "commit" (`git commit -m 'feat: Adiciona nova funcionalidade X'`).
-4.  Envie suas alterações para o seu "fork" (`git push origin feature/minha-nova-funcionalidade`).
-5.  Abra um "Pull Request" para o repositório original.
-
 ## Licença
 
 Este projeto está licenciado sob a Licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
-## Contato e Suporte
-
-Para dúvidas, sugestões, relatórios de bugs ou suporte, por favor, abra uma [Issue no GitHub](https://github.com/Guiiih/MathBoard/issues) ou entre em contato através do email: [seu.email@example.com](mailto:seu.email@example.com) (Por favor, substitua pelo seu email de contato real).
