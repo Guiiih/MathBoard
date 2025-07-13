@@ -2,8 +2,6 @@
 
 [![Status do Projeto](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow.svg)](https://github.com/Guiiih/MathBoard)
 
-[**Experimente o MathBoard Online!**](https://mathboard.vercel.app/) (Link para a demonstração ao vivo - *Este link é um placeholder, por favor, atualize-o com o link real do seu deploy*)
-
 ## Visão Geral
 
 O MathBoard é uma aplicação web interativa desenvolvida para simplificar e automatizar uma vasta gama de cálculos financeiros e matemáticos. Criado com Vue.js e TypeScript, o projeto visa ser uma ferramenta educacional e prática para estudantes, profissionais e qualquer pessoa que precise realizar cálculos complexos de forma rápida e precisa, sem a necessidade de planilhas ou softwares especializados.
