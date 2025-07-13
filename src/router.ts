@@ -73,6 +73,11 @@ const routes = [
     component: () => import('./pages/CalculatorPage.vue') 
   },
   {
+    path: '/SAM',
+    name: 'SAM',
+    component: () => import('./pages/CalculatorPage.vue') 
+  },
+  {
     path: '/SSA',
     name: 'SSA',
     component: () => import('./pages/CalculatorPage.vue') 
@@ -126,6 +131,56 @@ const routes = [
     path: '/TaxaDesvalorizacaoMoeda',
     name: 'TaxaDesvalorizacaoMoeda',
     component: () => import('./pages/CalculatorPage.vue') 
+  },
+  {
+    path: '/RentabilidadeReal',
+    name: 'RentabilidadeReal',
+    component: () => import('./pages/CalculatorPage.vue')
+  },
+  {
+    path: '/CustoOportunidade',
+    name: 'CustoOportunidade',
+    component: () => import('./pages/CalculatorPage.vue')
+  },
+  {
+    path: '/PlanejadorAposentadoria',
+    name: 'PlanejadorAposentadoria',
+    component: () => import('./pages/CalculatorPage.vue')
+  },
+  {
+    path: '/ConversorTaxasJuros',
+    name: 'ConversorTaxasJuros',
+    component: () => import('./pages/CalculatorPage.vue')
+  },
+  {
+    path: '/VPL',
+    name: 'VPL',
+    component: () => import('./pages/CalculatorPage.vue')
+  },
+  {
+    path: '/TIR',
+    name: 'TIR',
+    component: () => import('./pages/CalculatorPage.vue')
+  },
+  {
+    path: '/Payback',
+    name: 'Payback',
+    component: () => import('./pages/CalculatorPage.vue')
+  },
+  {
+    path: '/CET',
+    name: 'CET',
+    component: () => import('./pages/CalculatorPage.vue')
+  },
+  {
+    path: '/AluguelVsCompra',
+    name: 'AluguelVsCompra',
+    component: () => import('./pages/CalculatorPage.vue')
+  },
+  {
+    path: '/PontoEquilibrio',
+    name: 'PontoEquilibrio',
+    component: () => import('./pages/CalculatorPage.vue')
   },
 ]
 
