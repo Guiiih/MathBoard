@@ -154,27 +154,6 @@ Atualmente, este projeto não possui scripts de teste automatizados configurados
 
 Para garantir a qualidade do código, recomenda-se a adição de testes unitários e de integração no futuro.
 
-## Próximos Passos e Melhorias Futuras
-
-Com base nas sugestões de melhoria e nas práticas recomendadas para projetos de software, aqui estão os próximos passos e áreas para futuras melhorias no MathBoard:
-
-1.  **Testes Abrangentes:** Implementar testes unitários e de integração para garantir a correção dos cálculos e a estabilidade da aplicação.
-2.  **Validação de Entrada (Frontend):** Aprimorar a validação dos campos de entrada para fornecer feedback instantâneo e claro ao usuário.
-3.  **Tratamento de Erros Consistente:** Implementar um tratamento de erros padronizado em toda a aplicação, com mensagens informativas para o usuário.
-4.  **Documentação de API (Interna):** Embora não haja uma API externa, documentar a lógica interna dos módulos de cálculo para facilitar a manutenção e a adição de novas funcionalidades.
-5.  **Cache (Frontend):** Considerar estratégias de cache para ativos estáticos e dados, melhorando o desempenho e a experiência do usuário.
-6.  **Lazy Loading (Frontend):** Implementar lazy loading para componentes e rotas, otimizando o tempo de carregamento inicial da aplicação.
-7.  **Otimização de Imagens:** Otimizar o tamanho e o formato das imagens para reduzir o tempo de carregamento.
-8.  **Análise de Dependências:** Realizar análises periódicas das dependências para identificar vulnerabilidades e manter as bibliotecas atualizadas.
-9.  **Variáveis de Ambiente Seguras:** Garantir que quaisquer variáveis de ambiente sensíveis sejam tratadas de forma segura (embora para um projeto frontend estático, isso seja menos crítico).
-10. **Padronização de Código:** Utilizar ferramentas de linting (como ESLint) e formatação (como Prettier) para manter um estilo de código consistente.
-11. **Tipagem (TypeScript):** Continuar aprimorando a tipagem em todo o projeto para maximizar os benefícios do TypeScript.
-12. **Modularização:** Refinar a modularização dos componentes e lógicas para aumentar a reusabilidade e a manutenibilidade.
-13. **Feedback Visual:** Melhorar o feedback visual para as interações do usuário (e.g., estados de carregamento, mensagens de sucesso/erro).
-14. **Acessibilidade (A11y):** Garantir que a aplicação seja acessível para usuários com deficiência, seguindo as diretrizes de acessibilidade web.
-15. **Pipeline CI/CD:** Configurar um pipeline de Integração Contínua/Entrega Contínua para automatizar testes e deploys.
-16. **Monitoramento e Logging:** Implementar ferramentas de monitoramento e logging para acompanhar o desempenho da aplicação e identificar problemas em produção.
-
 ## Licença
 
 Este projeto está licenciado sob a Licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
