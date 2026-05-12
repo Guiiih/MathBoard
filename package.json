@@ -1,29 +1,29 @@
 {
-  "name": "math",
+  "name": "MathBoard",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://Guiiih.github.io/Math",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "build": "vue-tsc && vite build && copy .\\dist\\index.html .\\dist\\404.html && copy .\\CNAME .\\dist\\CNAME",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "katex": "^0.16.7",
-    "vue": "^3.2.47",
-    "vue-router": "^4.1.6"
+    "katex": "^0.16.22",
+    "vue": "^3.5.17",
+    "vue-i18n": "^9.2.2",
+    "vue-router": "^4.5.1"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.1.0",
-    "autoprefixer": "^10.4.14",
-    "gh-pages": "^5.0.0",
-    "postcss": "^8.4.23",
-    "tailwindcss": "^3.3.2",
-    "typescript": "^5.0.2",
-    "vite": "^4.3.2",
-    "vue-tsc": "^1.4.2"
+    "@types/katex": "^0.16.7",
+    "@vitejs/plugin-vue": "^5.2.4",
+    "gh-pages": "^6.3.0",
+    "math": "^0.0.3",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vite-plugin-sitemap": "^0.8.2",
+    "vue-tsc": "^2.2.10"
   }
 }

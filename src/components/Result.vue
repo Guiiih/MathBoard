@@ -1,79 +1,75 @@
 <template>
-  <div class="relative">
-    <div class="flex justify-center">
-      <div class="flex justify-center sm:place-items-center w-10/12 h-Table relative p-4 text-center rounded-lg sm:p-8 bg-brand-green text-white">
-        <div v-if="resultado" class="text-sm sm:text-lg font-bold mt-4 sm:mt-0">
-          <div v-html="part1"></div>
-          <div v-html="part2"></div>
-          <div v-html="part3"></div>
-          <div v-html="part4"></div>
-          <div v-html="part5"></div>
-          <div v-html="part6"></div>
-          <div v-html="part7"></div>
-          <div v-html="resultado"></div>
-          <button class="absolute bottom-2 right-2 p-2 bg-white text-green-light rounded-full" @click="openModal">
-            <img src="../assets/images/icons8-pergunta.gif" class="h-6 " alt="Não Entendi">
-          </button>
+  <div class="result-wrapper">
+    <div class="result-flex-container">
+      <div class="result-container">
+        
+        <div v-if="tableData && tableData.headers" class="result-content">
+          <div class="result-output overflow-x-auto">
+            <table class="design-table">
+              <thead>
+                <tr>
+                  <th v-for="header in tableData.headers" :key="header.titleKey">
+                    {{ $t(header.titleKey) }} {{ header.symbolKey ? $t(header.symbolKey) : '' }}
+                  </th>
+                </tr>
+                <tr>
+                  <th v-for="header in tableData.headers" :key="header.titleKey + '-sub'">
+                    <div v-if="header.subTitleKey" class="header-subtitle">
+                      <div v-if="header.isFraction" class="fraction">
+                        <span class="numerator">{{ $t(header.subTitleKey) }}</span>
+                        <span class="denominator">n</span>
+                      </div>
+                      <span v-else v-html="$t(header.subTitleKey)"></span>
+                    </div>
+                    <div v-else class="header-subtitle">&nbsp;</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="row in tableData.rows" :key="row.month">
+                  <td>{{ row.month }}</td>
+                  <td>{{ row.installment }}</td>
+                  <td>{{ row.interest }}</td>
+                  <td>{{ row.amortization }}</td>
+                  <td>{{ row.balance }}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>{{ $t('resultTable.total') }}</th>
+                  <td>{{ tableData.totals.totalInstallments }}</td>
+                  <td>{{ tableData.totals.totalInterest }}</td>
+                  <td>{{ tableData.totals.totalAmortization }}</td>
+                  <td>-</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
+
+        <div v-else-if="katexString" class="result-content">
+          <div class="result-output overflow-x-auto">
+            <div v-html="katexString" class="result-output-inner"></div>
+          </div>
+        </div>
+        
       </div>
     </div>
-    <modal :isOpen="isModalOpen" @update:isOpen="isModalOpen = $event" />
   </div>
 </template>
 
-
-
 <script>
-
-import Modal from "./Modal.vue";
-
 export default {
-  components: {
-    Modal,
-  },
-  data() {
-    return {
-      isModalOpen: false,
-    };
-  },
-  methods: {
-    openModal() {
-      this.isModalOpen = true;
-    },
-  },
   props: {
-    resultado: {
+    tableData: {
+      type: Object,
+      default: null
+    },
+    katexString: {
       type: String,
       default: ''
     },
-    part1: {
-      type: String,
-      default: ''
-    },
-    part2: {
-      type: String,
-      default: ''
-    },
-    part3: {
-      type: String,
-      default: ''
-    },
-    part4: {
-      type: String,
-      default: ''
-    },
-    part5: {
-      type: String,
-      default: ''
-    },
-    part6: {
-      type: String,
-      default: ''
-    },
-    part7: {
-      type: String,
-      default: ''
-    },
-  }
+  },
 }
 </script>
+

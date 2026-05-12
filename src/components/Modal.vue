@@ -1,17 +1,15 @@
 <template>
-    <div v-if="isOpen" class="fixed inset-0 z-10 overflow-y-auto bg-opacity-50 bg-gray-900">
-      <div class="flex justify-center items-center h-full">
-        <div class="w-10/12 h-Table bg-brand-green p-6 rounded-lg shadow-lg">
+    <div v-if="isOpen" class="modal-overlay">
+      <div class="modal-center-container">
+        <div class="modal-content">
           <slot></slot>
-          <button @click="closeModal" class="mt-4 w-full inline-flex justify-center px-4 py-2 text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+          <button @click="closeModal" class="modal-close-button">
             X
           </button>
         </div>
       </div>
     </div>
-  </template>
-  
-
+</template>
 
 <script>
 export default {
@@ -28,5 +26,3 @@ export default {
   },
 };
 </script>
-
-  
