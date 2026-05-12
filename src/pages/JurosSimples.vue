@@ -1,107 +1,64 @@
 <template>
-
-  <NavBar/>
-
-  <div class="flex justify-center place-content-center pt-6 relative top-3">
-    <div class="w-5/6 h-32 p-4 text-center rounded-lg sm:p-8 bg-green-light">
-      <div class='flex flex-row gap-4 place-content-center'>
-
-        <div class="flex flex-col text-left">
-          <label for="Capital Inicial" class="block mb-1 text-sm font-medium text-input-text">Capital Inicial</label>
-          <input v-model="capitalInicial" type="text" class="bg-input rounded-md border-b-4 border-gray-300 focus:border-brand-green p-2 focus:outline-none" placeholder="R$ 0,00">
-        </div>
-        
-        <div class="flex flex-col text-left">
-          <label for="taxa de juros" class="block mb-1 text-sm font-medium text-input-text">Taxa de Juros</label>
-          <div class="flex">
-            <input v-model="juros" type="text" class="bg-input rounded-tl-md rounded-bl-md border-b-4 border-gray-300 focus:border-brand-green p-2 focus:outline-none" placeholder="0 %">
-            <select v-model="jurosTipo" class="w-17 bg-input text-gray-400 text-sm rounded-r-md border-b-4 border-gray-300 border-l-2 block p-2">
-                <option value="anual">Anual</option>
-                <option value="mensal">Mensal</option>
-            </select>
-          </div>
-        </div>
-        
-        <div class="flex flex-col text-left">
-          <label for="Tempo" class="block mb-1 text-sm font-medium text-input-text">Tempo</label>
-          <div class="flex">
-            <input v-model="tempo" type="number" class="bg-input rounded-tl-md rounded-bl-md border-b-4 border-gray-300 focus:border-brand-green p-2 focus:outline-none" placeholder="0">
-            <select v-model="jurosTipo" class="w-17 bg-input text-gray-400 text-sm rounded-r-md border-b-4 border-gray-300 border-l-2 block p-2">
-                <option value="anual">Anual</option>
-                <option value="mensal">Mensal</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="relative top-6">
-          <button @click="calcular" class="bg-brand-green w-20 h-10 text-white rounded-sm">Calcular</button>
-        </div>
-
-      </div>
-    </div>
+  <div>
+      <NavBar />
+      <input-component :Label01="'Capital Inicial'"  :Label02="'Taxa De Juros'" :Label03="'Tempo'" :show-div="true" @update="calculateResult($event)" />
+      <result-component :resultado="resultado" :part1="part1" :part2="part2" />
   </div>
-
-  <div class="flex justify-center">
-    <div class="w-10/12 h-Table fixed p-4 text-center rounded-lg sm:p-8 bg-brand-green text-white">
-      <div v-if="resultado" class="text-xl font-bold mt-4">
-        <p>{{ step01 }}</p>
-        <p>{{ step02 }}</p>
-        <p>{{ step03 }}</p>
-        <p>{{ step04 }}</p>
-        <p>{{ resultado }}</p>
-      </div>
-    </div>
-  </div>
-
 </template>
 <script>
 
+import katex from 'katex'
+import 'katex/dist/katex.min.css';
+
 import NavBar from '../components/NavBar.vue'
+import InputComponent from '../components/Form.vue';
+import ResultComponent from '../components/Result.vue';
 
 export default {
-  name: 'JurosSimples',
   components: {
-    NavBar,
+      InputComponent,
+      ResultComponent,
+      NavBar,
   },
   data() {
-    return {
-      capitalInicial: '',
-      juros: '',
-      jurosTipo: 'anual',
-      tempo: '',
-      tempoTipo: 'anual',
+      return {
+      inputs: {
+          input1: '',
+          input2: '',
+          input3: '',
+      },
       resultado: '',
-      step01: '',
-      step02: '',
-      step03: '',
-      step04: '',
+      part1: '',
+      part2: '',
+      jurosTipo: 'anual',
+      tempoTipo: 'anual',
+  }
+},
+methods: { 
+  calculateResult(inputs) {
+    if (!inputs.input1 || !inputs.input2 || !inputs.input3) {
+      this.resultado = '';
+      return;
     }
-  },
-  methods: {
-    calcular() {
-      if (!this.capitalInicial ||!this.aumento || !this.taxa) {
-        this.resultado = '';
-        return;
-      }
-      
-      const capital = parseFloat(this.capitalInicial.replace(',', '.'));
-      const juros = parseFloat(this.juros.replace(',', '.'));
-      const tempo = parseInt(this.tempo);
 
-      const jurosAnual = this.jurosTipo === 'anual' ? juros : juros * 12;
-      const tempoAnual = this.tempoTipo === 'anual' ? tempo : tempo / 12;
+    const capital = parseFloat(inputs.input1.replace(',', '.'));
+    const juros = parseFloat(inputs.input2.replace(',', '.'));
+    const tempo = parseFloat(inputs.input3.replace(',', '.'));
 
-      const jurosSimples = capital * ( jurosAnual / 100 * tempoAnual);
-      const montanteSimples = capital * (1 + jurosAnual / 100 * tempoAnual);
-      
-      this.step01 = `J = ${capital} * ${jurosAnual/100} *  ${tempoAnual}`;
-      this.step02 = `J = ${capital} * ${jurosAnual/100*tempoAnual}`;
-      this.step03 = `J = R$ ${capital * jurosAnual/100 * tempoAnual}`;
-      this.step04 = `M = ${capital} * ${jurosSimples}`;
+    const jurosDecimal = juros/100;
 
-      this.resultado = `M = R$ ${montanteSimples.toFixed(2)}`;
-    }
+    const jurosFinal = inputs.jurosTipo === inputs.tempoTipo ? jurosDecimal : ((jurosDecimal / 12 ).toFixed(7).replace(/(\.0+|0+)$/, ""));
+    const jurosSimples = inputs.jurosTipo === inputs.tempoTipo ? capital * ( jurosDecimal * tempo) : capital * ( (jurosDecimal / 12) * tempo);
+
+    this.part1 = katex.renderToString(`J = ${capital} * ${jurosFinal} * ${tempo}`);
+    this.part2 = katex.renderToString(`J = ${capital} * ${(jurosFinal*tempo).toFixed(7).replace(/(\.0+|0+)$/, "")}`);
+
+    if (inputs.jurosTipo === inputs.tempoTipo){
+      this.resultado = katex.renderToString(`J = ${(jurosSimples).toFixed(2)}`);
+    }else
+      this.resultado = katex.renderToString(`J \\approx ${Math.floor(jurosSimples).toFixed(2).replace(/(\.0+|0+)$/, "")}`
+    );
   }
 }
+}
 </script>
-
