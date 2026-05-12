@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build && copy .\\dist\\index.html .\\dist\\404.html && copy .\\CNAME .\\dist\\CNAME",
+    "build": "vue-tsc && vite build && shx cp dist/index.html dist/404.html && shx cp CNAME dist/CNAME",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
@@ -21,6 +21,7 @@
     "@vitejs/plugin-vue": "^5.2.4",
     "gh-pages": "^6.3.0",
     "math": "^0.0.3",
+    "shx": "^0.4.0",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "vite-plugin-sitemap": "^0.8.2",
