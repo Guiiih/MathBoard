@@ -9,17 +9,16 @@ import { calculateAumentoCapitalCompostoV2, formFieldsAumentoCapitalCompostoV2 }
 import { calculateSAF, formFieldsSAF } from './saf';
 import { calculateSAC, formFieldsSAC } from './sac';
 import { calculateSAM, formFieldsSAM } from './sam';
-import { calculateSSA, formFieldsSSA } from './ssa';
-import { calculateCorrecaoMonetaria01, formFieldsCorrecaoMonetaria01 } from './correcaomonetaria01';
-import { calculateCorrecaoMonetaria02, formFieldsCorrecaoMonetaria02 } from './correcaomonetaria02';
-import { calculateDescontoCompostoComercial, formFieldsDescontoCompostoComercial } from './descontocompostocomercial';
-import { calculateDescontoCompostoRacional, formFieldsDescontoCompostoRacional } from './descontocompostoracional';
-import { calculateDescontoSimplesComercial, formFieldsDescontoSimplesComercial } from './descontosimplescomercial';
-import { calculateDescontoSimplesRacional, formFieldsDescontoSimplesRacional } from './descontosimplesracional';
-import { calculatePagamentoAntecipado, formFieldsPagamentoAntecipado } from './pagamentoantecipado';
-import { calculateSerieDiferida, formFieldsSerieDiferida } from './seriediferida';
-import { calculateSeriePostecipada, formFieldsSeriePostecipada } from './seriepostecipada';
-import { calculateTaxaDesvalorizacaoMoeda, formFieldsTaxaDesvalorizacaoMoeda } from './taxadesvalorizacaomoeda';
+import { calculateRentabilidadeReal, formFieldsRentabilidadeReal } from './rentabilidadereal';
+import { calculateCustoOportunidade, formFieldsCustoOportunidade } from './custodeoportunidade';
+import { calculatePlanejadorAposentadoria, formFieldsPlanejadorAposentadoria } from './planejadoraposentadoria';
+import { calculateConversorTaxasJuros, formFieldsConversorTaxasJuros } from './conversortaxasjuros';
+import { calculateVPL, formFieldsVPL } from './vpl';
+import { calculateTIR, formFieldsTIR } from './tir';
+import { calculatePayback, formFieldsPayback } from './payback';
+import { calculateCET, formFieldsCET } from './cet';
+import { calculateAluguelVsCompra, formFieldsAluguelVsCompra } from './aluguelvscompra';
+import { calculatePontoEquilibrio, formFieldsPontoEquilibrio } from './pontoequilibrio';
 
 interface CalculationConfig {
   name: string;
@@ -96,69 +95,63 @@ export const allCalculations: CalculationConfig[] = [
     calculate: calculateSAM,
   },
   {
-    name: 'SSA',
-    path: '/SSA',
-    fields: formFieldsSSA,
-    calculate: calculateSSA,
+    name: 'Rentabilidade Real',
+    path: '/RentabilidadeReal',
+    fields: formFieldsRentabilidadeReal,
+    calculate: calculateRentabilidadeReal,
   },
   {
-    name: 'Correção Monetária 01',
-    path: '/CorrecaoMonetaria01',
-    fields: formFieldsCorrecaoMonetaria01,
-    calculate: calculateCorrecaoMonetaria01,
+    name: 'Custo de Oportunidade',
+    path: '/CustoOportunidade',
+    fields: formFieldsCustoOportunidade,
+    calculate: calculateCustoOportunidade,
   },
   {
-    name: 'Correção Monetária 02',
-    path: '/CorrecaoMonetaria02',
-    fields: formFieldsCorrecaoMonetaria02,
-    calculate: calculateCorrecaoMonetaria02,
+    name: 'Planejador de Aposentadoria',
+    path: '/PlanejadorAposentadoria',
+    fields: formFieldsPlanejadorAposentadoria,
+    calculate: calculatePlanejadorAposentadoria,
   },
   {
-    name: 'Desconto Composto Comercial',
-    path: '/DescontoCompostoComercial',
-    fields: formFieldsDescontoCompostoComercial,
-    calculate: calculateDescontoCompostoComercial,
+    name: 'Conversor de Taxas de Juros',
+    path: '/ConversorTaxasJuros',
+    fields: formFieldsConversorTaxasJuros,
+    calculate: calculateConversorTaxasJuros,
   },
   {
-    name: 'Desconto Composto Racional',
-    path: '/DescontoCompostoRacional',
-    fields: formFieldsDescontoCompostoRacional,
-    calculate: calculateDescontoCompostoRacional,
+    name: 'Valor Presente Líquido (VPL)',
+    path: '/VPL',
+    fields: formFieldsVPL,
+    calculate: calculateVPL,
   },
   {
-    name: 'Desconto Simples Comercial',
-    path: '/DescontoSimplesComercial',
-    fields: formFieldsDescontoSimplesComercial,
-    calculate: calculateDescontoSimplesComercial,
+    name: 'Taxa Interna de Retorno (TIR)',
+    path: '/TIR',
+    fields: formFieldsTIR,
+    calculate: calculateTIR,
   },
   {
-    name: 'Desconto Simples Racional',
-    path: '/DescontoSimplesRacional',
-    fields: formFieldsDescontoSimplesRacional,
-    calculate: calculateDescontoSimplesRacional,
+    name: 'Payback (Simples e Descontado)',
+    path: '/Payback',
+    fields: formFieldsPayback,
+    calculate: calculatePayback,
   },
   {
-    name: 'Pagamento Antecipado',
-    path: '/PagamentoAntecipado',
-    fields: formFieldsPagamentoAntecipado,
-    calculate: calculatePagamentoAntecipado,
+    name: 'Custo Efetivo Total (CET)',
+    path: '/CET',
+    fields: formFieldsCET,
+    calculate: calculateCET,
   },
   {
-    name: 'Série Diferida',
-    path: '/SerieDiferida',
-    fields: formFieldsSerieDiferida,
-    calculate: calculateSerieDiferida,
+    name: 'Análise de Aluguel vs. Compra de Imóvel',
+    path: '/AluguelVsCompra',
+    fields: formFieldsAluguelVsCompra,
+    calculate: calculateAluguelVsCompra,
   },
   {
-    name: 'Série Postecipada',
-    path: '/SeriePostecipada',
-    fields: formFieldsSeriePostecipada,
-    calculate: calculateSeriePostecipada,
-  },
-  {
-    name: 'Taxa Desvalorização Moeda',
-    path: '/TaxaDesvalorizacaoMoeda',
-    fields: formFieldsTaxaDesvalorizacaoMoeda,
-    calculate: calculateTaxaDesvalorizacaoMoeda,
+    name: 'Cálculo de Ponto de Equilíbrio',
+    path: '/PontoEquilibrio',
+    fields: formFieldsPontoEquilibrio,
+    calculate: calculatePontoEquilibrio,
   },
 ];
